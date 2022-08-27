@@ -1,0 +1,81 @@
+{
+    "msg": "操作成功",
+    "rewardText": "rewardIcon:1:后退,2:重置,3.试管,4:碎片,5:体力",
+    "data": [
+        {
+            "id": 1,
+            "rewardIcon": 1,
+            "rewardNum": 1,
+            "text": "后退x1",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 2,
+            "rewardIcon": 2,
+            "rewardNum": 1,
+            "text": "重置x1",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 3,
+            "rewardIcon": 3,
+            "rewardNum": 1,
+            "text": "试管x1",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 4,
+            "rewardIcon": 4,
+            "rewardNum": 5,
+            "text": "碎片x5",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 5,
+            "rewardIcon": 5,
+            "rewardNum": 5,
+            "text": "体力x5",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 6,
+            "rewardIcon": 1,
+            "rewardNum": 1,
+            "text": "后退x1",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 7,
+            "rewardIcon": 5,
+            "rewardNum": 10,
+            "text": "体力x10",
+            "isToday": false,
+            "isReceived": false,
+            "isRepair": false
+        },
+        {
+            "id": 8,
+            "rewardIcon": 4,
+            "rewardIcon2": 5,
+            "rewardNum": 5,
+            "rewardNum2": 5,
+            "text": "碎片x5",
+            "text2": "体力x5",
+            "isToday": true,
+            "isReceived": false,
+            "isRepair": false
+        }
+    ]
+}

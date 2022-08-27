@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "569f965b-1281-4291-9077-c788d18dfe70",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 103,
+  "height": 137,
+  "platformSettings": {},
+  "subMetas": {
+    "商店中的大烧杯@2x": {
+      "ver": "1.0.6",
+      "uuid": "1642bd53-09c3-425c-8684-062a2358ed8d",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "569f965b-1281-4291-9077-c788d18dfe70",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 103,
+      "height": 137,
+      "rawWidth": 103,
+      "rawHeight": 137,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

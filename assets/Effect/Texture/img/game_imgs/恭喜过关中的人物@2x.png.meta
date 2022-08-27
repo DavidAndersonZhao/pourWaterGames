@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "62465b85-e0ba-41ce-b775-f2444f2f360d",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 375,
+  "height": 488,
+  "platformSettings": {},
+  "subMetas": {
+    "恭喜过关中的人物@2x": {
+      "ver": "1.0.6",
+      "uuid": "686ceb8e-a9e6-43df-b32c-0520edfd2bb5",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "62465b85-e0ba-41ce-b775-f2444f2f360d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 375,
+      "height": 488,
+      "rawWidth": 375,
+      "rawHeight": 488,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

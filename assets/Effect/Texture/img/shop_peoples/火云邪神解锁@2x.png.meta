@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "5a22f307-a5c2-46a7-86b5-f9ca4ef411bd",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 166,
+  "height": 201,
+  "platformSettings": {},
+  "subMetas": {
+    "火云邪神解锁@2x": {
+      "ver": "1.0.6",
+      "uuid": "fca954ae-0581-4988-874d-39dea06050b2",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "5a22f307-a5c2-46a7-86b5-f9ca4ef411bd",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 165,
+      "height": 201,
+      "rawWidth": 166,
+      "rawHeight": 201,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

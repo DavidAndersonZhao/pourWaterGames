@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "58717726-a5d1-4ef9-b16a-5224e4cd50d6",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 690,
+  "height": 162,
+  "platformSettings": {},
+  "subMetas": {
+    "恭喜幸运获得碎片@2x": {
+      "ver": "1.0.6",
+      "uuid": "abdfc47b-c005-489d-a2f0-4b7ce4dd4f2f",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "58717726-a5d1-4ef9-b16a-5224e4cd50d6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 0,
+      "width": 688,
+      "height": 162,
+      "rawWidth": 690,
+      "rawHeight": 162,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

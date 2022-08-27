@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "5611cfbf-49bd-4f07-8c89-bf60b2a74b53",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 151,
+  "height": 213,
+  "platformSettings": {},
+  "subMetas": {
+    "孟婆解锁@2x": {
+      "ver": "1.0.6",
+      "uuid": "10dea1e5-1576-46f8-9f6d-f7738ed626d0",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "5611cfbf-49bd-4f07-8c89-bf60b2a74b53",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 151,
+      "height": 213,
+      "rawWidth": 151,
+      "rawHeight": 213,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

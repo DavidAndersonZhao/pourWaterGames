@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "ebd64873-82a8-44b1-8076-54333abd5681",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 690,
+  "height": 776,
+  "platformSettings": {},
+  "subMetas": {
+    "游戏中试管背板@2x": {
+      "ver": "1.0.6",
+      "uuid": "ed711aae-bb1b-47fa-934a-f9b3b63dd210",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "ebd64873-82a8-44b1-8076-54333abd5681",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0.5,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 690,
+      "height": 775,
+      "rawWidth": 690,
+      "rawHeight": 776,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

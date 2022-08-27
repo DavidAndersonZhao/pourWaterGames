@@ -1,0 +1,137 @@
+{
+    "msg": "操作成功",
+    "text": "propsState:1.使用,2.已装备,3.立即获取",
+    "peopText": "propsState:1.已装备,2.雇佣",
+    "peopIcon": "icon:1.法,2.神",
+    "peopleLock": "lock:true:锁,false未锁",
+    "props": [
+        {
+            "id": 1,
+            "name": "滴管",
+            "imgNum": 1,
+            "propsState": 3,
+            "icon": null
+        },
+        {
+            "id": 2,
+            "name": "小烧杯",
+            "imgNum": 2,
+            "propsState": 3,
+            "icon": null
+        },
+        {
+            "id": 3,
+            "name": "显微镜",
+            "imgNum": 3,
+            "propsState": 3,
+            "icon": null
+        },
+        {
+            "id": 4,
+            "name": "小白机器人",
+            "imgNum": 4,
+            "propsState": 3,
+            "icon": null
+        },
+        {
+            "id": 5,
+            "name": "聪明草",
+            "imgNum": 5,
+            "propsState": 3,
+            "icon": null
+        },
+        {
+            "id": 6,
+            "name": "大烧瓶",
+            "imgNum": 6,
+            "propsState": 3,
+            "icon": null
+        }
+    ],
+    "peoples": [
+        {
+            "id": 11,
+            "name": "霍格沃茨麻瓜",
+            "imgNum": 1,
+            "propsState": 2,
+            "price": 0,
+            "icon": 1,
+            "doc": "勉强及格进入魔法学院学习魔法的麻瓜，高傲的不行，也不知道哪来的自信",
+            "condition": "450关后看广告赠送",
+            "sign_num": 8,
+            "lock": true
+        },
+        {
+            "id": 12,
+            "name": "炼金术士",
+            "imgNum": 2,
+            "propsState": 2,
+            "price": 100,
+            "icon": 1,
+            "doc": "他可以点石成金，让自己衣食无忧，当之无愧的世界首富，据说他金耳环有5斤重",
+            "condition": "450关后+100碎片",
+            "sign_num": 9,
+            "lock": true
+        },
+        {
+            "id": 13,
+            "name": "红宝宝",
+            "imgNum": 3,
+            "propsState": 2,
+            "price": 100,
+            "icon": 1,
+            "doc": "被净瓶之水灭了火后，红宝宝经过苦心钻研，终于研制出不被水浇灭的防水火山火",
+            "condition": "450关后+100碎片",
+            "sign_num": 10,
+            "lock": true
+        },
+        {
+            "id": 14,
+            "name": "孟婆",
+            "imgNum": 4,
+            "propsState": 2,
+            "price": 100,
+            "icon": 1,
+            "doc": "孟婆想辞职，被阎王套路喝了多次孟婆汤后，开始怒研制解药，希望这次能成功辞职",
+            "condition": "450关后+100碎片",
+            "sign_num": 11,
+            "lock": true
+        },
+        {
+            "id": 15,
+            "name": "火云邪神",
+            "imgNum": 5,
+            "propsState": 2,
+            "price": 100,
+            "icon": 1,
+            "doc": "自从被如来神掌拍输后，又返回精神病院开始研究无敌药水准备下次比武",
+            "condition": "450关后+100碎片",
+            "sign_num": 15,
+            "lock": true
+        },
+        {
+            "id": 16,
+            "name": "雷霆嘎巴帝王",
+            "imgNum": 6,
+            "propsState": 2,
+            "price": 150,
+            "icon": 2,
+            "doc": "嘎巴帝国老帝王已知自己命不久矣，派人研发无情哈拉少药水，希望可以长生不老",
+            "condition": "450关后+150碎片",
+            "sign_num": 12,
+            "lock": true
+        },
+        {
+            "id": 17,
+            "name": "太上老君",
+            "imgNum": 7,
+            "propsState": 2,
+            "price": 200,
+            "icon": 2,
+            "doc": "自从炼丹炉坏了之后，采购了人间现代一批炼丹设备，希望能提高炼丹效率",
+            "condition": "450关后+200碎片",
+            "sign_num": 13,
+            "lock": true
+        }
+    ]
+}

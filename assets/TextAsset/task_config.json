@@ -1,0 +1,36 @@
+{
+    "msg": "操作成功",
+    "propState": "taskIcon:1:碎片,2:体力",
+    "taskState": "taskState:1:分享领取,2:去邀请,3:视频领取,4.已领取,5.已邀请",
+    "text": "taskRewardNum:奖励数量",
+    "data": [
+        {
+            "id": 1,
+            "taskIcon": 1,
+            "taskText": "免费领",
+            "taskRewardNum": 5,
+            "taskState": 3
+        },
+        {
+            "id": 2,
+            "taskIcon": 1,
+            "taskText": "队友邀请",
+            "taskRewardNum": 5,
+            "taskState": 2
+        },
+        {
+            "id": 3,
+            "taskIcon": 2,
+            "taskText": "免费领",
+            "taskRewardNum": 5,
+            "taskState": 3
+        },
+        {
+            "id": 4,
+            "taskIcon": 2,
+            "taskText": "队友邀请",
+            "taskRewardNum": 5,
+            "taskState": 2
+        }
+    ]
+}

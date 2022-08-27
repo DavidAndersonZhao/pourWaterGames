@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "44711ea3-0389-4524-9dd1-2a17be499b62",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 237,
+  "height": 276,
+  "platformSettings": {},
+  "subMetas": {
+    "雷霆嘎巴帝王@2x": {
+      "ver": "1.0.6",
+      "uuid": "e60fb660-2bef-449c-81df-ceec8afc1fa8",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "44711ea3-0389-4524-9dd1-2a17be499b62",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 1,
+      "trimX": 8,
+      "trimY": 6,
+      "width": 222,
+      "height": 262,
+      "rawWidth": 237,
+      "rawHeight": 276,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

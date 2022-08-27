@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "6e7ceecc-08c3-446a-bbc4-b3136e6d3058",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 159,
+  "height": 230,
+  "platformSettings": {},
+  "subMetas": {
+    "红宝宝解锁@2x": {
+      "ver": "1.0.6",
+      "uuid": "b91a41f3-b7bb-425a-b53d-5beea7d32eec",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "6e7ceecc-08c3-446a-bbc4-b3136e6d3058",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 159,
+      "height": 230,
+      "rawWidth": 159,
+      "rawHeight": 230,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

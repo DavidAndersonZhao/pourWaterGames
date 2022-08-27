@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "813bb0a0-0ffc-4070-9afa-300b3fa3004c",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 312,
+  "height": 116,
+  "platformSettings": {},
+  "subMetas": {
+    "再领点经费按钮@2x": {
+      "ver": "1.0.6",
+      "uuid": "35d74132-e160-4fc8-94da-a8464d6c8c0e",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "813bb0a0-0ffc-4070-9afa-300b3fa3004c",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 312,
+      "height": 116,
+      "rawWidth": 312,
+      "rawHeight": 116,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

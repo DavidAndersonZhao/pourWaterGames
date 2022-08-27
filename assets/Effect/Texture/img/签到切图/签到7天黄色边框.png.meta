@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "62d6d33b-b50b-4cf7-9601-ba25d5f86cfa",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 432,
+  "height": 238,
+  "platformSettings": {},
+  "subMetas": {
+    "签到7天黄色边框": {
+      "ver": "1.0.6",
+      "uuid": "dba151d0-a2ed-4142-b81d-c326538c2a5e",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "62d6d33b-b50b-4cf7-9601-ba25d5f86cfa",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 432,
+      "height": 238,
+      "rawWidth": 432,
+      "rawHeight": 238,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

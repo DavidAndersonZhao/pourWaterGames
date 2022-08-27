@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "a9990c94-fad0-4619-b1ce-d7721a3d96b9",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 690,
+  "height": 735,
+  "platformSettings": {},
+  "subMetas": {
+    "抽奖背景@2x": {
+      "ver": "1.0.6",
+      "uuid": "332ee6f3-8eb5-4491-a5d8-cf40dcee400c",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "a9990c94-fad0-4619-b1ce-d7721a3d96b9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 690,
+      "height": 735,
+      "rawWidth": 690,
+      "rawHeight": 735,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
