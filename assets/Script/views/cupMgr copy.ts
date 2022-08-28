@@ -1,6 +1,6 @@
 import { PopupMgr } from "../dialog/dialog_mgr";
 import { DlgYouWin } from "../dialog/dlg_youWIn";
-import Cup, { _CupInfo } from "./cup";
+import Cup, { _CupMes } from "./cup";
 import { WaterFlow } from "./waterFlow";
 
 const { ccclass, property,executeInEditMode } = cc._decorator;
@@ -29,7 +29,7 @@ export class CupMgrC extends cc.Component{
     private pfb:cc.Prefab = null;
 
     private _level = 1;
-    private curCfg:Array<_CupInfo> = [];
+    private curCfg:Array<_CupMes> = [];
     private _waterFlow:WaterFlow = null;
     onLoad(){
         if(CC_EDITOR){
@@ -237,7 +237,7 @@ export class CupMgrC extends cc.Component{
         dstPt = src.node.parent.convertToNodeSpaceAR(dstPt);
 
         const flow = this._waterFlow;
-        flow.setLineScale(this.layout_v.node.scale)
+        flow.setWireZoom(this.layout_v.node.scale)
         const onPourStart = ()=>{
             let startPt = src.node.convertToWorldSpaceAR(cc.v2())
             startPt = flow.node.parent.convertToNodeSpaceAR(startPt);
@@ -247,7 +247,7 @@ export class CupMgrC extends cc.Component{
 
             flow.strokeColor = new cc.Color().fromHEX(srcTop.colorHex);
             
-            flow.playFlowAni(startPt,endPt,0.2,false,()=>{
+            flow.playWaterAni(startPt,endPt,0.2,false,()=>{
                 dst.startAddWater(srcTop.topColorId,srcTop.topColorNum,(cup:Cup,isFinished:boolean)=>{
                     this.onPourOneFinished(src,dst,srcTop.topColorId,srcTop.topColorNum);
                 });
@@ -262,7 +262,7 @@ export class CupMgrC extends cc.Component{
             endPt = flow.node.parent.convertToNodeSpaceAR(endPt);
             endPt.x = startPt.x
             
-            flow.playFlowAni(startPt,endPt,0.2,true,()=>{
+            flow.playWaterAni(startPt,endPt,0.2,true,()=>{
                 flow.clear();
             })
 

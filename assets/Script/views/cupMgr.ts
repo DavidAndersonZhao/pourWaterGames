@@ -1,8 +1,8 @@
 import { PopupMgr } from "../dialog/dialog_mgr";
 import { DlgYouWin } from "../dialog/dlg_youWIn";
-import { AudioEnum, AudioUtil } from "../utils/audio_util";
+import { AudioEnum, UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
-import Cup, { _CupInfo } from "./cup";
+import Cup, { _CupMes } from "./cup";
 import { WaterFlow } from "./waterFlow";
 
 const { ccclass, property, executeInEditMode } = cc._decorator;
@@ -33,7 +33,7 @@ export class CupMgr extends cc.Component {
     @property(cc.Prefab)
     private boom: cc.Prefab = null;
     private _level = 1;
-    private curCfg: Array<_CupInfo> = [];
+    private curCfg: Array<_CupMes> = [];
     private _waterFlow: WaterFlow = null;
     public haveAnimationPlay: Boolean = false;
     onLoad() {
@@ -286,7 +286,7 @@ export class CupMgr extends cc.Component {
         src.setPourAnchor(isRight)
         dstPt = src.node.parent.convertToNodeSpaceAR(dstPt);
         const flow = this._waterFlow;
-        flow.setLineScale(this.layout_v.node.scale)
+        flow.setWireZoom(this.layout_v.node.scale)
         let num = srcTop.topColorNum > dstTop.emptyNum ? dstTop.emptyNum : srcTop.topColorNum
 
         const onPourStart = () => {
@@ -298,7 +298,7 @@ export class CupMgr extends cc.Component {
 
             flow.strokeColor = new cc.Color().fromHEX(srcTop.colorHex);
 
-            flow.playFlowAni(startPt, endPt, 0.01, false, () => {
+            flow.playWaterAni(startPt, endPt, 0.01, false, () => {
                 let fromCupIdx = this._cups.indexOf(src);
                 let toCupIdx = this._cups.indexOf(dst);
                 if (this._actions.length == 5) {
@@ -331,7 +331,7 @@ export class CupMgr extends cc.Component {
         let endPt = cc.v2(startPt.x, dst.getWaterSurfacePosY(true));
         endPt = flow.node.parent.convertToNodeSpaceAR(endPt);
         endPt.x = startPt.x
-        flow.playFlowAni(startPt, endPt, 0.01, true, () => {
+        flow.playWaterAni(startPt, endPt, 0.01, true, () => {
             flow.clear();
         })
 
@@ -370,7 +370,7 @@ export class CupMgr extends cc.Component {
         if (isAllFinished) {
             cc.log("---------完成了")
             this._level++;
-            AudioUtil.playEffect(AudioEnum.youWin);
+            UtilAudio.effect_play(AudioEnum.youWin);
 
             cc.sys.localStorage.setItem(COOKIE_LEVEL, this._level);
             cc.director.loadScene('victory');

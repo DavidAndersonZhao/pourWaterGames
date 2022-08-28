@@ -1,5 +1,5 @@
 import { SceneNames } from "./data/const";
-import { ScreenAdapter, ScreenFit } from "./utils/screen_adapt";
+import { ADScreen, ScreenF } from "./utils/screen_adapt";
 
 const {ccclass, property} = cc._decorator;
 
@@ -8,8 +8,8 @@ export default class LaunchScene extends cc.Component {
 
 
     onLoad () {
-        ScreenAdapter.adaptScreenSize(this.node, ScreenFit.SHOW_ALL);
-        ScreenAdapter.adaptScreenSize(this.node.getChildByName('bg'), ScreenFit.NO_BORDER);
+        ADScreen.adaptScreenSize(this.node, ScreenF.SHOW_ALL);
+        ADScreen.adaptScreenSize(this.node.getChildByName('bg'), ScreenF.NO_BORDER);
         
         displayInit();
     }

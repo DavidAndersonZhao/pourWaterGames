@@ -1,23 +1,23 @@
-import { AudioEnum, AudioUtil } from "./audio_util";
+import { AudioEnum, UtilAudio } from "./audio_util";
 
 const {ccclass, property, requireComponent, menu} = cc._decorator;
 
 @ccclass
 @menu("audio/button_click")
 @requireComponent(cc.Button)
-export default class AudioButtonClick extends cc.Component {    
+export default class AudioClick extends cc.Component {    
 
     onLoad () {
-        let btn = this.node.getComponent(cc.Button);
-        let hd = new cc.Component.EventHandler()
-        hd.component = "audio_button_click"
-        hd.handler = "onClick"
-        hd.target = this.node
-        btn.clickEvents.push(hd)
+        let button = this.node.getComponent(cc.Button);
+        let eventHD = new cc.Component.EventHandler()
+        eventHD.component = "audio_button_click"
+        eventHD.handler = "onClick"
+        eventHD.target = this.node
+        button.clickEvents.push(eventHD)
 
     }
 
     async onClick(){
-        AudioUtil.playEffect(AudioEnum.button)
+        UtilAudio.effect_play(AudioEnum.button)
     }
 }

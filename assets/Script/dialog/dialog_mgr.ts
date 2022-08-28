@@ -1,4 +1,4 @@
-import { getGlobalNode, GlobalNodeNames } from "../global_node";
+import { obtainGlobalElement, GlobalNode } from "../global_node";
 import { LayerColor } from "../utils/layer_color";
 import { BaseDialog, WindowStyle } from "./base_dialog";
 
@@ -35,7 +35,7 @@ export class PopupMgr extends cc.Component{
     static EVT_POPO_OPEN_FRIST = "EVT_POPO_OPEN_FRIST";
     static EVT_POPO_CLOSE_LAST = "EVT_POPO_CLOSE_LAST";
     static getInstance():PopupMgr{
-        let _node = getGlobalNode(GlobalNodeNames.PopuMgr);
+        let _node = obtainGlobalElement(GlobalNode.POPUMGR);
         let ret = _node.getComponent(PopupMgr)
         if(ret==null){
             applyWidget(_node);

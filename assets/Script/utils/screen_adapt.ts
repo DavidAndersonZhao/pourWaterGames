@@ -1,69 +1,66 @@
 
 const {ccclass, property,menu,executeInEditMode} = cc._decorator;
 
-export enum ScreenFit{
+export enum ScreenF{
     NO_BORDER,
     SHOW_ALL,
     EXACT_FIT,
 }
 
-export class ScreenAdapter{
-    public static get canvasSize():cc.Size{
-        let ret = cc.view.getCanvasSize();
+export class ADScreen{
+    public static get canvasBigOrSmall():cc.Size{
+        let size = cc.view.getCanvasSize();
         do{
-            let canvas_node = cc.Canvas.instance.node;
-            if(!canvas_node){break;}
-            ret = canvas_node.getContentSize();
+            let canvas_element = cc.Canvas.instance.node;
+            if(!canvas_element){break;}
+            size = canvas_element.getContentSize();
         }while(false)
-        return ret;
+        return size;
     }
 
-    public static get leftTop(): cc.Vec2 {
-        let size = this.canvasSize;
+    public static get upperLeft(): cc.Vec2 {
+        let size = this.canvasBigOrSmall;
         return cc.v2(-size.width * 0.5, size.height * 0.5);
     }
 
-    public static get middleBottom(): cc.Vec2 {
-        let size = this.canvasSize;
+    public static get lowerMiddle(): cc.Vec2 {
+        let size = this.canvasBigOrSmall;
         let pos =  cc.v2(0, -size.height * 0.5);
         return pos;
     }
 
-    public static get screenScale(){
-        let visible = this.canvasSize;
-        let design = cc.Canvas.instance.designResolution;
-        cc.log(`visibleSize : ${visible.toString()} designSize:${design.toString()}`);
-        return cc.v2(visible.width / design.width, visible.height / design.height);
+    public static get screenZoom(){
+        let visible = this.canvasBigOrSmall;
+        let des = cc.Canvas.instance.designResolution;
+        return cc.v2(visible.width / des.width, visible.height / des.height);
     }
 
-    public static get aspectRatio():number{
-        let visible = this.canvasSize;
-        let ratio = visible.height/visible.width;
-        cc.log(`aspectRatio : ${ratio.toFixed(2)}`);
-        return ratio;
+    public static get aspRatio():number{
+        let visible = this.canvasBigOrSmall;
+        let rat = visible.height/visible.width;
+        return rat;
     }
 
     public static get isHigherScreen(): boolean{
-        return this.aspectRatio >= 2.0;
+        return this.aspRatio >= 2.0;
     }
 
-    public static adaptScreenSize(cvs_node: cc.Node, screenFit: ScreenFit = ScreenFit.NO_BORDER): void {
-        if (cvs_node) {
-            let canvas = cvs_node.getComponent(cc.Canvas);
+    public static adaptScreenSize(cvs_element: cc.Node, screenSuit: ScreenF = ScreenF.NO_BORDER): void {
+        if (cvs_element) {
+            let canvas = cvs_element.getComponent(cc.Canvas);
             if (canvas != null) {
-                let _screenScale = this.screenScale;
-                cc.log("screenScale : ", _screenScale.x.toFixed(2), _screenScale.y.toFixed(2));
-                if (screenFit == ScreenFit.NO_BORDER) {
-                    let _fitHeight = false;
-                    let _fitWidth = false;
+                let _screenScale = this.screenZoom;
+                if (screenSuit == ScreenF.NO_BORDER) {
+                    let _fitH = false;
+                    let _fitW = false;
                     if (_screenScale.x < _screenScale.y) {
-                        _fitHeight = true;
+                        _fitH = true;
                     } else if (_screenScale.x > _screenScale.y) {
-                        _fitWidth = true;
+                        _fitW = true;
                     }
-                    canvas.fitWidth = _fitWidth;
-                    canvas.fitHeight = _fitHeight;
-                } else if (screenFit == ScreenFit.SHOW_ALL) {
+                    canvas.fitWidth = _fitW;
+                    canvas.fitHeight = _fitH;
+                } else if (screenSuit == ScreenF.SHOW_ALL) {
                     canvas.fitWidth = _screenScale.x < _screenScale.y;
                     canvas.fitHeight = !canvas.fitWidth;
                 } else {
@@ -71,16 +68,15 @@ export class ScreenAdapter{
                     canvas.fitHeight = true;
                 }
             } else {
-                let _nodeScale = cc.v2(this.canvasSize.width/cvs_node.width,this.canvasSize.height/cvs_node.height);
-                cc.log("_nodeScale : ", _nodeScale.x.toFixed(2), _nodeScale.y.toFixed(2));
-                if (screenFit == ScreenFit.NO_BORDER) {
-                    let scale: number = Math.max(_nodeScale.x, _nodeScale.y);
-                    cvs_node.setScale(scale);
-                } else if (screenFit == ScreenFit.SHOW_ALL) {
-                    let scale: number = Math.min(_nodeScale.x, _nodeScale.y);
-                    cvs_node.setScale(scale);
+                let _nodeZoom = cc.v2(this.canvasBigOrSmall.width/cvs_element.width,this.canvasBigOrSmall.height/cvs_element.height);
+                if (screenSuit == ScreenF.NO_BORDER) {
+                    let zoom: number = Math.max(_nodeZoom.x, _nodeZoom.y);
+                    cvs_element.setScale(zoom);
+                } else if (screenSuit == ScreenF.SHOW_ALL) {
+                    let scale: number = Math.min(_nodeZoom.x, _nodeZoom.y);
+                    cvs_element.setScale(scale);
                 } else {
-                    cvs_node.setScale(_nodeScale);
+                    cvs_element.setScale(_nodeZoom);
                 }
             }
         }else{
@@ -95,9 +91,9 @@ export class ScreenAdapter{
 class M extends cc.Component {
     public static readonly instance: M = new M();
     
-    _screenFit: ScreenFit = ScreenFit.NO_BORDER;
+    _screenFit: ScreenF = ScreenF.NO_BORDER;
     @property({
-        type:cc.Enum(ScreenFit),
+        type:cc.Enum(ScreenF),
         tooltip:`NO_BORDER,//保证短边能铺满屏幕，长边可能会超出屏幕区域
         SHOW_ALL,//保证长边铺满屏幕，能显示所有内容，可能会有黑边
         EXACT_FIT,//长短边均拉伸铺满屏幕，可能会变形
@@ -105,7 +101,7 @@ class M extends cc.Component {
     })
     set screenFit(val){
         this._screenFit = val;
-        ScreenAdapter.adaptScreenSize(this.node,this.screenFit);
+        ADScreen.adaptScreenSize(this.node,this.screenFit);
     }
     get screenFit(){
         return this._screenFit;
@@ -113,7 +109,7 @@ class M extends cc.Component {
 
     onLoad(){
         if(!CC_EDITOR){
-            ScreenAdapter.adaptScreenSize(this.node,this.screenFit);
+            ADScreen.adaptScreenSize(this.node,this.screenFit);
         }
     }
 }

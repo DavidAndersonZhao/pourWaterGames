@@ -1,30 +1,11 @@
-import { AudioEnum, AudioUtil } from "../utils/audio_util";
-import { createTexture } from "../utils/function";
-import Water, { WaterInfo } from "./water";
+import { AudioEnum, UtilAudio } from "../utils/audio_util";
+import { createLines } from "../utils/function";
+import Water, { WaterInformation } from "./water";
 
 const { ccclass, property } = cc._decorator;
 
-/* 
-export let WaterColors = [
-    "#155DEF",
-    "#F2C90F",
-    "#BD2656",
-    "#F0791F",
-    "#454574",
-    "#FE2D26",
-    "#BCA6E3",
-    "#E4584F",
-    "#00B38A",
-    "#DD2E44",
-    "#E5C69A",
-    "#65DC8E",
-    "#B068F0",
-    "#F010BF",
-    "#538849",
-]
 
-*/
-export let WaterColors = [
+export let RiverColors = [
     "#BB72FF",
     "#FFD0E9",
     "#B50C9D",
@@ -43,21 +24,21 @@ export let WaterColors = [
 ]
 
 
-const HEIGHT_FACTOR = 0.9;
+const HEIGHT_RATIO = 0.9;
 
 
-export interface _CupInfo {
+export interface _CupMes {
     colorIds: Array<number>;
 }
 
-const SPLIT_COUNT = 4;
+const SPLIT_NUM = 4;
 
 @ccclass
-export default class Cup extends cc.Component {
+export default class Tube extends cc.Component {
     @property(Water)
     private water: Water = null;
 
-    private onClick: (c: Cup) => void = null;
+    private onClick: (c: Tube) => void = null;
 
     onBtn_click() {
         if (this.isPouring()) {
@@ -75,7 +56,7 @@ export default class Cup extends cc.Component {
     initWater() {
         const info = this.info;
         let arr = [];
-        for (let i = SPLIT_COUNT - 1; i >= 0; i--) {
+        for (let i = SPLIT_NUM - 1; i >= 0; i--) {
             let colorId = info.colorIds[i];
             if (colorId == 0) {
                 continue;
@@ -83,25 +64,25 @@ export default class Cup extends cc.Component {
             let lastObj = arr[arr.length - 1];
             if (!lastObj || lastObj != colorId) {
                 arr.push({
-                    height: 1 / SPLIT_COUNT,
+                    height: 1 / SPLIT_NUM,
                     colorId: colorId
                 });
             } else {
-                lastObj.height += 1 / SPLIT_COUNT;
+                lastObj.height += 1 / SPLIT_NUM;
             }
         }
         arr.forEach(function (obj) {
-            let hex = WaterColors[obj.colorId] || "#538849"
+            let hex = RiverColors[obj.colorId] || "#538849"
             obj.color = new cc.Color().fromHEX(hex);
-            obj.height *= HEIGHT_FACTOR;
+            obj.height *= HEIGHT_RATIO;
         })
 
-        this.water.initInfos(arr);
+        this.water.initializeInformations(arr);
     }
     public dstTopNum: Number = 0;
 
-    private info: _CupInfo = null;
-    setCupInfo(info: _CupInfo, onClick: (c: Cup) => void) {
+    private info: _CupMes = null;
+    setCupInfo(info: _CupMes, onClick: (c: Tube) => void) {
         this.info = info;
         this.onClick = onClick;
 
@@ -147,7 +128,7 @@ export default class Cup extends cc.Component {
                 onFinish(this, isFinished)
             }
             if (isFinished) {
-                AudioUtil.playEffect(AudioEnum.finishOne, 0.4)
+                UtilAudio.effect_play(AudioEnum.finishOne, 0.4)
             }
         }
         this.water?.setPourInCallback(_onFinish.bind(this));
@@ -158,7 +139,7 @@ export default class Cup extends cc.Component {
         let colorIds = this.info.colorIds;
         let tmpId = null;
         let empTyNum = 0;
-        for (let i = 0; i < SPLIT_COUNT; i++) {
+        for (let i = 0; i < SPLIT_NUM; i++) {
             if (tmpId == null) {
                 tmpId = colorIds[i]
             }
@@ -169,7 +150,7 @@ export default class Cup extends cc.Component {
                 empTyNum++;
             }
         }
-        if (empTyNum == SPLIT_COUNT) {
+        if (empTyNum == SPLIT_NUM) {
             isFinished = true;
         }
         return isFinished;
@@ -182,15 +163,15 @@ export default class Cup extends cc.Component {
      * @param onPourStart 水开始从瓶口流出
      * @param onPourEnd 本次水倒完毕
      */
-    moveToPour(dstPt: cc.Vec2, isRight: boolean, onPourStart: (c: Cup) => void, onPourEnd: (c: Cup) => void, num?: number,dst?:Cup) {
+    moveToPour(dstPt: cc.Vec2, isRight: boolean, onPourStart: (c: Tube) => void, onPourEnd: (c: Tube) => void, num?: number,dst?:Tube) {
         this.setPourOutCallback(onPourStart, onPourEnd);
-        let startAngle = this.water.getPourStartAngle()
-        let endAngle = this.water.getPourEndAngle()
+        let startAngle = this.water.getPourBeginHorn()
+        let endAngle = this.water.getPourFinishHorn()
         let dstEveOnrZero = dst?.info.colorIds.every(item=>item==0)
         console.log('dstEveOnrZero',dstEveOnrZero);
         console.log('num',num);
         
-        this.water.onStartPour(num);//TODO: 可能需要调整 7/25
+        this.water.onBeginPour(num);//TODO: 可能需要调整 7/25
         if (isRight) {
             startAngle *= -1;
             endAngle *= -1;
@@ -210,7 +191,7 @@ export default class Cup extends cc.Component {
         let top = this.getTop();
         let colorIds = this.info.colorIds;
         let cur = 0
-        for (let i = 0; i < SPLIT_COUNT; i++) {
+        for (let i = 0; i < SPLIT_NUM; i++) {
             let _id = colorIds[i]
             if (_id == 0) {
                 continue;
@@ -228,13 +209,13 @@ export default class Cup extends cc.Component {
         }
     }
 
-    startAddWater(colorId: number, num: number, onComplete: (cup: Cup, isFInish: boolean) => void) {
+    startAddWater(colorId: number, num: number, onComplete: (cup: Tube, isFInish: boolean) => void) {
         if (!this.info) {
             return;
         }
         this.setPourInCallback(onComplete);
         let acc = 0;
-        for (let i = SPLIT_COUNT - 1; i >= 0; i--) {
+        for (let i = SPLIT_NUM - 1; i >= 0; i--) {
             if (this.info.colorIds[i] != 0) {
                 continue;
             }
@@ -243,20 +224,20 @@ export default class Cup extends cc.Component {
                 break;
             }
         }
-        let hex = WaterColors[colorId] || "#538849"
-        this.water.addInfo({
+        let hex = RiverColors[colorId] || "#538849"
+        this.water.raiseInformation({
             colorId: colorId,
-            height: num / SPLIT_COUNT * HEIGHT_FACTOR,
+            height: num / SPLIT_NUM * HEIGHT_RATIO,
             color: new cc.Color().fromHEX(hex)
         });
  
-        AudioUtil.playPourWaterEffect(num / SPLIT_COUNT);
+        UtilAudio.pourWater_effect_play(num / SPLIT_NUM);
     }
 
     /**立刻加水 */
     addWaterImmediately(colorId: number, num: number) {
         let acc = 0;
-        for (let i = SPLIT_COUNT - 1; i >= 0; i--) {
+        for (let i = SPLIT_NUM - 1; i >= 0; i--) {
             if (this.info.colorIds[i] != 0) {
                 continue;
             }
@@ -272,7 +253,7 @@ export default class Cup extends cc.Component {
         let acc = 0;
         let top = this.getTop();
         let colorIds = this.info.colorIds;
-        for (let i = 0; i < SPLIT_COUNT; i++) {
+        for (let i = 0; i < SPLIT_NUM; i++) {
             let _id = colorIds[i]
             if (_id == 0) {
                 continue;
@@ -294,7 +275,7 @@ export default class Cup extends cc.Component {
         let emptyNum = 0;
         let topColorId = 0;
         let topColorNum = 0;
-        for (let i = 0; i < SPLIT_COUNT; i++) {
+        for (let i = 0; i < SPLIT_NUM; i++) {
             if (colorIds[i] == 0) {
                 emptyNum++;
                 continue;
@@ -310,7 +291,7 @@ export default class Cup extends cc.Component {
             emptyNum,
             topColorId,
             topColorNum,
-            colorHex: WaterColors[topColorId] || "#538849"
+            colorHex: RiverColors[topColorId] || "#538849"
         }
     }
 
@@ -357,13 +338,13 @@ export default class Cup extends cc.Component {
 
     getWaterSurfacePosY(needAdjust = false) {
         let top = this.getTop();
-        let y = (SPLIT_COUNT - top.emptyNum) / SPLIT_COUNT;
+        let y = (SPLIT_NUM - top.emptyNum) / SPLIT_NUM;
         if (y < 0.02) {
             y = 0.02
         } else if (needAdjust) {
-            y -= 1.0 / SPLIT_COUNT * HEIGHT_FACTOR;
+            y -= 1.0 / SPLIT_NUM * HEIGHT_RATIO;
         }
-        y *= HEIGHT_FACTOR;
+        y *= HEIGHT_RATIO;
         y -= 0.5;
         let pt = cc.v2(0, this.water.node.height * y);
         pt = this.water.node.convertToWorldSpaceAR(pt)

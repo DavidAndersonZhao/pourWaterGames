@@ -1,42 +1,42 @@
 
 ///全局常驻节点的枚举
-export enum GlobalNodeNames{
-    PopuMgr = "PopuMgr",
-    SoundMgr = "SoundMgr",
-    GlobalScheduler = "GlobalScheduler",//全局定时器
+export enum GlobalNode{
+    POPUMGR = "PopuMgr",
+    SOUNDMGR = "SoundMgr",
+    SCHEDULER = "GlobalScheduler",//全局定时器
 }
 
-let zOrder = {
-    [GlobalNodeNames.PopuMgr] : 1,
-    [GlobalNodeNames.SoundMgr] : 2,
-    [GlobalNodeNames.GlobalScheduler] : 3,
+let orderZIndex = {
+    [GlobalNode.POPUMGR] : 1,
+    [GlobalNode.SOUNDMGR] : 2,
+    [GlobalNode.SCHEDULER] : 3,
     
 }
 
 
-let _globalNode:cc.Node = null;
+let _globalElement:cc.Node = null;
 /**
  * 获得或者生成常驻节点
  */
-export function getGlobalNode(type:GlobalNodeNames,offset:cc.Vec2 = cc.v2(0,0)){
-    if(_globalNode==null){
-        _globalNode = new cc.Node("_globalNode");
-        _globalNode.zIndex = 100;
+export function obtainGlobalElement(cut:GlobalNode,deviation:cc.Vec2 = cc.v2(0,0)){
+    if(_globalElement==null){
+        _globalElement = new cc.Node("_globalNode");
+        _globalElement.zIndex = 100;
         if(!CC_EDITOR){
-            cc.game.addPersistRootNode(_globalNode);
+            cc.game.addPersistRootNode(_globalElement);
         }
     }
-    let size = cc.view.getVisibleSize();
+    let zoom = cc.view.getVisibleSize();
 
-    _globalNode.setContentSize(size);
-    _globalNode.setPosition(size.width/2,size.height/2);
+    _globalElement.setContentSize(zoom);
+    _globalElement.setPosition(zoom.width/2,zoom.height/2);
     
-    let ret = _globalNode.getChildByName(type);
+    let ret = _globalElement.getChildByName(cut);
     if(!ret){
-        ret = new cc.Node(type);
-        ret.zIndex = zOrder[type]||0;
-        _globalNode.addChild(ret);
+        ret = new cc.Node(cut);
+        ret.zIndex = orderZIndex[cut]||0;
+        _globalElement.addChild(ret);
     }
-    ret.position = cc.v3(offset);
+    ret.position = cc.v3(deviation);
     return ret;
 }

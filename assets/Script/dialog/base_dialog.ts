@@ -1,4 +1,4 @@
-import { GlobalNodeNames } from "../global_node";
+import { GlobalNode } from "../global_node";
 
 
 let ANIM_TAG = 10087;

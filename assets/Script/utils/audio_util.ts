@@ -8,9 +8,9 @@ export enum AudioEnum {
     youWin = "audio/Show_Victory",
 }
 
-export class AudioUtil {
+export class UtilAudio {
     
-    static preloadAll() {
+    static beforeloadAll() {
         let arr = [];
         for (let key in AudioEnum) {
             let path = AudioEnum[key];
@@ -18,26 +18,22 @@ export class AudioUtil {
         }
         cc.resources.preload(arr);
     }
-    static unloadAll() {
+    static removeloadAll() {
         for (let key in AudioEnum) {
             let path = AudioEnum[key];
             cc.resources.release(path, cc.AudioClip);
         }
     }
 
-    static async playEffect(path: AudioEnum | string, volume = 1) {
+    static async effect_play(path: AudioEnum | string, volume = 1) {
         if (!SetCom.audioSet._musicPlay) return
-        let clip = await this.loadClip(path);
+        let clip = await this.loadAudioClip(path);
         return cc.audioEngine.play(clip, false, volume);
     }
 
-    /**
-     * 播倒水声，倒水量播不同时间
-     * @param time 【0,1】
-     */
-    static async playPourWaterEffect(time: number) {
+    static async pourWater_effect_play(time: number) {
         if (!SetCom.audioSet._musicPlay) return
-        let clip = await this.loadClip(AudioEnum.pourWater);
+        let clip = await this.loadAudioClip(AudioEnum.pourWater);
         let id = cc.audioEngine.play(clip, false, 1.0);
         let dur = 3.0 * time;
         setTimeout(() => {
@@ -45,7 +41,7 @@ export class AudioUtil {
         }, dur * 1000);
     }
 
-    private static async loadClip(path: string) {
+    private static async loadAudioClip(path: string) {
         return new Promise<cc.AudioClip>(function (resove, reject) {
             cc.resources.load(path, cc.AudioClip, (err: Error, clip: cc.AudioClip) => {
                 if (err) {

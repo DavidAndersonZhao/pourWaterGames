@@ -1,21 +1,21 @@
 
-const dft_lingWidth = 6;
+const default_wide = 6;//
 
 
 export class WaterFlow extends cc.Graphics{
     onLoad(){
-        this.lineWidth = dft_lingWidth;
+        this.lineWidth = default_wide;
         this.lineCap = cc.Graphics.LineCap.ROUND;
     }
-    private _toPt:cc.Vec2 = cc.v2()
+    private _toPourtop:cc.Vec2 = cc.v2()
     public get toPt(){
-        return this._toPt
+        return this._toPourtop
     }
     public set toPt(val){
-        this._toPt = val;
+        this._toPourtop = val;
         this.clear();
         this.moveTo(this.from.x,this.from.y)
-        this.lineTo(this._toPt.x,this._toPt.y);
+        this.lineTo(this._toPourtop.x,this._toPourtop.y);
         this.stroke();
     }
 
@@ -27,11 +27,11 @@ export class WaterFlow extends cc.Graphics{
      * @param dur 
      * @param isTail 
      */
-    public playFlowAni(from:cc.Vec2,to:cc.Vec2,dur:number,isTail:boolean,onComplete:Function){
+    public playWaterAni(from:cc.Vec2,to:cc.Vec2,dur:number,isTail:boolean,onComplete:Function){
         
         this.clear();
-        
         let flow:WaterFlow = this
+        
         if(isTail){
             this.from = to;
         }else{
@@ -39,16 +39,16 @@ export class WaterFlow extends cc.Graphics{
         }
         this.moveTo(this.from.x,this.from.y)
         let tw = cc.tween(flow)
-            .set({toPt:from})
-            .to(dur,{toPt:to})
-            .call(onComplete)
-            .start();
+        .set({toPt:from})
+        .to(dur,{toPt:to})
+        .call(onComplete)
+        .start();
     }
 
-    public setLineScale(scale:number){
-        this.lineWidth = dft_lingWidth*scale;
+    public setWireZoom(scale:number){
+        this.lineWidth = default_wide*scale;
     }
-    public removeAnimation(){
+    public clearnAni(){
         this.clear();
     }
 }

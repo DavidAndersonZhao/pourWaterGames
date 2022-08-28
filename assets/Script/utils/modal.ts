@@ -1,9 +1,3 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const { ccclass, property } = cc._decorator;
 import SetCom from "../utils/setCom";
@@ -33,11 +27,7 @@ export default class NewClass extends cc.Component {
         let label = labelNode.getComponent(cc.Label);
         label.string = str
     }
-    /**
-     * 更改文字、图片
-     * @param data 
-     * @param type 
-     */
+
     changeNode(data, type: number, fn) {
         let propGroup = this.node.getChildByName('propGroup')
         switch (type) {
