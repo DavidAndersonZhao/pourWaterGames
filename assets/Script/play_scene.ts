@@ -1,6 +1,6 @@
 
 import { DlgSetting } from "./dialog/dlg_setting";
-import { DlgYouWin } from "./dialog/dlg_youWIn";
+// import { DlgYouWin } from "./dialog/dlg_youWIn";
 import { AudioEnum, UtilAudio } from "./utils/audio_util";
 import SetCom from "./utils/setCom";
 import { CupMgr } from "./views/cupMgr";
@@ -56,11 +56,11 @@ export default class PlayScene extends cc.Component {
 
     onFinishOneLevel() {
         UtilAudio.effect_play(AudioEnum.youWin);
-        DlgYouWin.show(() => {
-            this.cupMgr.nextLevel()
-            this.text_level.string = this.cupMgr.getLevel() + ''
+        // DlgYouWin.show(() => {
+        //     this.cupMgr.nextLevel()
+        //     this.text_level.string = this.cupMgr.getLevel() + ''
 
-        })
+        // })
     }
 
     onPourAction() {

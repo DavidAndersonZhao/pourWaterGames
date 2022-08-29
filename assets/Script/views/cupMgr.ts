@@ -1,5 +1,4 @@
 import { PopupMgr } from "../dialog/dialog_mgr";
-import { DlgYouWin } from "../dialog/dlg_youWIn";
 import { AudioEnum, UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 import Cup, { _CupMes } from "./cup";

@@ -18,16 +18,16 @@ export class DlgYouWin extends BaseDialog {
     @property(cc.Prefab)
     physicalOpc: cc.Prefab = null
 
-    private onNext: Function = null;
-    initView(onNext: Function) {
-        this.onNext = onNext;
+    private toNext: Function = null;
+    initView(toNext: Function) {
+        this.toNext = toNext;
     }
     start(): void {
-        let _level = cc.sys.localStorage.getItem('level')
-        let node = cc.instantiate(SetCom.getSomeSpin(_level, "noGame"));
-        if (node) node.y = 760.63
-        cc.find("Canvas/bgSprite/spin")?.addChild(node);
-        let { cur_level, next_num, next_level, content } = SetCom.getTitleOrJson(_level)
+        let _lv = cc.sys.localStorage.getItem('level')
+        let element = cc.instantiate(SetCom.getSomeSpin(_lv, "noGame"));
+        if (element) element.y = 760.63
+        cc.find("Canvas/bgSprite/spin")?.addChild(element);
+        let { cur_level, next_num, next_level, content } = SetCom.getTitleOrJson(_lv)
         if (this.title) this.title.string = cur_level
         if (this.label) this.label.string = next_level
         if (this.content) this.content.string = content
@@ -41,37 +41,35 @@ export class DlgYouWin extends BaseDialog {
 
     }
 
-    onBtn_Next() {
+    toButton_Next() {
         this.dismiss(true);
-        if (this.onNext) {
-            this.onNext();
+        if (this.toNext) {
+            this.toNext();
         }
     }
-    physicalOpcFn() {
+    physicalOpacityFunction() {
         let homeScript = this.node.getComponent('home')
-        let opc = cc.instantiate(this.physicalOpc)
-        opc.active = true;
-        let node = cc.find("Canvas");
-        let handle = opc.getChildByName("handle");
-        handle.getChildByName("btn")?.on("click", (e) => {
-            console.log('领取');
-
+        let opacity = cc.instantiate(this.physicalOpc)
+        opacity.active = true;
+        let canvas = cc.find("Canvas");
+        let _handle = opacity.getChildByName("handle");
+        _handle.getChildByName("btn")?.on("click", (e) => {
             SetCom.shareFriend(
                 {
                     success: (_res) => {
                         SetCom.addPower(5)
                         if (homeScript) homeScript._updateSpirit()
-                        opc.destroy()
+                        opacity.destroy()
                     },
 
                 })
 
         })
-        handle.getChildByName("label")?.once("click", () => {
-            opc.destroy()
+        _handle.getChildByName("label")?.once("click", () => {
+            opacity.destroy()
         })
 
-        node.addChild(opc);
+        canvas.addChild(opacity);
     }
     onScene(e, name) {
         switch (name) {
@@ -79,7 +77,7 @@ export class DlgYouWin extends BaseDialog {
                 if (SetCom.reducePower()) {
                     cc.director.loadScene(name);
                 } else {
-                    this.physicalOpcFn()
+                    this.physicalOpacityFunction()
 
                 }
                 break;
@@ -91,7 +89,7 @@ export class DlgYouWin extends BaseDialog {
         }
 
     }
-    static show(onNext) {
-        DlgYouWin.create("prefabs/dialog_youWIn", onNext)
+    static show(toNext) {
+        DlgYouWin.create("prefabs/dialog_youWIn", toNext)
     }
 }
