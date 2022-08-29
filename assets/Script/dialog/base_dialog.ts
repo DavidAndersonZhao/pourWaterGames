@@ -1,4 +1,4 @@
-import { GlobalNode } from "../global_node";
+import { GlobalNodeNames } from "../global_node";
 
 
 let ANIM_TAG = 10087;
@@ -12,11 +12,11 @@ export enum WindowStyle {
 const {ccclass, property} = cc._decorator;
 @ccclass
 export abstract class BaseDialog extends cc.Component{
-    private m_manager:any = null;
-    private m_isInAnim:boolean = false;
-    private _tag:any = "";
-    public get tag(){return this._tag;}
-    protected isPfbRaw:boolean = false;
+    private u_administrator:any = null;
+    private u_inAbc:boolean = false;
+    private _lab:any = "";
+    public get tag(){return this._lab;}
+    protected iofRaw:boolean = false;
 
     @property({
         type:cc.Enum(WindowStyle),
@@ -40,10 +40,10 @@ export abstract class BaseDialog extends cc.Component{
     @property({
         tooltip:"是否全屏"
     })
-    public isFullScreen = false;
+    public isCompletely = false;
 
-    public get isPupuAni(){
-        return this.m_isInAnim;
+    public get isPuAbc(){
+        return this.u_inAbc;
     }
 
     static async create<T>(pfb:string|cc.Prefab,param?:T|any,...args):Promise<BaseDialog>{
@@ -51,7 +51,7 @@ export abstract class BaseDialog extends cc.Component{
     }
 
     onLoad(){
-        if(this.isFullScreen){
+        if(this.isCompletely){
             this.node.width = display.width;
             this.node.height = display.height;
         }else{
@@ -67,37 +67,37 @@ export abstract class BaseDialog extends cc.Component{
 
     }
 
-    protected getShowAnim():cc.ActionInterval{
+    protected getAbcDemonstrate():cc.ActionInterval{
         return null;
     }
 
-    protected getHideAnim():cc.ActionInterval{
+    protected getAbcConceal():cc.ActionInterval{
         return null;
     }
 
-    protected getDftHideAni(){
-        let _duartion = 0.3;
-        let ani = cc.scaleTo(_duartion,ScaleSize);
-        ani = ani.easing(cc.easeBackIn());
-        return ani;
+    protected getFffConcealAbc(){
+        let $drti = 0.3;
+        let abc_01 = cc.scaleTo($drti,ScaleSize);
+        abc_01 = abc_01.easing(cc.easeBackIn());
+        return abc_01;
     }
-    protected getDftShowAni(){
-        let _duartion = 0.3;
+    protected getDddDemonstrateAbc(){
+        let $drti = 0.3;
         this.node.setScale(ScaleSize);
-        let ani = cc.sequence(
+        let abc_01 = cc.sequence(
             cc.scaleTo(0,ScaleSize),
-            cc.scaleTo(_duartion,1.0).easing(cc.easeBackOut()),
+            cc.scaleTo($drti,1.0).easing(cc.easeBackOut()),
         );
-        return ani;
+        return abc_01;
     }
 
 
 
     initWindow(manager:any,tag,isPfbRaw:boolean,onLoadComplete:Function){
-        this.m_manager = manager;
-        this.m_isInAnim = false;
-        this._tag = tag;
-        this.isPfbRaw = isPfbRaw;
+        this.u_administrator = manager;
+        this.u_inAbc = false;
+        this._lab = tag;
+        this.iofRaw = isPfbRaw;
 
 
                 onLoadComplete();
@@ -111,49 +111,49 @@ export abstract class BaseDialog extends cc.Component{
     showWindow(bundleData:any,arg1?:any,arg2?:any,arg3?:any){ 
         this.initView(bundleData,arg1,arg2,arg3);
 
-        if(this.m_isInAnim || !this.node.active)
+        if(this.u_inAbc || !this.node.active)
             return;
         this.node.setScale(1);
         this.node.stopActionByTag(ANIM_TAG);
-        let _action = this.getShowAnim();
-        if(_action==null&&this.style==WindowStyle.POPUP){
-            _action = this.getDftShowAni();
+        let $opera = this.getAbcDemonstrate();
+        if($opera==null&&this.style==WindowStyle.POPUP){
+            $opera = this.getDddDemonstrateAbc();
         }
-        if(_action){
-            _action.setTag(ANIM_TAG);
-            this.m_isInAnim = true;
-            let finish = cc.callFunc(function(){
+        if($opera){
+            $opera.setTag(ANIM_TAG);
+            this.u_inAbc = true;
+            let putAcros = cc.callFunc(function(){
                 this.onShowEnd();
             },this);
-            this.node.runAction(cc.sequence(_action,finish));
+            this.node.runAction(cc.sequence($opera,putAcros));
         }else{
             this.onShowEnd();
         }
     }
     onShowEnd(){
-        this.m_isInAnim = false;
+        this.u_inAbc = false;
     }
-    dismiss(noAnim:boolean = false,data?:any){
-        if(noAnim){
+    dismiss(refusalAbc:boolean = false,data?:any){
+        if(refusalAbc){
             this.onHideEnd(data);
             return;
         }
-        if(this.m_isInAnim)
+        if(this.u_inAbc)
             return;
         this.node.setScale(1);
         this.node.stopActionByTag(ANIM_TAG);
 
-        let _action = this.getHideAnim();
-        if(_action==null&&this.style==WindowStyle.POPUP){
-            _action = this.getDftHideAni();
+        let $opera = this.getAbcConceal();
+        if($opera==null&&this.style==WindowStyle.POPUP){
+            $opera = this.getFffConcealAbc();
         }
-        if(_action){
-            _action.setTag(ANIM_TAG);
-            this.m_isInAnim = true;
-            let finish = cc.callFunc(function(){
+        if($opera){
+            $opera.setTag(ANIM_TAG);
+            this.u_inAbc = true;
+            let putAcros = cc.callFunc(function(){
                 this.onHideEnd(data);
             },this)
-            this.node.runAction(cc.sequence(_action,finish));
+            this.node.runAction(cc.sequence($opera,putAcros));
         }else{
             this.onHideEnd(data);
         }
@@ -165,14 +165,14 @@ export abstract class BaseDialog extends cc.Component{
     }
 
     protected onHideEnd(data?:any){
-        this.m_isInAnim = false;
+        this.u_inAbc = false;
         this.node.active = false;
         if(this._onClosed){
             this._onClosed(this);
             this._onClosed = null;
         }
-        if(this.m_manager&&this.m_manager.node.active){
-            this.m_manager.onHideEnd(this);
+        if(this.u_administrator&&this.u_administrator.node.active){
+            this.u_administrator.onHideEnd(this);
         }
     }
 

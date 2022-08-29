@@ -1,4 +1,4 @@
-import { obtainGlobalElement, GlobalNode } from "../global_node";
+import { getGlobalNode, GlobalNodeNames } from "../global_node";
 import { LayerColor } from "../utils/layer_color";
 import { BaseDialog, WindowStyle } from "./base_dialog";
 
@@ -14,38 +14,38 @@ export interface ShowWindowArgs{
 const {ccclass, property} = cc._decorator;
 
 
-function applyWidget(node:cc.Node){
-    let widget =  node.getComponent(cc.Widget);
-    if(widget==null){
-        widget = node.addComponent(cc.Widget);
+function aplWt(node:cc.Node){
+    let wiet =  node.getComponent(cc.Widget);
+    if(wiet==null){
+        wiet = node.addComponent(cc.Widget);
     }
-    widget.bottom = 0;
-    widget.top = 0;
-    widget.left = 0;
-    widget.right = 0;
-    widget.isAlignBottom = true;
-    widget.isAlignTop = true;
-    widget.isAlignLeft = true;
-    widget.isAlignRight = true;
+    wiet.bottom = 0;
+    wiet.top = 0;
+    wiet.left = 0;
+    wiet.right = 0;
+    wiet.isAlignBottom = true;
+    wiet.isAlignTop = true;
+    wiet.isAlignLeft = true;
+    wiet.isAlignRight = true;
 
-    widget.updateAlignment();
+    wiet.updateAlignment();
 }
 
-export class PopupMgr extends cc.Component{
+export class Ppr extends cc.Component{
     static EVT_POPO_OPEN_FRIST = "EVT_POPO_OPEN_FRIST";
     static EVT_POPO_CLOSE_LAST = "EVT_POPO_CLOSE_LAST";
-    static getInstance():PopupMgr{
-        let _node = obtainGlobalElement(GlobalNode.POPUMGR);
-        let ret = _node.getComponent(PopupMgr)
-        if(ret==null){
-            applyWidget(_node);
-            ret = _node.addComponent(PopupMgr)
-            ret.createMaskNode();
+    static getInstance():Ppr{
+        let $point = getGlobalNode(GlobalNodeNames.PopuMgr);
+        let reeee = $point.getComponent(Ppr)
+        if(reeee==null){
+            aplWt($point);
+            reeee = $point.addComponent(Ppr)
+            reeee.createMaskNode();
         }
-        return ret;
+        return reeee;
     }
     @property
-    m_popups:Array<BaseDialog> = []
+    $ppps:Array<BaseDialog> = []
 
     onLoad(){
 
@@ -54,49 +54,49 @@ export class PopupMgr extends cc.Component{
 
     }
 
-    private maskBg:LayerColor = null;
+    private metBb:LayerColor = null;
     private createMaskNode():LayerColor{
-        this.maskBg = new LayerColor(cc.color(0,0,0));
-        this.maskBg.opacity = 0;
-        this.maskBg.parent = this.node;
-        return this.maskBg;
+        this.metBb = new LayerColor(cc.color(0,0,0));
+        this.metBb.opacity = 0;
+        this.metBb.parent = this.node;
+        return this.metBb;
     }
 
-    async showWindow<T>(param:string|cc.Prefab,bundleData?:T|any,...args):Promise<BaseDialog>{
+    async showWindow<T>(pdate:string|cc.Prefab,bundleData?:T|any,...args):Promise<BaseDialog>{
         return new Promise<BaseDialog>((resolve,reject)=>{
-            if(param==null){
+            if(pdate==null){
                 reject();
                 return;
             }
             let _prefab:cc.Prefab;
-            if(param instanceof cc.Prefab){
-                _prefab = param;
-            }else if(typeof(param)=="string" ){
+            if(pdate instanceof cc.Prefab){
+                _prefab = pdate;
+            }else if(typeof(pdate)=="string" ){
     
             }
             if(_prefab!=null){
                 let popu = this.createWindowByPrefab(_prefab,_prefab.name,false,bundleData,...args);
                 resolve(popu);
             }else{
-                let path = param as string;
+                let path = pdate as string;
                 if(!path){
                     reject();
                     return;
                 }
-                let popu = PopupMgr.getInstance().getWindowByTag(path);
-                if(popu){
-                    popu.refreshView(bundleData,...args);
-                    popu.node.zIndex++;
-                    cc.log("========弹窗",popu.node.name,popu.node.zIndex)
-                    resolve(popu);
+                let pppsu = Ppr.getInstance().getWindowByTag(path);
+                if(pppsu){
+                    pppsu.refreshView(bundleData,...args);
+                    pppsu.node.zIndex++;
+                    cc.log("========弹窗",pppsu.node.name,pppsu.node.zIndex)
+                    resolve(pppsu);
                     return;
                 }
                 let url = path;
                 _prefab = cc.resources.get(url,cc.Prefab) as cc.Prefab;
                 if(_prefab){
                     setTimeout(()=>{
-                        let popu = this.createWindowByPrefab(_prefab,path,true,bundleData,...args);
-                        resolve(popu);
+                        let pppsu = this.createWindowByPrefab(_prefab,path,true,bundleData,...args);
+                        resolve(pppsu);
                     })
                 }else{
                     cc.resources.load(url,cc.Prefab,(error,_prefab:cc.Prefab)=>{
@@ -106,8 +106,8 @@ export class PopupMgr extends cc.Component{
                             return;
                         }
                         cc.log("---------------load prefab success",path)
-                        let popu = this.createWindowByPrefab(_prefab,path,true,bundleData,...args);
-                        resolve(popu);
+                        let pppsu = this.createWindowByPrefab(_prefab,path,true,bundleData,...args);
+                        resolve(pppsu);
                     });
                 }
                     
@@ -119,9 +119,9 @@ export class PopupMgr extends cc.Component{
         if(!cc.isValid(this)){
             return null;
         }
-        let popu = PopupMgr.getInstance().getWindowByTag(tag);
-        if(popu){
-            popu.refreshView(bundleData,...args);
+        let pppsu = Ppr.getInstance().getWindowByTag(tag);
+        if(pppsu){
+            pppsu.refreshView(bundleData,...args);
             return null;
         }
         let node = cc.instantiate(_prefab);
@@ -130,53 +130,53 @@ export class PopupMgr extends cc.Component{
             return null;
         }
         node.setPosition(0,0);
-        let popup = node.getComponent(BaseDialog);
-        if(!popup){
+        let ppppsu = node.getComponent(BaseDialog);
+        if(!ppppsu){
             cc.log("--------error prefab弹窗异常",tag);
             return null;
         }
-        popup.initWindow(this,tag,isPfbRaw,()=>{
-            this.realShow(popup,bundleData,...args);
+        ppppsu.initWindow(this,tag,isPfbRaw,()=>{
+            this.realShow(ppppsu,bundleData,...args);
         });
-        return popup
+        return ppppsu
     }
 
-    private _isMaskOn = false;
-    private realShow(popup:BaseDialog,bundleData:any,...args){
-            this.maskBg.off(cc.Node.EventType.TOUCH_START,this.onBgTouch,this);
-            this.maskBg.on(cc.Node.EventType.TOUCH_START,this.onBgTouch,this);
-            if(popup.maskOpacity){
-                let fadetime = popup.style==WindowStyle.POPUP?0.2:0;
+    private $iMsn = false;
+    private realShow(ppppsu:BaseDialog,bundleData:any,...args){
+            this.metBb.off(cc.Node.EventType.TOUCH_START,this.onBgTouch,this);
+            this.metBb.on(cc.Node.EventType.TOUCH_START,this.onBgTouch,this);
+            if(ppppsu.maskOpacity){
+                let fadetime = ppppsu.style==WindowStyle.POPUP?0.2:0;
                 if(cc.director.isPaused()){
-                    this.maskBg.opacity = popup.maskOpacity;
+                    this.metBb.opacity = ppppsu.maskOpacity;
                 }else{
-                    this.maskBg.fadeTo(fadetime,popup.maskOpacity,0);
+                    this.metBb.fadeTo(fadetime,ppppsu.maskOpacity,0);
                 }
                 
             }
             
-            this._isMaskOn = true;
-        let zOrder = 0;
-        if(this.m_popups.length==0){
-            this.node.emit(PopupMgr.EVT_POPO_OPEN_FRIST);
+            this.$iMsn = true;
+        let sfirst = 0;
+        if(this.$ppps.length==0){
+            this.node.emit(Ppr.EVT_POPO_OPEN_FRIST);
         }else{
-            zOrder = this.m_popups[this.m_popups.length-1].node.zIndex;
+            sfirst = this.$ppps[this.$ppps.length-1].node.zIndex;
         }
-        this.maskBg.zIndex = (zOrder)
-        this.maskBg.setSiblingIndex(zOrder+1)
-        popup.node.zIndex = zOrder+1;
-        this.node.addChild(popup.node);
-        popup.showWindow(bundleData,...args);
+        this.metBb.zIndex = (sfirst)
+        this.metBb.setSiblingIndex(sfirst+1)
+        ppppsu.node.zIndex = sfirst+1;
+        this.node.addChild(ppppsu.node);
+        ppppsu.showWindow(bundleData,...args);
 
-        this.m_popups.push(popup);
+        this.$ppps.push(ppppsu);
     }
 
     onBgTouch(event:cc.Event.EventTouch){
-        for(let i=this.m_popups.length-1;i>=0;i--){
-            let popup = this.m_popups[i];
-            if(cc.isValid(popup.node)&&popup.node.active){
-                if(popup.closeByTouchBg&&!popup.isPupuAni){
-                    popup.dismiss();
+        for(let i=this.$ppps.length-1;i>=0;i--){
+            let ppppsu = this.$ppps[i];
+            if(cc.isValid(ppppsu.node)&&ppppsu.node.active){
+                if(ppppsu.closeByTouchBg&&!ppppsu.isPuAbc){
+                    ppppsu.dismiss();
                 }
                 return;
             }
@@ -187,18 +187,18 @@ export class PopupMgr extends cc.Component{
         let ret = false
         if(!cc.isValid(this)||!this.node.active)
             return ret;
-        for(let i=this.m_popups.length-1;i>=0;i--){
+        for(let i=this.$ppps.length-1;i>=0;i--){
             do{
-                let popup = this.m_popups[i];
-                if(!cc.isValid(popup.node))
+                let ppppsu = this.$ppps[i];
+                if(!cc.isValid(ppppsu.node))
                     break;
-                if(!popup.node.active){
+                if(!ppppsu.node.active){
                     break;
-                }else if(!popup.closeByTouchBack||popup.isPupuAni){
+                }else if(!ppppsu.closeByTouchBack||ppppsu.isPuAbc){
                     ret = true;
                 }else{
                     ret = true;
-                    popup.dismiss();
+                    ppppsu.dismiss();
                 }
             }while(false)
             if(ret)
@@ -206,73 +206,73 @@ export class PopupMgr extends cc.Component{
         }
         return ret
     }
-    onHideEnd(popup:BaseDialog){
-        for(let i = 0;i<this.m_popups.length;i++){
-            if(this.m_popups[i]===popup){
-                this.m_popups.splice(i,1);
-                popup.onPreDestroy();
-                popup.node.destroy();
+    onHideEnd(ppppsu:BaseDialog){
+        for(let i = 0;i<this.$ppps.length;i++){
+            if(this.$ppps[i]===ppppsu){
+                this.$ppps.splice(i,1);
+                ppppsu.onPreDestroy();
+                ppppsu.node.destroy();
                 break
             }
         }
-        if(this.m_popups.length==0){
-            this.maskBg.zIndex = (0)
+        if(this.$ppps.length==0){
+            this.metBb.zIndex = (0)
         }else{
-            let zOrder = this.m_popups[this.m_popups.length-1].node.zIndex-1;
-            if(zOrder<0){
-                zOrder = 0;
+            let sfirst = this.$ppps[this.$ppps.length-1].node.zIndex-1;
+            if(sfirst<0){
+                sfirst = 0;
             }
-            this.maskBg.zIndex = (zOrder);
-            this.m_popups[this.m_popups.length-1].node.zIndex = (zOrder+1)
+            this.metBb.zIndex = (sfirst);
+            this.$ppps[this.$ppps.length-1].node.zIndex = (sfirst+1)
         }
         
 
-        if(this.m_popups.length==0){
+        if(this.$ppps.length==0){
             if(cc.director.isPaused()){
-                this.maskBg.opacity = 0;
+                this.metBb.opacity = 0;
             }else{
-                this.maskBg.fadeOut(popup.style==WindowStyle.POPUP?0.2:0.1);
+                this.metBb.fadeOut(ppppsu.style==WindowStyle.POPUP?0.2:0.1);
             }
-            this.maskBg.off(cc.Node.EventType.TOUCH_START,this.onBgTouch,this);
-            this.node.emit(PopupMgr.EVT_POPO_CLOSE_LAST);
-            this._isMaskOn = false;
+            this.metBb.off(cc.Node.EventType.TOUCH_START,this.onBgTouch,this);
+            this.node.emit(Ppr.EVT_POPO_CLOSE_LAST);
+            this.$iMsn = false;
         }
     }
     public getVisibleCount():number{
-        let num = 0;
-        for(let _popup of this.m_popups){
-            let node = _popup.node;
+        let $num = 0;
+        for(let _ppppsu of this.$ppps){
+            let node = _ppppsu.node;
             if(cc.isValid(node)&&node.active){
-                ++num;
+                ++$num;
             }
         }
-        return num;
+        return $num;
     }
     closeWindowByTag(tag:any,noAnim:boolean = true){
-        for(let popup of this.m_popups){
-            if(cc.isValid(popup.node)&&popup.tag==tag){
-                popup.dismiss(noAnim);
+        for(let ppppsu of this.$ppps){
+            if(cc.isValid(ppppsu.node)&&ppppsu.tag==tag){
+                ppppsu.dismiss(noAnim);
                 break;
             }
         }
     }
     getWindowByTag(tag:any):BaseDialog{
-        for(let popup of this.m_popups){
-            if(cc.isValid(popup.node)&&popup.tag==tag){
-                return popup;
+        for(let ppppsu of this.$ppps){
+            if(cc.isValid(ppppsu.node)&&ppppsu.tag==tag){
+                return ppppsu;
             }
         }
         return null;
     }
 
     removeAllPopup(){
-        while(this.m_popups.length>0){
-            let popup = this.m_popups[0];
-            popup.dismiss(true);
+        while(this.$ppps.length>0){
+            let ppppsu = this.$ppps[0];
+            ppppsu.dismiss(true);
         }
     }
 }
 
 BaseDialog.create = function<T>(pfb:string|cc.Prefab,param:T|any,...args):Promise<BaseDialog> {
-    return PopupMgr.getInstance().showWindow(pfb,param,...args)
+    return Ppr.getInstance().showWindow(pfb,param,...args)
 }
