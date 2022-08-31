@@ -224,12 +224,17 @@ export class CupMgr extends cc.Component {
     }
     addcur() {
         if (this.curCfg.length == 15 || this.haveAnimationPlay) return
-        this._waterFlow.removeAnimation()
+        this._waterFlow.clearnAni()
         this.curCfg.push({ colorIds: [0, 0, 0, 0] })
         this.createCups(true);
 
     }
-
+    powerDebugger(Target, Component, Handler, CustomEventData) {
+        if (!Number.isNaN(+Target.string)) {
+            SetCom.addPower(+Target.string)
+            cc.director.loadScene("game");
+        }
+    }
     xuanGuan(Target, Component, Handler, CustomEventData) {
 
         if (!Number.isNaN(+Target.string)) {

@@ -250,7 +250,7 @@ export default class NewClass extends cc.Component {
 
     addPower() {
         let winScript = this.node.getComponent('dlg_youWIn')
-        winScript.physicalOpcFn()
+        winScript.physicalOpacityFunction()
 
     }
     start() {

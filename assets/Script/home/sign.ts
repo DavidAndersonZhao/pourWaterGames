@@ -46,8 +46,8 @@ export default class NewClass extends cc.Component {
         this.sign_datas = this.signCfg.json.data
         if (storageData) {
             storageData = JSON.parse(storageData)
-            console.log(storageData.time)
-            console.log(isThisWeek(storageData.time))
+            // console.log(storageData.time)
+            // console.log(isThisWeek(storageData.time))
             if (isThisWeek(storageData.time)) {
                 this.sign_datas = storageData.data
             }
@@ -110,6 +110,9 @@ export default class NewClass extends cc.Component {
                         success: (_res) => {
                             this.handleReceiveClick(e, name)
                         },
+                        cancel: () => {
+                            this.doubleState = false
+                        }
                     })
                 break;
             default:
@@ -141,7 +144,7 @@ export default class NewClass extends cc.Component {
         border.active = false
         this.doubleState = false
     }
-  
+
     isAllReceived() {
         const layout = this.node.getChildByName('layout')
         const dallyBg = layout.getChildByName('dallyBg')

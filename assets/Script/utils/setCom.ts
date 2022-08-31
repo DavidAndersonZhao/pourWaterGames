@@ -53,7 +53,7 @@ export default class SetCom extends cc.Component {
         set: function (target, propKey, value, receiver) {
             let obj = JSON.parse(JSON.stringify(target))
             obj[propKey] = value
-            console.log(target);
+            // console.log(target);
             // TODO： 有机会的话下面试试换成这个obj.time ??= new Date().getTime()
 
             if (propKey == 'physicalStrength') {
@@ -85,6 +85,8 @@ export default class SetCom extends cc.Component {
             let obj = JSON.parse(JSON.stringify(target))
             obj[propKey] = value
             localStorage.setItem('decorate_set', JSON.stringify(obj))
+            obj.lv = localStorage.getItem('level')
+            // console.log('1234567890',obj);
             SetCom.wxStorage('set', obj)
             return Reflect.set(target, propKey, value, receiver);
         }
@@ -154,7 +156,7 @@ export default class SetCom extends cc.Component {
                     SetCom.shareFn = true
                     let curTime = new Date().getTime();
                     if (curTime - SetCom.closeTime >= 3000) {
-                        console.log("分享成功");
+                        // console.log("分享成功");
                         SetCom.successFn('分享成功')
 
                     } else {
@@ -166,6 +168,8 @@ export default class SetCom extends cc.Component {
                             title: '分享失败',
 
                         })
+                        console.log('分享取消');
+                        
                         SetCom.cancelFn('分享取消')
                     }
                     SetCom.isShared = false;
@@ -472,7 +476,7 @@ export default class SetCom extends cc.Component {
     /** 减体力 */
     static reducePower() {
         if (!(this.global_prop.physicalStrength--)) {
-            console.log('体力不足');
+            // console.log('体力不足');
             this.global_prop.physicalStrength = 0
             return false
         }
@@ -519,9 +523,12 @@ export default class SetCom extends cc.Component {
         let audioSet = localStorage.getItem('audioSet')
         if (!global_prop) {
             global_prop = await SetCom.wxStorage('get')
+           
         }
         if (global_prop) {
-            this.global_prop = new Proxy(JSON.parse(global_prop), {
+            let { lv, ...props } =  JSON.parse(global_prop)
+            if(lv)localStorage.setItem('level', lv || 1)
+            this.global_prop = new Proxy(props, {
                 get: function (target, propKey, receiver) {
                     return Reflect.get(target, propKey, receiver);
                 },
@@ -538,9 +545,12 @@ export default class SetCom extends cc.Component {
 
                     obj.upTime = new Date().getTime()
 
-                    console.log(target.physicalStrength, propKey, value, receiver);
+                    // console.log(target.physicalStrength, propKey, value, receiver);
 
                     localStorage.setItem('global_prop', JSON.stringify(obj))
+                    obj.lv = localStorage.getItem('level')
+                    // console.log('1234567890',obj);
+                    
                     SetCom.wxStorage('set', obj)
                     return Reflect.set(target, propKey, value, receiver);
                 }

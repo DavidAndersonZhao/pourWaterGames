@@ -100,6 +100,7 @@ export default class NewClass extends cc.Component {
      * @param data
      */
     onClick(event: any, data: string) {
+
         switch (data) {
             case 'start': {
                 this.node.getChildByName('layout').resumeAllActions();
@@ -211,10 +212,10 @@ export default class NewClass extends cc.Component {
             case 2:
             case 3:
             case 5:
-                this.node.parent.getComponent('home').openOpc(3, obj,undefined,this.dobuleImg);
+                this.node.parent.getComponent('home').openOpc(3, obj,undefined,this.dobuleImg,'收下了',1);
                 break;
             case 4:
-                this.node.parent.getComponent('home').openOpc(2, obj,undefined,this.dobuleImg);
+                this.node.parent.getComponent('home').openOpc(2, obj,undefined,this.dobuleImg,'收下了',1);
                 break;
             default:
                 break;

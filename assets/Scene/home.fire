@@ -17192,7 +17192,7 @@
       "y": 0
     },
     "maskOpacity": 128,
-    "isFullScreen": false,
+    "isCompletely": false,
     "title": null,
     "next_num": null,
     "label": null,
