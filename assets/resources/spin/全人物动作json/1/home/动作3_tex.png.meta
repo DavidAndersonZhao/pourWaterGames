@@ -1,6 +1,6 @@
 {
   "ver": "2.3.7",
-  "uuid": "ac19fb17-890f-46e5-9a86-ed9652d44f46",
+  "uuid": "77f8e6f6-cdf7-4fe8-a3a8-942bcdf1b505",
   "importer": "texture",
   "type": "sprite",
   "wrapMode": "clamp",
@@ -14,9 +14,9 @@
   "subMetas": {
     "动作3_tex": {
       "ver": "1.0.6",
-      "uuid": "8e520830-bef5-47a8-99c1-ad8ec881ac26",
+      "uuid": "375812a7-fcbf-46f5-9504-d3a9c51fa445",
       "importer": "sprite-frame",
-      "rawTextureUuid": "ac19fb17-890f-46e5-9a86-ed9652d44f46",
+      "rawTextureUuid": "77f8e6f6-cdf7-4fe8-a3a8-942bcdf1b505",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -2,7 +2,9 @@
   "title": "puar-water-0515",
   "packageName": "org.cocos2d.demo",
   "startScene": "d48cc9fd-a112-48fa-8f26-041ca5af36d3",
-  "excludeScenes": [],
+  "excludeScenes": [
+    "b4c56941-14d0-4d58-9b91-c23e48106051"
+  ],
   "includeSDKBox": false,
   "orientation": {
     "landscapeRight": true,
