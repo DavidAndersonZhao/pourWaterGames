@@ -64,7 +64,7 @@ export default class NewClass extends cc.Component {
         this.homeCom.setTaskNum(this.task_list.filter(item => item.taskState != 4).length)
         this.node.active = false
     }
-  
+
     public getTaskListFn() {
         let startTme = getNowStartTime();
         let storageData: any = localStorage.getItem('taskCfg');
@@ -124,11 +124,10 @@ export default class NewClass extends cc.Component {
             taskText.getComponent(cc.Label).string = element.taskText
             taskLabels.getComponent(cc.Label).string = taskLabel + `x${element.taskRewardNum}`
             tashBtn.on('click', (e) => {
-                console.log(element.taskState,);
                 if (element.taskState != 4) {
+                    let handleName = element.taskState == 3 ? 'advertisement' : 'shareFriend'
 
-
-                    SetCom.shareFriend(
+                    SetCom[handleName](
                         {
                             success: (_res) => {
                                 this.receiveReward(e, element, taskLabel)
@@ -160,11 +159,11 @@ export default class NewClass extends cc.Component {
         switch (data.taskIcon) {
             case 2:
                 obj.curState = 5
-                this.node.parent.getComponent('home').openOpc(3, obj,undefined,this.dobuleImg,'收下了',1);
+                this.node.parent.getComponent('home').openOpc(3, obj, undefined, this.dobuleImg, '收下了', 1);
                 break;
             case 1:
                 obj.curState = 4
-                this.node.parent.getComponent('home').openOpc(2, obj,undefined,this.dobuleImg,'收下了',1);
+                this.node.parent.getComponent('home').openOpc(2, obj, undefined, this.dobuleImg, '收下了', 1);
                 break;
             default:
                 break;
@@ -174,7 +173,6 @@ export default class NewClass extends cc.Component {
     }
 
     receiveClick(data) {
-        console.log(data);
         switch (data.taskIcon) {
             case 1:
                 SetCom.global_prop.fragment += data.taskRewardNum
@@ -185,7 +183,6 @@ export default class NewClass extends cc.Component {
             default:
                 break;
         }
-        console.log(SetCom.global_prop);
         this.homeCom.show()
         data.taskState = 4
     }

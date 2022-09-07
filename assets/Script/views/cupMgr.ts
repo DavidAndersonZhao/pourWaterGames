@@ -1,4 +1,4 @@
-import { PopupMgr } from "../dialog/dialog_mgr";
+// import { PopupMgr } from "../dialog/dialog_mgr";
 import { AudioEnum, UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 import Cup, { _CupMes } from "./cup";
@@ -35,6 +35,9 @@ export class CupMgr extends cc.Component {
     private curCfg: Array<_CupMes> = [];
     private _waterFlow: WaterFlow = null;
     public haveAnimationPlay: Boolean = false;
+    private mapping = {
+
+    }
     onLoad() {
         if (CC_EDITOR) {
             return
@@ -81,6 +84,7 @@ export class CupMgr extends cc.Component {
     }
 
     private initCfg() {
+        this.mapping = {}
         this.curCfg = [];
         let cfgArr: Array<number> = this.levelCfg.json[this._level - 1];
         let acc = 0;
@@ -209,8 +213,13 @@ export class CupMgr extends cc.Component {
         if (this.selected) {
             if (this.selected == cup) {
                 this.doSelect(cup, false);
+                this.mapping[cup.uuid] = false
                 this.selected = null;
             } else if (this.checkPour(this.selected, cup)) {
+
+                if (this.mapping[this.selected.uuid]) return
+                this.mapping[cup.uuid] = true
+                // this.mapping[this.selected.uuid] = true
                 this.startPour(this.selected, cup);
             } else {
                 this.doSelect(this.selected, false);
@@ -317,6 +326,7 @@ export class CupMgr extends cc.Component {
                 cc.sys.localStorage.setItem(COOKIE_ACTION_HISTORY, JSON.stringify(this._actions));
                 dst.startAddWater(srcTop.topColorId, num, (cup: Cup, isFinished: boolean) => {
 
+                    this.mapping[src.uuid] = this.mapping[dst.uuid] = false
                     if (isFinished) this.onPourOneFinished(src, dst, srcTop.topColorId, srcTop.topColorNum);
 
                 });
@@ -383,7 +393,7 @@ export class CupMgr extends cc.Component {
             this.node.emit("do_pour")
         }
 
-        this.createCups(true)//TODO:
+        // this.createCups(true)//TODO:
     }
 
     public getActionNum() {

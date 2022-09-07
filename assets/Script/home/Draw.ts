@@ -81,7 +81,6 @@ export default class NewClass extends cc.Component {
 
 
     onLoad() {
-        console.log(this.node.parent);
 
     }
     init() {
@@ -105,7 +104,7 @@ export default class NewClass extends cc.Component {
             case 'start': {
                 this.node.getChildByName('layout').resumeAllActions();
                 if (this._state == GameState.Idle) {
-                    SetCom.shareFriend(
+                    SetCom.advertisement(
                         {
                             success: (_res) => {
                                 this.startAni();
@@ -242,8 +241,6 @@ export default class NewClass extends cc.Component {
             default:
                 break;
         }
-        console.log(SetCom.global_prop);
-        console.log(this.node.parent.getComponent('home'));
 
         this.node.parent.getComponent('home').show()
     }

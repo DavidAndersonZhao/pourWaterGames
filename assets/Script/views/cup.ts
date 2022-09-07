@@ -168,8 +168,6 @@ export default class Tube extends cc.Component {
         let startAngle = this.water.getPourBeginHorn()
         let endAngle = this.water.getPourFinishHorn()
         let dstEveOnrZero = dst?.info.colorIds.every(item=>item==0)
-        console.log('dstEveOnrZero',dstEveOnrZero);
-        console.log('num',num);
         
         this.water.onBeginPour(num);//TODO: 可能需要调整 7/25
         if (isRight) {

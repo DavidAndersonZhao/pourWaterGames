@@ -14,7 +14,7 @@
     "wechatgame": false
   },
   "inlineSpriteFrames": {
-    "web-mobile": false,
+    "web-mobile": true,
     "wechatgame": true
   },
   "isRemoteBundle": {

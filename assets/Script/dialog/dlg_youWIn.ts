@@ -54,7 +54,7 @@ export class DlgYouWin extends BaseDialog {
         let canvas = cc.find("Canvas");
         let _handle = opacity.getChildByName("handle");
         _handle.getChildByName("btn")?.on("click", (e) => {
-            SetCom.shareFriend(
+            SetCom.advertisement(
                 {
                     success: (_res) => {
                         SetCom.addPower(5)

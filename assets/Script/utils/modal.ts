@@ -55,38 +55,37 @@ export default class NewClass extends cc.Component {
         }
 
         let handle = this.node.getChildByName("handle");
-        handle.getChildByName("btn")?.on("click", (e) => {
-            SetCom.shareFriend(
-                {
-                    success: (_res) => {
-                        console.log(e);
-                        e.node.active = false
-                        switch (type) {
-                            case 2:
-                                propGroup.getChildByName('num').getComponent(cc.Label).string = `x${data.rewardNum * 2}`;
-                                break;
-                            case 3:
-                                propGroup.getChildByName('num').getComponent(cc.Label).string = `${data.name.replace('x' + data.rewardNum, 'x' + data.rewardNum * 2)}`;
-                                break;
-                            case 4:
-                                propGroup.getChildByName('num').getComponent(cc.Label).string = `${data.name.replace('x' + data.rewardNum, 'x' + data.rewardNum * 2)}`;
-                                propGroup.getChildByName('num2').getComponent(cc.Label).string = `${data.name2.replace('x' + data.rewardNum2, 'x' + data.rewardNum2 * 2)}`;
-                                break;
-                            default:
-                                break;
-                        }
-                        this.receiveClick(data, 1)
-                        if (fn) fn();
-                        console.log(SetCom.global_prop, '双倍', '111111')
-                    },
-                })
+        if (handle.getChildByName("btn").getComponent(cc.Button).clickEvents.length <= 1) {
+            handle.getChildByName("btn")?.on("click", (e) => {
+                SetCom.advertisement(
+                    {
+                        success: (_res) => {
+                            e.node.active = false
+                            switch (type) {
+                                case 2:
+                                    propGroup.getChildByName('num').getComponent(cc.Label).string = `x${data.rewardNum * 2}`;
+                                    break;
+                                case 3:
+                                    propGroup.getChildByName('num').getComponent(cc.Label).string = `${data.name.replace('x' + data.rewardNum, 'x' + data.rewardNum * 2)}`;
+                                    break;
+                                case 4:
+                                    propGroup.getChildByName('num').getComponent(cc.Label).string = `${data.name.replace('x' + data.rewardNum, 'x' + data.rewardNum * 2)}`;
+                                    propGroup.getChildByName('num2').getComponent(cc.Label).string = `${data.name2.replace('x' + data.rewardNum2, 'x' + data.rewardNum2 * 2)}`;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            this.receiveClick(data, 1)
+                            if (fn) fn();
+                        },
+                    })
 
-        });
+            });
+        }
         handle.getChildByName("label")?.once("click", () => {
             this.receiveClick(data, 1)
             if (fn) fn();
             this.node.destroy()
-            console.log(SetCom.global_prop)
         });
     }
     receiveClick(data, num = 1) {

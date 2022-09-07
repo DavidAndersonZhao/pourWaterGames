@@ -31,7 +31,6 @@ export default class CountDownTime extends cc.Component {
     getPowerAndTime() {
         let hisTime = SetCom.global_prop.time
         let upTime = SetCom.global_prop.upTime
-        console.log(upTime,'upTime');
         
         if (!hisTime||!upTime) return
         let current_time = new Date().getTime()
@@ -39,11 +38,6 @@ export default class CountDownTime extends cc.Component {
         let _utime = (current_time - upTime) / 1000
         let power = ~~(_utime / this.timeLimit)
         let surplus_time = ~~(time % this.timeLimit)
-        console.log(hisTime,
-            current_time,
-            time,
-            power,
-            surplus_time,'倒计时相关');
         if (power >= 10) {
             SetCom.global_prop.physicalStrength = 10
             this.powerCount.string = SetCom.global_prop.physicalStrength + " /10";
@@ -75,8 +69,6 @@ export default class CountDownTime extends cc.Component {
         this.node.active = true
     }
     protected onDestroy(): void {
-        console.log('onDestroy', this.timeCount, SetCom.lostTime);
-
         if (this.timeCount && SetCom.global_prop.physicalStrength < 9) {
             if (this.timeCount <= 600 && this.timeCount >= 590) {
             } else {

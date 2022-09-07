@@ -151,7 +151,6 @@ export default class NewClass extends cc.Component {
             // TODO:打开弹窗
             json.props = list
             localStorage.setItem('shopJson', JSON.stringify(json))
-            console.log(element.propsState,);
         })
         content.addChild(_node);
     }
@@ -179,7 +178,6 @@ export default class NewClass extends cc.Component {
             let handleButton = _node.getChildByName("handleButton")
             let layout = handleButton.getChildByName("layout")
             let group = _node.getChildByName("group")
-            debugger
             group.getComponent(cc.Sprite).spriteFrame = this.people_list_no.groups[element.icon - 1]
 
             shop.getComponent(cc.Sprite).spriteFrame = this.people_list_no.imgs[element.imgNum - 1]
@@ -196,7 +194,7 @@ export default class NewClass extends cc.Component {
 
                 handleButton.on('click', () => {
                     if (element.imgNum == 1) {
-                        SetCom.shareFriend(
+                        SetCom.advertisement(
                             {
                                 success: (_res) => {
                                     this.getPeopleFn(element, list, json, index)
@@ -270,7 +268,6 @@ export default class NewClass extends cc.Component {
                     this.check_peopleId = null
                     this.content.string = ''
                 }
-                console.log('people', element.id);
             })
             content.addChild(_node);
         }
@@ -309,7 +306,6 @@ export default class NewClass extends cc.Component {
     resOpenModal(data, img: cc.SpriteFrame, img2?: cc.SpriteFrame, cb?: Function) {
         let node = cc.find("Canvas");
         if (cb) cb()
-        console.log(node.getComponent('openModal'));
         let obj = {
             "rewardIcon": img,
             "name": data.name,

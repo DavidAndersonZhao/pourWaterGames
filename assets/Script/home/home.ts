@@ -171,7 +171,6 @@ export default class NewClass extends cc.Component {
         this.sign_node.active = bool
     }
     onLoad(): void {
-        console.log('onLoad');
 
         SetCom.loadCache()
         this.show()

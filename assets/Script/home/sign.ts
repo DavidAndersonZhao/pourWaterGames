@@ -105,7 +105,7 @@ export default class NewClass extends cc.Component {
         switch (name) {
             case 'double':
                 this.doubleState = true
-                SetCom.shareFriend(
+                SetCom.advertisement(
                     {
                         success: (_res) => {
                             this.handleReceiveClick(e, name)
@@ -132,7 +132,6 @@ export default class NewClass extends cc.Component {
         } else {
             this.resOpenModal(this.sign_datas[this.current_num], this.imgs[this.sign_datas[this.current_num].rewardIcon - 1])
         }
-        console.log(this.node);
         let layout_childs = this.node.getChildByName('layout').children
 
         const mask = layout_childs[this.current_num].getChildByName('mask')
@@ -143,6 +142,7 @@ export default class NewClass extends cc.Component {
         mask.getChildByName('yes').active = true
         border.active = false
         this.doubleState = false
+        this.showButton()
     }
 
     isAllReceived() {
@@ -169,7 +169,12 @@ export default class NewClass extends cc.Component {
         border.active = false
         this.resOpenModal(this.sign_datas[7], this.imgs[this.sign_datas[7].rewardIcon - 1], this.imgs[this.sign_datas[7].rewardIcon2 - 1], true)
     }
-
+    showButton() {
+        if (!this.sign_datas[this.current_num].isToday) {
+            this.node.getChildByName('double').active = false
+            this.node.getChildByName('label').active = false
+        }
+    }
     init() {
         this.get_sign_datas()
         this.data_init()
@@ -195,8 +200,8 @@ export default class NewClass extends cc.Component {
                     mask.getChildByName('repairSignBtn').active = false
                 } else {
                     mask.getChildByName('repairSignBtn').active = true
-                    mask.getChildByName('repairSignBtn').on('click', () => SetCom.shareFriend(
-                        {
+                    mask.getChildByName('repairSignBtn').on('click', () => {
+                        SetCom.advertisement({
                             success: () => {
                                 mask.getChildByName('repairSignBtn').active = true
                                 mask.getChildByName('yes').active = true
@@ -204,13 +209,13 @@ export default class NewClass extends cc.Component {
                                 this.resOpenModal(sign_data, this.imgs[sign_data.rewardIcon - 1])
                                 sign_data.isReceived = true
                                 this.isAllReceived()
-
                                 if (this.getSignBool()) {
                                     this.receiveClickFull()
                                 }
                                 this.recordData()
                             }
                         })
+                    })
                 }
             }
             border.active = sign_data.isToday
@@ -219,6 +224,7 @@ export default class NewClass extends cc.Component {
         const dallyBg = layout.getChildByName('dallyBg')
         const mask = dallyBg.getChildByName('mask')
         const border = dallyBg.getChildByName('border')
+        this.showButton()
         this.isAllReceived()
         if (this.sign_datas[7].isReceived) {
             mask.active = true

@@ -126,8 +126,42 @@ export default class SetCom extends cc.Component {
     static isShared: boolean = false
     static shareTag: string = 'keys'
     static closeTime: number = new Date().getTime();
+    static advertisement = debounce(function ({ success, cancel = (str?: string) => { }, fail = (str?: string) => { } }) {
+        success()
+        if (!CC_WECHATGAME) return
+        // 创建激励视频广告实例，提前初始化
+        let videoAd = wx.createRewardedVideoAd({
+            adUnitId: 'adunit-f18152a955d3f21f'
+        })
 
+        // 用户触发广告后，显示激励视频广告
+        videoAd.show().catch(() => {
+            // 失败重试
+            videoAd.load()
+                .then(() => videoAd.show())
+                .catch(err => {
+                    fail('播放失败')
+                })
+        })
+
+        videoAd.onClose(res => {
+            // 用户点击了【关闭广告】按钮
+            // 小于 2.1.0 的基础库版本，res 是一个 undefined
+            if (res && res.isEnded || res === undefined) {
+                // 正常播放结束，可以下发游戏奖励
+                success('播放结束')
+            }
+            else {
+                // 播放中途退出，不下发游戏奖励
+                cancel('播放取消')
+            }
+        })
+        videoAd.onError(err => {
+            fail('播放失败')
+        })
+    }, 500)
     static shareFriend = debounce(function ({ success, cancel = () => { }, fail = () => { } }) {
+        success()
         let textArr = [
             '@所有人，向你们发起挑战！你们能得到他吗？',
             '都说穷人家的孩子早当家，我却止于第10关！'
@@ -168,8 +202,7 @@ export default class SetCom extends cc.Component {
                             title: '分享失败',
 
                         })
-                        console.log('分享取消');
-                        
+
                         SetCom.cancelFn('分享取消')
                     }
                     SetCom.isShared = false;
@@ -523,11 +556,11 @@ export default class SetCom extends cc.Component {
         let audioSet = localStorage.getItem('audioSet')
         if (!global_prop) {
             global_prop = await SetCom.wxStorage('get')
-           
+
         }
         if (global_prop) {
-            let { lv, ...props } =  JSON.parse(global_prop)
-            if(lv)localStorage.setItem('level', lv || 1)
+            let { lv, ...props } = JSON.parse(global_prop)
+            if (lv) localStorage.setItem('level', lv || 1)
             this.global_prop = new Proxy(props, {
                 get: function (target, propKey, receiver) {
                     return Reflect.get(target, propKey, receiver);
@@ -550,7 +583,7 @@ export default class SetCom extends cc.Component {
                     localStorage.setItem('global_prop', JSON.stringify(obj))
                     obj.lv = localStorage.getItem('level')
                     // console.log('1234567890',obj);
-                    
+
                     SetCom.wxStorage('set', obj)
                     return Reflect.set(target, propKey, value, receiver);
                 }

@@ -1,7 +1,8 @@
 {
 	"game": {
-		"name": "未知游戏",
-		"appid": "UNKNOW"
+		"name": "倒水小游戏_20220906035316",
+		"appid": "624363965",
+		"cid": 0
 	},
 	"needExecNative": true,
 	"configs": [
@@ -16,6 +17,15 @@
 		},
 		{
 			"appid": "UNKNOW"
+		},
+		{
+			"appid": "624363965",
+			"services": [
+				{
+					"service_id": "235",
+					"enable": true
+				}
+			]
 		}
 	]
 }

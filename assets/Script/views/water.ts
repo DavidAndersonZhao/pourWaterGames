@@ -19,7 +19,7 @@ enum PourMotion {
 @requireComponent(cc.Sprite)
 @executeInEditMode
 @disallowMultiple
-@executionOrder(-100) 
+@executionOrder(-100)
 export default class Water extends cc.Component {
     private _motion: PourMotion = PourMotion.empty;
     private informations: WaterInformation[] = [];
@@ -39,7 +39,7 @@ export default class Water extends cc.Component {
     }
 
     private stock: cc.Material = null;
-    
+
     protected onLoad() {
         let sprite = this.node.getComponent(cc.Sprite);
         if (sprite.spriteFrame) sprite.spriteFrame.getTexture().packable = false;
@@ -62,7 +62,7 @@ export default class Water extends cc.Component {
     private raiseHeight = 0;
     public raiseInformation(information: WaterInformation) {
         let raiseInformation = this.informations[this.currentIndex];
-        if(raiseInformation && this.raiseHeight) raiseInformation.height = this.raiseHeight
+        if (raiseInformation && this.raiseHeight) raiseInformation.height = this.raiseHeight
         this.raiseHeight = information.height;
         information.height = 0;
         this.informations.push(information);
@@ -107,6 +107,7 @@ export default class Water extends cc.Component {
     }
 
     private getCriticismHornWithH(_h) {
+        // console.log('h', _h);
 
         let ret = 0;
         if (_h == 0) {
@@ -147,8 +148,8 @@ export default class Water extends cc.Component {
      * @returns 返回值为倾斜角度的绝对值 TODO: 可能需要调整 7/25
      */
     public onBeginPour(num = this.getUpIdenticalColorNum()) {
-//TODO:水溢出的情况下会有问题
-        
+        //TODO:水溢出的情况下会有问题
+
         this._motion = PourMotion.leave;
         this.stopIndex = this.currentIndex - num;
     }
@@ -215,8 +216,7 @@ export default class Water extends cc.Component {
         info.height = Math.round((info.height - 0.005) * 1000) / 1000;
         if (info.height < 0.01) {
             info.height = 0;
-            console.log(this.informations);
-            
+
             this.informations.pop();
             this.currentIndex--;
             if (this.currentIndex == this.stopIndex) {
@@ -265,7 +265,7 @@ export default class Water extends cc.Component {
 
     }
 
-   
+
 }
 
 function radian2angle(radian: number) {

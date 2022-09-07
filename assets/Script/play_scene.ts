@@ -36,7 +36,6 @@ export default class PlayScene extends cc.Component {
     onLoad() {
         this.cupMgr.node.on("level_finish", this.onFinishOneLevel, this);
         this.cupMgr.node.on("do_pour", this.onPourAction, this);
-        console.log(SetCom.global_prop);
         this.handleActionBtn(SetCom.global_prop.reset, 'reset')
         this.handleActionBtn(SetCom.global_prop.backOff, 'back')
         this.handleActionBtn(SetCom.global_prop.testTube, 'add')
@@ -73,8 +72,7 @@ export default class PlayScene extends cc.Component {
         if (SetCom.global_prop.reset) {
             this.handleActionBtn(--SetCom.global_prop.reset, 'reset')
         } else {
-            console.log('看广告');
-            SetCom.shareFriend(
+            SetCom.advertisement(
                 {
                     success: (_res) => {
                         this.handleActionBtn(++SetCom.global_prop.reset, 'reset')
@@ -95,8 +93,7 @@ export default class PlayScene extends cc.Component {
                 this.handleActionBtn(--SetCom.global_prop.backOff, 'back')
             } else {
 
-                console.log('看广告');
-                SetCom.shareFriend(
+                SetCom.advertisement(
                     {
                         success: (_res) => {
                             this.handleActionBtn(++SetCom.global_prop.backOff, 'back')
@@ -116,8 +113,7 @@ export default class PlayScene extends cc.Component {
             this.cupMgr.addcur()
             this.addCurDone = true
         } else {
-            console.log('看广告');
-            SetCom.shareFriend(
+            SetCom.advertisement(
                 {
                     success: (_res) => {
                         this.handleActionBtn(++SetCom.global_prop.testTube, 'add')
