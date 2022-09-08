@@ -42,6 +42,7 @@ export class CupMgr extends cc.Component {
         if (CC_EDITOR) {
             return
         }
+        SetCom.bannerShow('gridAd', 'hide')
         this._level = checkint(cc.sys.localStorage.getItem(COOKIE_LEVEL) || 1);
         let str = cc.sys.localStorage.getItem(COOKIE_LAST_CFG);
         let data = localStorage.getItem('shop_people')
@@ -108,7 +109,6 @@ export class CupMgr extends cc.Component {
 
     private _cups: Array<Cup> = [];
     private layout_v: cc.Layout = null;
-
 
     private async createCups(isAnmitionIn?: Boolean) {
         this.haveAnimationPlay = false

@@ -23,6 +23,8 @@ export class DlgYouWin extends BaseDialog {
         this.toNext = toNext;
     }
     start(): void {
+        SetCom.bannerShow('gridAd', 'show')
+
         let _lv = cc.sys.localStorage.getItem('level')
         let element = cc.instantiate(SetCom.getSomeSpin(_lv, "noGame"));
         if (element) element.y = 760.63

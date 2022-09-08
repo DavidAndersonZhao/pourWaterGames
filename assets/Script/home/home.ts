@@ -173,13 +173,15 @@ export default class NewClass extends cc.Component {
     onLoad(): void {
 
         SetCom.loadCache()
+        SetCom.bannerShow('bannerAd', 'show')
+        SetCom.bannerShow('gridAd', 'show')
         this.show()
 
         this.setTaskFn()
 
         this.setSignState(this.signOpc.getSignOrRepair())
         this.getLevel()
-        cc.resources.loadDir("prefabs/animationJson", function (err, assets: cc.Prefab[]) {
+        cc.resources.loadDir("prefabs/animationJson", (err, assets: cc.Prefab[]) => {
             let spin_assets = {
                 game: assets.filter(item => item.name.indexOf("game") > -1),
                 home: assets.filter(item => item.name.indexOf("home") > -1),
@@ -189,6 +191,12 @@ export default class NewClass extends cc.Component {
 
             let node = cc.instantiate(SetCom.getSomeSpin(cc.sys.localStorage.getItem('level'), "home"));
             cc.find("Canvas/bgImg").addChild(node);
+            if (this.signOpc.data_init()) {
+                this.drawOpcShow(undefined, 'sign')
+            } else {
+                this.drawOpcShow(undefined, 'draw')
+
+            }
         })
     }
     show() {

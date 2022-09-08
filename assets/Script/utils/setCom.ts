@@ -126,8 +126,9 @@ export default class SetCom extends cc.Component {
     static isShared: boolean = false
     static shareTag: string = 'keys'
     static closeTime: number = new Date().getTime();
+    static bannerAd: any = null
+    static gridAd: any = null
     static advertisement = debounce(function ({ success, cancel = (str?: string) => { }, fail = (str?: string) => { } }) {
-        success()
         if (!CC_WECHATGAME) return
         // 创建激励视频广告实例，提前初始化
         let videoAd = wx.createRewardedVideoAd({
@@ -160,8 +161,64 @@ export default class SetCom extends cc.Component {
             fail('播放失败')
         })
     }, 500)
+    bannerAngGridAdvertisement() {
+        if (CC_WECHATGAME) {
+            let windowSetting
+            if (wx.getWindowInfo) {
+                windowSetting = wx.getWindowInfo()
+            } else {
+                // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+                wx.showModal({
+                    title: '提示',
+                    content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+                })
+            }
+            SetCom.bannerAd = wx.createBannerAd({
+                adUnitId: 'adunit-80cfe596bb2a5337',
+                adIntervals: 30, // 自动刷新频率不能小于30秒
+                style: {
+                    left: 0,
+                    top: windowSetting?.windowHeight - 100,
+                    height: 100,
+                    width: windowSetting?.screenWidth || 350
+                }
+            })
+            SetCom.bannerAd.onError(err => {
+                console.log(err)
+            })
+            SetCom.gridAd = wx.createCustomAd({
+                adUnitId: 'adunit-91dbf6a007922ac1',
+                adTheme: 'white',
+                gridCount: 5,
+                style: {
+                    left: windowSetting?.screenWidth - 40 - 20,
+                    top: 100,
+                    width: 80,
+                    opacity: 0.8
+                }
+            })
+            SetCom.gridAd.onError(err => {
+                console.log(err)
+            })
+        }
+    }
+    // banner广告展示
+    static bannerShow(name: 'bannerAd' | 'gridAd', state: 'show' | 'hide') {
+        setTimeout(() => {
+            switch (state) {
+                case 'show':
+                    this[name]?.show()
+                    break;
+                case 'hide':
+                    this[name]?.hide()
+
+                    break;
+                default:
+                    break;
+            }
+        }, 300);
+    }
     static shareFriend = debounce(function ({ success, cancel = () => { }, fail = () => { } }) {
-        success()
         let textArr = [
             '@所有人，向你们发起挑战！你们能得到他吗？',
             '都说穷人家的孩子早当家，我却止于第10关！'
@@ -184,6 +241,7 @@ export default class SetCom extends cc.Component {
     }, 500)
     static shareFn = false
     onLoad() {
+        this.bannerAngGridAdvertisement()
         if (typeof (wx) !== "undefined" && !SetCom.shareFn) {
             wx.onShow(function () {
                 if (SetCom.isShared && SetCom.shareTag == "keys") {

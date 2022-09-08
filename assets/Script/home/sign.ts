@@ -81,6 +81,7 @@ export default class NewClass extends cc.Component {
                 item.isRepair = true
             }
         }
+        return this.sign_datas[this.current_num].isToday
     }
 
     getSignBool() {
