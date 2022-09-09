@@ -44,6 +44,7 @@ export class CupMgr extends cc.Component {
         }
         SetCom.bannerShow('gridAd', 'hide')
         this._level = checkint(cc.sys.localStorage.getItem(COOKIE_LEVEL) || 1);
+
         let str = cc.sys.localStorage.getItem(COOKIE_LAST_CFG);
         let data = localStorage.getItem('shop_people')
         let particle = cc.find("Canvas/bg/bgImg/particle")
@@ -81,7 +82,17 @@ export class CupMgr extends cc.Component {
 
         this._waterFlow = _node.addComponent(WaterFlow);
         this.show_prop(node)
+        if (this._level == 1) {
+            setTimeout(() => {
+                let evtData = {
+                    taskFlie: "GuideTask",
+                    stepIndex: 0
+                }
 
+                cc.systemEvent.emit("ExcuteGuideTask", evtData); //注册引导事件
+
+            }, 300);
+        }
     }
 
     private initCfg() {

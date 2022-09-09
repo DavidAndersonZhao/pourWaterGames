@@ -72,6 +72,7 @@ export default class PlayScene extends cc.Component {
         if (SetCom.global_prop.reset) {
             this.handleActionBtn(--SetCom.global_prop.reset, 'reset')
         } else {
+            
             SetCom.advertisement(
                 {
                     success: (_res) => {

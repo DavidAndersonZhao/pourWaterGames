@@ -337,7 +337,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 687,
-      "height": 575
+      "height": 532
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -782,7 +782,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 115,
+      "width": 90,
       "height": 37.8
     },
     "_anchorPoint": {
@@ -834,8 +834,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "载入中...",
-    "_N$string": "载入中...",
+    "_string": "载入中",
+    "_N$string": "载入中",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,

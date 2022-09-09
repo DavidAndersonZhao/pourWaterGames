@@ -193,6 +193,7 @@ export default class NewClass extends cc.Component {
                 }
 
                 handleButton.on('click', () => {
+
                     if (element.imgNum == 1) {
                         SetCom.advertisement(
                             {
@@ -229,7 +230,7 @@ export default class NewClass extends cc.Component {
             let num = element.id == shop_people?.id ? 0 : 1
             shop.getComponent(cc.Sprite).spriteFrame = this.people_list.imgs[element.imgNum - 1]
             handleButton.getComponent(cc.Sprite).spriteFrame = this.people_list.btns[num]
-            debugger
+            
 
             group.getComponent(cc.Sprite).spriteFrame = this.people_list.groups[element.icon - 1]
 

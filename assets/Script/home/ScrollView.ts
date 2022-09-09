@@ -126,10 +126,11 @@ export default class NewClass extends cc.Component {
             tashBtn.on('click', (e) => {
                 if (element.taskState != 4) {
                     let handleName = element.taskState == 3 ? 'advertisement' : 'shareFriend'
-
+                    
                     SetCom[handleName](
                         {
                             success: (_res) => {
+                                
                                 this.receiveReward(e, element, taskLabel)
                             },
                         })
@@ -146,7 +147,6 @@ export default class NewClass extends cc.Component {
     }
     opcOpen() {
         this.node.active = true
-        this.initialize()
     }
     resOpenModal(data, img: cc.SpriteFrame, label) {
         let obj = {
@@ -185,6 +185,9 @@ export default class NewClass extends cc.Component {
         }
         this.homeCom.show()
         data.taskState = 4
+    }
+    onLoad(){
+        this.initialize()
     }
     start() {
     }

@@ -125,44 +125,66 @@ export default class SetCom extends cc.Component {
     ]
     static isShared: boolean = false
     static shareTag: string = 'keys'
+    static loadScence: string = null
     static closeTime: number = new Date().getTime();
     static bannerAd: any = null
     static gridAd: any = null
+    static successFn: Function | null = null
+    static cancelFn: Function | null = null
+    static failFn: Function | null = null
+    static videoAd: any = null
+    static resetEvent() {
+        SetCom.successFn = null
+        SetCom.cancelFn = null
+        SetCom.failFn = null
+    }
     static advertisement = debounce(function ({ success, cancel = (str?: string) => { }, fail = (str?: string) => { } }) {
+
         if (!CC_WECHATGAME) return
-        // 创建激励视频广告实例，提前初始化
-        let videoAd = wx.createRewardedVideoAd({
-            adUnitId: 'adunit-f18152a955d3f21f'
-        })
+
+        SetCom.successFn = success
+        SetCom.cancelFn = cancel
+        SetCom.failFn = fail
 
         // 用户触发广告后，显示激励视频广告
-        videoAd.show().catch(() => {
+        SetCom.videoAd.show().catch(() => {
             // 失败重试
-            videoAd.load()
-                .then(() => videoAd.show())
+            SetCom.videoAd.load()
+                .then(() => SetCom.videoAd.show())
                 .catch(err => {
                     fail('播放失败')
                 })
         })
 
-        videoAd.onClose(res => {
-            // 用户点击了【关闭广告】按钮
-            // 小于 2.1.0 的基础库版本，res 是一个 undefined
-            if (res && res.isEnded || res === undefined) {
-                // 正常播放结束，可以下发游戏奖励
-                success('播放结束')
-            }
-            else {
-                // 播放中途退出，不下发游戏奖励
-                cancel('播放取消')
-            }
-        })
-        videoAd.onError(err => {
-            fail('播放失败')
-        })
-    }, 500)
+    }, 800)
     bannerAngGridAdvertisement() {
         if (CC_WECHATGAME) {
+            if (!SetCom.videoAd) {
+                // 创建激励视频广告实例，提前初始化
+                SetCom.videoAd = wx.createRewardedVideoAd({
+                    adUnitId: 'adunit-f18152a955d3f21f'
+                })
+
+
+                SetCom.videoAd.onClose(res => {
+                    // 用户点击了【关闭广告】按钮
+                    // 小于 2.1.0 的基础库版本，res 是一个 undefined
+                    if (res && res.isEnded || res === undefined) {
+                        // 正常播放结束，可以下发游戏奖励
+                        SetCom?.successFn('播放结束')
+                        SetCom.resetEvent()
+                    }
+                    else {
+                        // 播放中途退出，不下发游戏奖励
+                        SetCom?.cancelFn('播放取消')
+                        SetCom.resetEvent()
+                    }
+                })
+                SetCom.videoAd.onError(err => {
+                    SetCom?.failFn('播放失败')
+                    SetCom.resetEvent()
+                })
+            }
             let windowSetting
             if (wx.getWindowInfo) {
                 windowSetting = wx.getWindowInfo()
@@ -173,6 +195,8 @@ export default class SetCom extends cc.Component {
                     content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
                 })
             }
+            SetCom.bannerAd?.destroy()
+            SetCom.gridAd?.destroy()
             SetCom.bannerAd = wx.createBannerAd({
                 adUnitId: 'adunit-80cfe596bb2a5337',
                 adIntervals: 30, // 自动刷新频率不能小于30秒
@@ -249,7 +273,9 @@ export default class SetCom extends cc.Component {
                     let curTime = new Date().getTime();
                     if (curTime - SetCom.closeTime >= 3000) {
                         // console.log("分享成功");
-                        SetCom.successFn('分享成功')
+                        SetCom?.successFn('分享成功')
+                        SetCom.resetEvent()
+
 
                     } else {
                         wx.showModal({
@@ -261,7 +287,9 @@ export default class SetCom extends cc.Component {
 
                         })
 
-                        SetCom.cancelFn('分享取消')
+                        SetCom?.cancelFn('分享取消')
+                        SetCom.resetEvent()
+
                     }
                     SetCom.isShared = false;
                     SetCom.shareTag = "";

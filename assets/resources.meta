@@ -7,7 +7,7 @@
   "priority": 8,
   "compressionType": {
     "web-mobile": "default",
-    "wechatgame": "default"
+    "wechatgame": "merge_all_json"
   },
   "optimizeHotUpdate": {
     "web-mobile": false,

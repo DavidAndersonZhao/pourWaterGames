@@ -10,6 +10,7 @@ import Draw from "./Draw";
 import Sign from "./sign";
 import Task from "./ScrollView";
 import SetCom from "../utils/setCom";
+import Modal from "../utils/modal"
 enum OpcState {
     default,
     people,
@@ -132,7 +133,7 @@ export default class NewClass extends cc.Component {
         }
         opc.active = true;
         let node = cc.find("Canvas");
-        let opcScript = opc.getComponent('modal')
+        let opcScript: Modal = opc.getComponent('modal')
         if (noDouble) opc.getChildByName('handle').getChildByName('btn').active = false
         opcScript.changeNode(data, type, this.show.bind(this))
         node.addChild(opc);
@@ -178,8 +179,10 @@ export default class NewClass extends cc.Component {
         this.show()
 
         this.setTaskFn()
-
-        this.setSignState(this.signOpc.getSignOrRepair())
+        if (SetCom.loadScence == 'loading') {
+            this.setSignState(this.signOpc.getSignOrRepair())
+            SetCom.loadScence = null
+        }
         this.getLevel()
         cc.resources.loadDir("prefabs/animationJson", (err, assets: cc.Prefab[]) => {
             let spin_assets = {

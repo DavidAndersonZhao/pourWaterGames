@@ -16,6 +16,7 @@ export default class NewClass extends cc.Component {
     private compDegress: number = 0
     private nowTime: number = 0
     private allTime: number = 10
+    private timeInt = null
     onLoad() {
         if (typeof wx !== "undefined") {
             wx.cloud.init({
@@ -23,26 +24,42 @@ export default class NewClass extends cc.Component {
             })
         }
 
-
         this.proBar = this.progressBar.getComponent(cc.ProgressBar);
 
         this.loadSources();
+        this.textAnimation()
 
     }
     _progressCallback(completeCount, totalCount, res) {
-        this.compDegress = completeCount / totalCount; 
+        this.compDegress = completeCount / totalCount;
     }
 
     _completeCallback(err, texture) {
         //加载完成回调
+        SetCom.loadScence = 'loading'
         cc.director.loadScene("home");
+        clearInterval(this.timeInt)
+    }
+    textAnimation() {
+        let textArr = [
+            '载入中.',
+            '载入中..',
+            '载入中...',
+            '载入中....',
+            '载入中.....',
+            '载入中......',
+        ]
+        let num = 0
+        this.timeInt = setInterval(() => {
+            this.status.string = textArr[num++ % textArr.length]
+        }, 1000)
     }
     loadSources() {
         var _this = this;
         cc.loader.loadResDir(
             "/",
             _this._progressCallback.bind(_this),
-            _this._completeCallback.bind(_this)
+            // _this._completeCallback.bind(_this)
         );
         cc.resources.loadDir("Texture", function (err, assets) {
             let propImg = [

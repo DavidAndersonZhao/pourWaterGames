@@ -57,6 +57,7 @@ export default class NewClass extends cc.Component {
         this.get_sign_datas()
 
         this.data_init()
+        this.init()
     }
 
     private recordData() {
@@ -97,7 +98,6 @@ export default class NewClass extends cc.Component {
 
     opcOpen() {
         this.node.active = true
-        this.init()
     }
     handleClick(e, name) {
         if (!this.sign_datas[this.current_num].isToday) {
@@ -106,6 +106,7 @@ export default class NewClass extends cc.Component {
         switch (name) {
             case 'double':
                 this.doubleState = true
+
                 SetCom.advertisement(
                     {
                         success: (_res) => {
@@ -179,8 +180,9 @@ export default class NewClass extends cc.Component {
     init() {
         this.get_sign_datas()
         this.data_init()
-
+        
         let sign_node_datas = this.node.getChildByName('layout').children.filter(item => item.name == 'sbg')
+
         for (let i = 0; i < sign_node_datas.length; i++) {
             const item = sign_node_datas[i];
             const sign_data = this.sign_datas[i];
@@ -201,6 +203,7 @@ export default class NewClass extends cc.Component {
                     mask.getChildByName('repairSignBtn').active = false
                 } else {
                     mask.getChildByName('repairSignBtn').active = true
+
                     mask.getChildByName('repairSignBtn').on('click', () => {
                         SetCom.advertisement({
                             success: () => {

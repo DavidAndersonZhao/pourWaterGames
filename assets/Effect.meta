@@ -6,7 +6,7 @@
   "bundleName": "",
   "priority": "5",
   "compressionType": {
-    "wechatgame": "default"
+    "wechatgame": "merge_all_json"
   },
   "optimizeHotUpdate": {
     "wechatgame": false
