@@ -109,6 +109,14 @@ export default class NewClass extends cc.Component {
                             success: (_res) => {
                                 this.startAni();
                             },
+                            fail: () => {
+                                SetCom.shareFriend(
+                                    {
+                                        success: (_res) => {
+                                            this.startAni();
+                                        },
+                                    })
+                            }
                         })
                 }
                 break;
@@ -123,7 +131,7 @@ export default class NewClass extends cc.Component {
     notNeed(event: any, data: string) {
         this.node.active = false
     }
-    
+
     opcOpen() {
         let node_list = this.node.getChildByName('layout').children
         for (let item of node_list) {
@@ -143,9 +151,9 @@ export default class NewClass extends cc.Component {
     getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min; 
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    
+
     startAni() {
         let randomNum = this.getRandomIntInclusive(20, 50)
         this._targetIndex = [randomNum];
@@ -211,10 +219,10 @@ export default class NewClass extends cc.Component {
             case 2:
             case 3:
             case 5:
-                this.node.parent.getComponent('home').openOpc(3, obj,undefined,this.dobuleImg,'收下了',1);
+                this.node.parent.getComponent('home').openOpc(3, obj, undefined, this.dobuleImg, '收下了', 1);
                 break;
             case 4:
-                this.node.parent.getComponent('home').openOpc(2, obj,undefined,this.dobuleImg,'收下了',1);
+                this.node.parent.getComponent('home').openOpc(2, obj, undefined, this.dobuleImg, '收下了', 1);
                 break;
             default:
                 break;

@@ -63,7 +63,16 @@ export class DlgYouWin extends BaseDialog {
                         if (homeScript) homeScript._updateSpirit()
                         opacity.destroy()
                     },
-
+                    fail: () => {
+                        SetCom.shareFriend(
+                            {
+                                success: (_res) => {
+                                    SetCom.addPower(5)
+                                    if (homeScript) homeScript._updateSpirit()
+                                    opacity.destroy()
+                                },
+                            })
+                    }
                 })
 
         })

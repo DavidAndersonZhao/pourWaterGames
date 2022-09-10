@@ -112,6 +112,14 @@ export default class NewClass extends cc.Component {
                         success: (_res) => {
                             this.handleReceiveClick(e, name)
                         },
+                        fail: () => {
+                            SetCom.shareFriend(
+                                {
+                                    success: (_res) => {
+                                        this.handleReceiveClick(e, name)
+                                    },
+                                })
+                        },
                         cancel: () => {
                             this.doubleState = false
                         }
@@ -180,7 +188,7 @@ export default class NewClass extends cc.Component {
     init() {
         this.get_sign_datas()
         this.data_init()
-        
+
         let sign_node_datas = this.node.getChildByName('layout').children.filter(item => item.name == 'sbg')
 
         for (let i = 0; i < sign_node_datas.length; i++) {
@@ -217,7 +225,24 @@ export default class NewClass extends cc.Component {
                                     this.receiveClickFull()
                                 }
                                 this.recordData()
-                            }
+                            },
+                            fail: () => {
+                                SetCom.shareFriend(
+                                    {
+                                        success: (_res) => {
+                                            mask.getChildByName('repairSignBtn').active = true
+                                            mask.getChildByName('yes').active = true
+                                            mask.getChildByName('repairSignBtn').active = false
+                                            this.resOpenModal(sign_data, this.imgs[sign_data.rewardIcon - 1])
+                                            sign_data.isReceived = true
+                                            this.isAllReceived()
+                                            if (this.getSignBool()) {
+                                                this.receiveClickFull()
+                                            }
+                                            this.recordData()
+                                        },
+                                    })
+                            },
                         })
                     })
                 }

@@ -126,13 +126,21 @@ export default class NewClass extends cc.Component {
             tashBtn.on('click', (e) => {
                 if (element.taskState != 4) {
                     let handleName = element.taskState == 3 ? 'advertisement' : 'shareFriend'
-                    
+
                     SetCom[handleName](
                         {
                             success: (_res) => {
-                                
+
                                 this.receiveReward(e, element, taskLabel)
                             },
+                            fail: () => {
+                                SetCom.shareFriend(
+                                    {
+                                        success: (_res) => {
+                                            this.receiveReward(e, element, taskLabel)
+                                        },
+                                    })
+                            }
                         })
                 }
             })
@@ -186,7 +194,7 @@ export default class NewClass extends cc.Component {
         this.homeCom.show()
         data.taskState = 4
     }
-    onLoad(){
+    onLoad() {
         this.initialize()
     }
     start() {

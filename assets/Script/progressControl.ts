@@ -56,11 +56,11 @@ export default class NewClass extends cc.Component {
     }
     loadSources() {
         var _this = this;
-        cc.loader.loadResDir(
-            "/",
-            _this._progressCallback.bind(_this),
-            // _this._completeCallback.bind(_this)
-        );
+        // cc.loader.loadResDir(
+        //     "/",
+        //     _this._progressCallback.bind(_this),
+        //     // _this._completeCallback.bind(_this)z
+        // );
         cc.resources.loadDir("Texture", function (err, assets) {
             let propImg = [
                 '滴管@2x',

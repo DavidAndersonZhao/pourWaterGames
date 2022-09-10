@@ -101,7 +101,7 @@ export default class NewClass extends cc.Component {
     start() {
 
     }
-    handlePropState(list,index){
+    handlePropState(list, index) {
         const element = list[index];
         this.resOpenModal({ ...element, type: 3 }, this.prop_list.imgs[element.imgNum - 1], undefined, () => { list[index].propsState = 1 })
 
@@ -138,7 +138,7 @@ export default class NewClass extends cc.Component {
                                 localStorage.setItem('shopJson', JSON.stringify(json))
                             },
                         })
-                        return
+                    return
                     break;
                 case 2:
                     this.savePropState(element, false)
@@ -200,6 +200,14 @@ export default class NewClass extends cc.Component {
                                 success: (_res) => {
                                     this.getPeopleFn(element, list, json, index)
                                 },
+                                fail: () => {
+                                    SetCom.shareFriend(
+                                        {
+                                            success: (_res) => {
+                                                this.getPeopleFn(element, list, json, index)
+                                            },
+                                        })
+                                },
                             })
                         return
                     }
@@ -230,7 +238,7 @@ export default class NewClass extends cc.Component {
             let num = element.id == shop_people?.id ? 0 : 1
             shop.getComponent(cc.Sprite).spriteFrame = this.people_list.imgs[element.imgNum - 1]
             handleButton.getComponent(cc.Sprite).spriteFrame = this.people_list.btns[num]
-            
+
 
             group.getComponent(cc.Sprite).spriteFrame = this.people_list.groups[element.icon - 1]
 
