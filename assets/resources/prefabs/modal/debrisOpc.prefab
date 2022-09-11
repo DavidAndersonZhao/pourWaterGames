@@ -851,7 +851,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -350.614,
+        -242.972,
         0,
         0,
         0,
@@ -1021,9 +1021,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 243,
-      "g": 212,
-      "b": 55,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1041,7 +1041,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -492.674,
+        -364.667,
         0,
         0,
         0,
@@ -1089,7 +1089,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 4,
+    "_styleFlags": 5,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

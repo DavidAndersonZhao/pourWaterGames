@@ -140,8 +140,11 @@ export default class SetCom extends cc.Component {
     }
     static advertisement = debounce(function ({ success, cancel = (str?: string) => { }, fail = (str?: string) => { } }) {
 
-        if (!CC_WECHATGAME) return
-
+        if (!CC_WECHATGAME) {
+            success()
+            console.log('广告');
+            return
+        }
         SetCom.successFn = success
         SetCom.cancelFn = cancel
         SetCom.failFn = fail
@@ -261,6 +264,9 @@ export default class SetCom extends cc.Component {
                 title: getRandomItem(textArr, (item) => item),
                 imageUrl: getRandomItem(imgUrls, (item) => item),
             })
+        } else {
+            console.log('分享');
+            success()
         }
     }, 500)
     static shareFn = false

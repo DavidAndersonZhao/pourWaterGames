@@ -1,6 +1,7 @@
 {
     "msg": "操作成功",
     "rewardText": "rewardIcon:1:后退,2:重置,3.试管,4:碎片,5:体力",
+    "stateRepair": "补签按钮状态：1视频，2分享",
     "data": [
         {
             "id": 1,
@@ -9,7 +10,8 @@
             "text": "后退x1",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 1
         },
         {
             "id": 2,
@@ -18,7 +20,8 @@
             "text": "重置x1",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 2
         },
         {
             "id": 3,
@@ -27,7 +30,8 @@
             "text": "试管x1",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 1
         },
         {
             "id": 4,
@@ -36,7 +40,8 @@
             "text": "碎片x5",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 2
         },
         {
             "id": 5,
@@ -45,7 +50,8 @@
             "text": "体力x5",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 1
         },
         {
             "id": 6,
@@ -54,7 +60,8 @@
             "text": "后退x1",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 1
         },
         {
             "id": 7,
@@ -63,7 +70,8 @@
             "text": "体力x10",
             "isToday": false,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 1
         },
         {
             "id": 8,
@@ -75,7 +83,8 @@
             "text2": "体力x5",
             "isToday": true,
             "isReceived": false,
-            "isRepair": false
+            "isRepair": false,
+            "stateRepair": 1
         }
     ]
 }

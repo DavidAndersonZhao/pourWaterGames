@@ -803,7 +803,7 @@
       "__id__": 20
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 22
@@ -825,8 +825,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 384,
-      "height": 140
+      "width": 204,
+      "height": 93
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -838,14 +838,14 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -350.614,
+        -242.972,
         0,
         0,
         0,
         0,
         1,
-        1,
-        1,
+        1.5,
+        1.5,
         1
       ]
     },
@@ -878,10 +878,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "b2370d3c-e2b7-4ab7-9609-736eec7c1a80"
+      "__uuid__": "84e9a030-64d6-47a2-8d0b-683a83cbe148"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -913,8 +913,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 1,
+    "transition": 1,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -982,7 +982,7 @@
     "asset": {
       "__uuid__": "0bfd7bc7-acbb-4501-91a0-55a833742cf8"
     },
-    "fileId": "7bD6bjvSVIiaG4XJXKaFBY",
+    "fileId": "35DxIEjQpAHYyUNq8j4iZC",
     "sync": false
   },
   {
@@ -1008,9 +1008,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 243,
-      "g": 212,
-      "b": 55,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -1028,7 +1028,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -492.674,
+        -364.667,
         0,
         0,
         0,
@@ -1076,7 +1076,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 4,
+    "_styleFlags": 5,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1161,7 +1161,7 @@
     "asset": {
       "__uuid__": "0bfd7bc7-acbb-4501-91a0-55a833742cf8"
     },
-    "fileId": "f4K4eaqwZIbIZWMiDYxNOT",
+    "fileId": "74Ck8SzelFpZMeM3+SBmTP",
     "sync": false
   },
   {
@@ -1172,7 +1172,7 @@
     "asset": {
       "__uuid__": "0bfd7bc7-acbb-4501-91a0-55a833742cf8"
     },
-    "fileId": "47Twfv+2dDYY13i/p/WoPx",
+    "fileId": "7dcFSYMilEcKEnJv8XgjaJ",
     "sync": false
   },
   {

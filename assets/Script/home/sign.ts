@@ -33,6 +33,9 @@ export default class NewClass extends cc.Component {
     @property(cc.SpriteFrame)
     imgs: cc.SpriteFrame[] = []
 
+    @property(cc.SpriteFrame)
+    repairImgs: cc.SpriteFrame[] = []
+
     @property(cc.JsonAsset)
     private signCfg: cc.JsonAsset = null;
     private sign_datas = []
@@ -211,37 +214,39 @@ export default class NewClass extends cc.Component {
                     mask.getChildByName('repairSignBtn').active = false
                 } else {
                     mask.getChildByName('repairSignBtn').active = true
-
+                    mask.getChildByName('repairSignBtn').getComponent(cc.Sprite).spriteFrame = this.repairImgs[(sign_data.stateRepair||1) - 1]
                     mask.getChildByName('repairSignBtn').on('click', () => {
+                        const resFn = (_res?) => {
+                            mask.getChildByName('repairSignBtn').active = true
+                            mask.getChildByName('yes').active = true
+                            mask.getChildByName('repairSignBtn').active = false
+                            this.resOpenModal(sign_data, this.imgs[sign_data.rewardIcon - 1])
+                            sign_data.isReceived = true
+                            this.isAllReceived()
+                            if (this.getSignBool()) {
+                                this.receiveClickFull()
+                            }
+                            this.recordData()
+                        }
+                        let shareFn = () => {
+                            SetCom.shareFriend(
+                                {
+                                    success: (_res) => {
+                                        resFn(_res)
+                                    },
+                                })
+                        }
+                        // 分享
+                        if (sign_data.stateRepair == 2) {
+                            shareFn()
+                            return
+                        }
                         SetCom.advertisement({
                             success: () => {
-                                mask.getChildByName('repairSignBtn').active = true
-                                mask.getChildByName('yes').active = true
-                                mask.getChildByName('repairSignBtn').active = false
-                                this.resOpenModal(sign_data, this.imgs[sign_data.rewardIcon - 1])
-                                sign_data.isReceived = true
-                                this.isAllReceived()
-                                if (this.getSignBool()) {
-                                    this.receiveClickFull()
-                                }
-                                this.recordData()
+                                resFn()
                             },
                             fail: () => {
-                                SetCom.shareFriend(
-                                    {
-                                        success: (_res) => {
-                                            mask.getChildByName('repairSignBtn').active = true
-                                            mask.getChildByName('yes').active = true
-                                            mask.getChildByName('repairSignBtn').active = false
-                                            this.resOpenModal(sign_data, this.imgs[sign_data.rewardIcon - 1])
-                                            sign_data.isReceived = true
-                                            this.isAllReceived()
-                                            if (this.getSignBool()) {
-                                                this.receiveClickFull()
-                                            }
-                                            this.recordData()
-                                        },
-                                    })
+                                shareFn()
                             },
                         })
                     })
