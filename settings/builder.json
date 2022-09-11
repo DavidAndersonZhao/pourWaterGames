@@ -15,7 +15,7 @@
   "inlineSpriteFrames_native": true,
   "mergeStartScene": false,
   "mainCompressionType": "merge_all_json",
-  "mainIsRemote": true,
+  "mainIsRemote": false,
   "optimizeHotUpdate": false,
   "md5Cache": true,
   "nativeMd5Cache": true,

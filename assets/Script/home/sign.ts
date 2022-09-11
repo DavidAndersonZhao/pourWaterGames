@@ -214,7 +214,7 @@ export default class NewClass extends cc.Component {
                     mask.getChildByName('repairSignBtn').active = false
                 } else {
                     mask.getChildByName('repairSignBtn').active = true
-                    mask.getChildByName('repairSignBtn').getComponent(cc.Sprite).spriteFrame = this.repairImgs[(sign_data.stateRepair||1) - 1]
+                    mask.getChildByName('repairSignBtn').getComponent(cc.Sprite).spriteFrame = this.repairImgs[(sign_data.stateRepair || 1) - 1]
                     mask.getChildByName('repairSignBtn').on('click', () => {
                         const resFn = (_res?) => {
                             mask.getChildByName('repairSignBtn').active = true
@@ -281,7 +281,7 @@ export default class NewClass extends cc.Component {
                 "curState": data.rewardIcon,
                 "curState2": data.rewardIcon2,
             }
-            this.node.parent.getComponent('home').openOpc(4, obj, true);
+            this.node.parent.getComponent('home').openOpc(4, obj, true, undefined, '收下了');
             return
         }
         let obj = {
@@ -296,10 +296,10 @@ export default class NewClass extends cc.Component {
             case 2:
             case 3:
             case 5:
-                this.node.parent.getComponent('home').openOpc(3, obj, true);
+                this.node.parent.getComponent('home').openOpc(3, obj, true, undefined, '收下了');
                 break;
             case 4:
-                this.node.parent.getComponent('home').openOpc(2, obj, true);
+                this.node.parent.getComponent('home').openOpc(2, obj, true, undefined, '收下了');
                 break;
             default:
                 break;
