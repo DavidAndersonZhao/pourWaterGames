@@ -11,6 +11,7 @@ import Sign from "./sign";
 import Task from "./ScrollView";
 import SetCom from "../utils/setCom";
 import Modal from "../utils/modal"
+import { UtilAudio } from "../utils/audio_util";
 enum OpcState {
     default,
     people,
@@ -180,7 +181,13 @@ export default class NewClass extends cc.Component {
 
         this.setTaskFn()
         if (SetCom.loadScence == 'loading') {
-            this.setSignState(this.signOpc.getSignOrRepair())
+            if (this.signOpc.data_init()) {
+                this.setSignState(this.signOpc.getSignOrRepair())
+                this.drawOpcShow(undefined, 'sign', true)
+            } else {
+                this.drawOpcShow(undefined, 'draw', true)
+
+            }
             SetCom.loadScence = null
         }
         this.getLevel()
@@ -194,12 +201,7 @@ export default class NewClass extends cc.Component {
 
             let node = cc.instantiate(SetCom.getSomeSpin(cc.sys.localStorage.getItem('level'), "home"));
             cc.find("Canvas/bgImg").addChild(node);
-            if (this.signOpc.data_init()) {
-                this.drawOpcShow(undefined, 'sign')
-            } else {
-                this.drawOpcShow(undefined, 'draw')
 
-            }
         })
     }
     show() {
@@ -210,6 +212,7 @@ export default class NewClass extends cc.Component {
         this.spirit.string = `${SetCom.global_prop.physicalStrength}/10`
     }
     setClick() {
+        UtilAudio.btnAudioClick()
         let setOpc = cc.instantiate(this.resources);
         setOpc.active = true;
         this.switchStateFn(setOpc);
@@ -239,7 +242,9 @@ export default class NewClass extends cc.Component {
         node.getComponent(cc.Sprite).spriteFrame = this.btns[Number(set)];
     }
 
-    drawOpcShow(e, name: string) {
+    drawOpcShow(e, name: string, haveAudio: true) {
+        if (!haveAudio) UtilAudio.btnAudioClick()
+
         switch (name) {
             case 'draw':
                 this.drawOpc.opcOpen()
@@ -259,9 +264,9 @@ export default class NewClass extends cc.Component {
     }
 
     addPower() {
+        UtilAudio.modalAudioClick()
         let winScript = this.node.getComponent('dlg_youWIn')
         winScript.physicalOpacityFunction()
-
     }
     start() {
 

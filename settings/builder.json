@@ -11,11 +11,11 @@
     "upsideDown": false
   },
   "webOrientation": "auto",
-  "inlineSpriteFrames": false,
+  "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
   "mergeStartScene": false,
-  "mainCompressionType": "merge_all_json",
-  "mainIsRemote": false,
+  "mainCompressionType": "default",
+  "mainIsRemote": true,
   "optimizeHotUpdate": false,
   "md5Cache": true,
   "nativeMd5Cache": true,
@@ -54,9 +54,9 @@
   },
   "appBundle": false,
   "agreements": {
-    "20200904180755": true,
+    "20200904180755": false,
     "20200904180716": false,
-    "20220901093235": true
+    "20220901093235": false
   },
   "includeAnySDK": false
 }

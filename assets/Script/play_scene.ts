@@ -68,6 +68,7 @@ export default class PlayScene extends cc.Component {
 
     onBtn_restart() {
         if (this.cupMgr.haveAnimationPlay) return
+        UtilAudio.btnAudioClick()
 
         if (SetCom.global_prop.reset) {
             this.handleActionBtn(--SetCom.global_prop.reset, 'reset')
@@ -97,6 +98,7 @@ export default class PlayScene extends cc.Component {
 
     onBtn_recover() {
         this.cupMgr.undoAction(() => {
+            UtilAudio.btnAudioClick()
             if (SetCom.global_prop.backOff) {
                 this.handleActionBtn(--SetCom.global_prop.backOff, 'back')
             } else {
@@ -123,6 +125,7 @@ export default class PlayScene extends cc.Component {
     }
     addCur() {
         if (this.addCurDone) return
+        UtilAudio.btnAudioClick()
         if (SetCom.global_prop.testTube) {
             this.handleActionBtn(--SetCom.global_prop.testTube, 'add')
             this.cupMgr.addcur()
@@ -152,6 +155,7 @@ export default class PlayScene extends cc.Component {
 
     onBtn_setting() {
         DlgSetting.show();
+        UtilAudio.btnAudioClick()
     }
 
     nextToLevel() {

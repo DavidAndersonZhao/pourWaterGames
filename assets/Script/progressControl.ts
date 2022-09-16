@@ -1,4 +1,5 @@
 const { ccclass, property } = cc._decorator;
+import { UtilAudio } from "./utils/audio_util";
 import SetCom from "./utils/setCom";
 
 @ccclass
@@ -35,6 +36,7 @@ export default class NewClass extends cc.Component {
     }
 
     _completeCallback(err, texture) {
+        UtilAudio.beforeloadAll()
         //加载完成回调
         SetCom.loadScence = 'loading'
         cc.director.loadScene("home");

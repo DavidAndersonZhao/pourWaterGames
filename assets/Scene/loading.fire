@@ -447,7 +447,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 1,
+    "_alignFlags": 17,
     "_left": 0,
     "_right": 0,
     "_top": 0,
@@ -890,7 +890,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0.037,
+        0.03700000000003456,
         0,
         0,
         0,
@@ -1262,7 +1262,7 @@
       "width": 750,
       "height": 1624
     },
-    "_fitWidth": true,
+    "_fitWidth": false,
     "_fitHeight": true,
     "_id": "59Cd0ovbdF4byw5sbjJDx7"
   },

@@ -1,5 +1,6 @@
 import SetCom from "../utils/setCom";
 import { BaseDialog } from "./base_dialog";
+import { AudioEnum, UtilAudio } from "../utils/audio_util";
 
 const { ccclass, property } = cc._decorator;
 
@@ -55,6 +56,7 @@ export class DlgYouWin extends BaseDialog {
         opacity.active = true;
         let canvas = cc.find("Canvas");
         let _handle = opacity.getChildByName("handle");
+        UtilAudio.btnAudioClick()
         _handle.getChildByName("btn")?.on("click", (e) => {
             SetCom.advertisement(
                 {
@@ -89,15 +91,15 @@ export class DlgYouWin extends BaseDialog {
                     cc.director.loadScene(name);
                 } else {
                     this.physicalOpacityFunction()
-
                 }
                 break;
 
             default:
                 cc.director.loadScene(name);
-
                 break;
         }
+        // console.log(e);
+        UtilAudio.btnAudioClick()
 
     }
     static show(toNext) {

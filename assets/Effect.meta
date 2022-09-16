@@ -4,9 +4,9 @@
   "importer": "folder",
   "isBundle": true,
   "bundleName": "",
-  "priority": "5",
+  "priority": "3",
   "compressionType": {
-    "wechatgame": "merge_all_json"
+    "wechatgame": "default"
   },
   "optimizeHotUpdate": {
     "wechatgame": false

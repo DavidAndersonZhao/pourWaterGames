@@ -14,7 +14,7 @@
   "design-resolution-width": 750,
   "design-resolution-height": 1624,
   "fit-width": true,
-  "fit-height": true,
+  "fit-height": false,
   "use-project-simulator-setting": false,
   "simulator-orientation": false,
   "use-customize-simulator": true,
@@ -34,5 +34,5 @@
     }
   },
   "start-scene": "d48cc9fd-a112-48fa-8f26-041ca5af36d3",
-  "last-module-event-record-time": 1662426615178
+  "last-module-event-record-time": 1663075937250
 }

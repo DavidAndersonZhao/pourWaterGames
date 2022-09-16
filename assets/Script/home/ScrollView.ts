@@ -4,6 +4,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 
+import { UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 import Home from "./home";
 
@@ -81,6 +82,7 @@ export default class NewClass extends cc.Component {
     }
 
     receiveReward(e, element, taskLabel) {
+        UtilAudio.modalAudioClick()
         e.node.getComponent(cc.Sprite).spriteFrame = this.taskImg_list.btns[3]
         this.resOpenModal(element, this.taskImg_list.imgs[element.taskIcon - 1], taskLabel + `x${element.taskRewardNum}`)
         element.taskState = 4
@@ -124,13 +126,14 @@ export default class NewClass extends cc.Component {
             taskText.getComponent(cc.Label).string = element.taskText
             taskLabels.getComponent(cc.Label).string = taskLabel + `x${element.taskRewardNum}`
             tashBtn.on('click', (e) => {
+                debugger
+                UtilAudio.btnAudioClick()
                 if (element.taskState != 4) {
                     let handleName = element.taskState == 3 ? 'advertisement' : 'shareFriend'
 
                     SetCom[handleName](
                         {
                             success: (_res) => {
-
                                 this.receiveReward(e, element, taskLabel)
                             },
                             fail: () => {

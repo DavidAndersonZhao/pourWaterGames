@@ -60,13 +60,14 @@ export default class Water extends cc.Component {
     }
 
     private raiseHeight = 0;
-    public raiseInformation(information: WaterInformation) {
+    public raiseInformation(information: WaterInformation,num:number) {
         let raiseInformation = this.informations[this.currentIndex];
         if (raiseInformation && this.raiseHeight) raiseInformation.height = this.raiseHeight
         this.raiseHeight = information.height;
         information.height = 0;
         this.informations.push(information);
         this._motion = PourMotion.enter;
+        
         this.currentIndex = this.informations.length - 1;
 
         this.initialZoomColor();
@@ -96,6 +97,7 @@ export default class Water extends cc.Component {
 
 
     public getPourFinishHorn() {
+        
         this.stopIndex = this.currentIndex - this.getUpIdenticalColorNum();
 
         let _h = 0;
@@ -164,6 +166,7 @@ export default class Water extends cc.Component {
 
 
     additionPace() {
+        
         if (this.currentIndex < 0) {
             return;
         }
@@ -199,7 +202,8 @@ export default class Water extends cc.Component {
         } else {
             is_up = _t > 2.0 * this._proportion * (1.0 - _h);
         }
-
+        // console.log(_h,this.currentIndex);
+        
         let info = this.informations[this.currentIndex];
         if (!is_up) {
             if (info.height < 0.05) {
@@ -217,8 +221,8 @@ export default class Water extends cc.Component {
         if (info.height < 0.01) {
             info.height = 0;
 
-            this.informations.pop();
             this.currentIndex--;
+            this.informations.pop();
             if (this.currentIndex == this.stopIndex) {
                 if (this.onLeaveComplete) {
                     this.onLeaveComplete();

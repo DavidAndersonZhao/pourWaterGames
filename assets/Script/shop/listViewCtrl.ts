@@ -4,6 +4,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 
+import { UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
@@ -123,6 +124,7 @@ export default class NewClass extends cc.Component {
         handleButton.getComponent(cc.Sprite).spriteFrame = this.prop_list.btns[element.propsState - 1]
         label.getComponent(cc.Label).string = element.name
         handleButton.on('click', () => {
+            UtilAudio.btnAudioClick()
             switch (element.propsState) {
                 case 1:
                     element.propsState = 2
@@ -132,6 +134,7 @@ export default class NewClass extends cc.Component {
                     SetCom.shareFriend(
                         {
                             success: (_res) => {
+                                UtilAudio.modalAudioClick()
                                 this.handlePropState(list, index)
                                 handleButton.getComponent(cc.Sprite).spriteFrame = this.prop_list.btns[element.propsState - 1]
                                 json.props = list
@@ -155,6 +158,7 @@ export default class NewClass extends cc.Component {
         content.addChild(_node);
     }
     getPeopleFn(element, list, json, index) {
+        UtilAudio.modalAudioClick()
         this.resOpenModal({ ...element, type: 1 }, this.people_list.imgs[element.imgNum - 1])
         SetCom.global_prop.fragment -= element.price
         list[index].lock = false
@@ -193,6 +197,7 @@ export default class NewClass extends cc.Component {
                 }
 
                 handleButton.on('click', () => {
+                    UtilAudio.btnAudioClick()
 
                     if (element.imgNum == 1) {
                         SetCom.advertisement(
@@ -244,6 +249,7 @@ export default class NewClass extends cc.Component {
 
             label.getComponent(cc.Label).string = element.name
             handleButton.on('click', () => {
+                UtilAudio.btnAudioClick()
                 let shop_people: any = localStorage.getItem('shop_people')
                 if (shop_people) {
                     shop_people = JSON.parse(shop_people)

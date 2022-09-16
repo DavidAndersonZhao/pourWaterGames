@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import { UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 import Home from "./home";
 
@@ -57,9 +58,8 @@ export default class NewClass extends cc.Component {
         }
     }
     onLoad() {
-        this.get_sign_datas()
-
-        this.data_init()
+        SetCom.bannerShow('bannerAd', 'show')
+        SetCom.bannerShow('gridAd', 'show')
         this.init()
     }
 
@@ -75,10 +75,13 @@ export default class NewClass extends cc.Component {
     }
 
     data_init() {
+        if (!this.sign_datas.length) return 
         for (let item of this.sign_datas) {
             item.isToday = false
         }
-        if (!this.sign_datas[this.current_num].isReceived) this.sign_datas[this.current_num].isToday = true
+        // console.log(this.sign_datas,this.current_num);
+        
+        if (!this.sign_datas[this.current_num]?.isReceived) this.sign_datas[this.current_num].isToday = true
         for (let i = 0; i < this.current_num; i++) {
             const item = this.sign_datas[i];
             if (!item.isReceived) {
@@ -106,6 +109,7 @@ export default class NewClass extends cc.Component {
         if (!this.sign_datas[this.current_num].isToday) {
             return
         }
+        UtilAudio.btnAudioClick()
         switch (name) {
             case 'double':
                 this.doubleState = true
@@ -135,8 +139,7 @@ export default class NewClass extends cc.Component {
 
     }
     handleReceiveClick(e, name: string) {
-
-
+        UtilAudio.modalAudioClick()
         this.sign_datas[this.current_num].isToday = false
         this.sign_datas[this.current_num].isReceived = true
         if (this.getSignBool()) {
@@ -184,8 +187,7 @@ export default class NewClass extends cc.Component {
     }
     showButton() {
         if (!this.sign_datas[this.current_num].isToday) {
-            this.node.getChildByName('double').active = false
-            this.node.getChildByName('label').active = false
+            this.node.getChildByName('btnlayout').active = false
         }
     }
     init() {
@@ -216,7 +218,10 @@ export default class NewClass extends cc.Component {
                     mask.getChildByName('repairSignBtn').active = true
                     mask.getChildByName('repairSignBtn').getComponent(cc.Sprite).spriteFrame = this.repairImgs[(sign_data.stateRepair || 1) - 1]
                     mask.getChildByName('repairSignBtn').on('click', () => {
+                        UtilAudio.btnAudioClick()
+
                         const resFn = (_res?) => {
+                            UtilAudio.modalAudioClick()
                             mask.getChildByName('repairSignBtn').active = true
                             mask.getChildByName('yes').active = true
                             mask.getChildByName('repairSignBtn').active = false

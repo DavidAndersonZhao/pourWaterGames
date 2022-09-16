@@ -1,6 +1,7 @@
 
 const { ccclass, property } = cc._decorator;
 import SetCom from "../utils/setCom";
+import { UtilAudio } from "./audio_util";
 
 @ccclass
 export default class NewClass extends cc.Component {
@@ -57,7 +58,10 @@ export default class NewClass extends cc.Component {
         let handle = this.node.getChildByName("handle");
         if (handle.getChildByName("btn").getComponent(cc.Button).clickEvents.length <= 1) {
             handle.getChildByName("btn")?.on("click", (e) => {
+                UtilAudio.btnAudioClick()
+
                 const resFn = (_res) => {
+                    UtilAudio.modalAudioClick()
                     e.node.active = false
                     switch (type) {
                         case 2:

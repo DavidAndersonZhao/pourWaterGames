@@ -1,3 +1,4 @@
+import { UtilAudio } from "./audio_util"
 
 
 interface Prop {
@@ -142,7 +143,7 @@ export default class SetCom extends cc.Component {
 
         if (!CC_WECHATGAME) {
             success()
-            console.log('广告');
+            // console.log('广告');
             return
         }
         SetCom.successFn = success
@@ -204,14 +205,14 @@ export default class SetCom extends cc.Component {
                 adUnitId: 'adunit-80cfe596bb2a5337',
                 adIntervals: 30, // 自动刷新频率不能小于30秒
                 style: {
-                    left: 0,
-                    top: windowSetting?.windowHeight - 100,
-                    height: 100,
-                    width: windowSetting?.screenWidth || 350
+                    left: (windowSetting?.screenWidth - (windowSetting?.screenWidth - 70)) / 2,
+                    top: windowSetting?.windowHeight - 110,
+                    height: 80,
+                    width: (windowSetting?.screenWidth - 70) || 350
                 }
             })
             SetCom.bannerAd.onError(err => {
-                console.log(err)
+                // console.log(err)
             })
             SetCom.gridAd = wx.createCustomAd({
                 adUnitId: 'adunit-91dbf6a007922ac1',
@@ -219,13 +220,13 @@ export default class SetCom extends cc.Component {
                 gridCount: 5,
                 style: {
                     left: windowSetting?.screenWidth - 40 - 20,
-                    top: 100,
+                    top: 85,
                     width: 80,
                     opacity: 0.8
                 }
             })
             SetCom.gridAd.onError(err => {
-                console.log(err)
+                // console.log(err)
             })
         }
     }
@@ -265,7 +266,7 @@ export default class SetCom extends cc.Component {
                 imageUrl: getRandomItem(imgUrls, (item) => item),
             })
         } else {
-            console.log('分享');
+            // console.log('分享');
             success()
         }
     }, 500)
@@ -310,6 +311,9 @@ export default class SetCom extends cc.Component {
      * @param name 
      */
     onScene(e, name) {
+        // if (['shop'].includes(name)) {
+            UtilAudio.btnAudioClick()
+        // }
         cc.director.loadScene(name);
     }
     /**

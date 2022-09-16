@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import { UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 enum GameState {
     Idle,
@@ -155,6 +156,7 @@ export default class NewClass extends cc.Component {
     }
 
     startAni() {
+        UtilAudio.btnAudioClick()
         let randomNum = this.getRandomIntInclusive(20, 50)
         this._targetIndex = [randomNum];
         this._count = 0;
@@ -172,6 +174,7 @@ export default class NewClass extends cc.Component {
                         this._count++;
                         if (this._count > randomNum) {
                             for (let item of node_list) {
+                                UtilAudio.modalAudioClick()
                                 item.stopAllActions();
                             }
                             this._state = GameState.Idle
@@ -179,6 +182,7 @@ export default class NewClass extends cc.Component {
                             return
                         }
                         if (this._index == this._targetIndex[this._count]) {
+                            
                             node_list[this._index].stopAllActions();
                             let blink = cc.sequence(
                                 cc.fadeOut(0.08),
@@ -195,6 +199,8 @@ export default class NewClass extends cc.Component {
                                 })
                             ));
                         }
+                        UtilAudio.draw_play(0.1)
+
                         this._index = (this._index + 1) % node_list.length;
                     }
                 ),

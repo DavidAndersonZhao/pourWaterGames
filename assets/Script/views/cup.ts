@@ -163,12 +163,13 @@ export default class Tube extends cc.Component {
      * @param onPourStart 水开始从瓶口流出
      * @param onPourEnd 本次水倒完毕
      */
-    moveToPour(dstPt: cc.Vec2, isRight: boolean, onPourStart: (c: Tube) => void, onPourEnd: (c: Tube) => void, num?: number,dst?:Tube) {
+    moveToPour(dstPt: cc.Vec2, isRight: boolean, onPourStart: (c: Tube) => void, onPourEnd: (c: Tube) => void, num?: number, dst?: Tube) {
         this.setPourOutCallback(onPourStart, onPourEnd);
+        // TODO:因为water.ts中的raiseInformation执行时间过晚  9.14
         let startAngle = this.water.getPourBeginHorn()
         let endAngle = this.water.getPourFinishHorn()
-        let dstEveOnrZero = dst?.info.colorIds.every(item=>item==0)
-        
+        let dstEveOnrZero = dst?.info.colorIds.every(item => item == 0)
+
         this.water.onBeginPour(num);//TODO: 可能需要调整 7/25
         if (isRight) {
             startAngle *= -1;
@@ -198,7 +199,7 @@ export default class Tube extends cc.Component {
                 if (num && cur < num) {
                     colorIds[i] = 0
                     ++cur
-                }else if(!num){
+                } else if (!num) {
                     colorIds[i] = 0
                 }
             } else {
@@ -223,12 +224,13 @@ export default class Tube extends cc.Component {
             }
         }
         let hex = RiverColors[colorId] || "#538849"
+        // TODO:
         this.water.raiseInformation({
             colorId: colorId,
             height: num / SPLIT_NUM * HEIGHT_RATIO,
             color: new cc.Color().fromHEX(hex)
-        });
- 
+        }, num);
+
         UtilAudio.pourWater_effect_play(num / SPLIT_NUM);
     }
 

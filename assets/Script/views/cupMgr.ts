@@ -42,7 +42,7 @@ export class CupMgr extends cc.Component {
         if (CC_EDITOR) {
             return
         }
-        SetCom.bannerShow('gridAd', 'hide')
+        // SetCom.bannerShow('gridAd', 'hide')
         this._level = checkint(cc.sys.localStorage.getItem(COOKIE_LEVEL) || 1);
 
         let str = cc.sys.localStorage.getItem(COOKIE_LAST_CFG);
@@ -221,6 +221,7 @@ export class CupMgr extends cc.Component {
 
     private selected: Cup = null;
     private onClickCup(cup: Cup) {
+        // UtilAudio.draw_play(1)
         if (this.selected) {
             if (this.selected == cup) {
                 this.doSelect(cup, false);
@@ -322,7 +323,7 @@ export class CupMgr extends cc.Component {
 
             flow.strokeColor = new cc.Color().fromHEX(srcTop.colorHex);
 
-            flow.playWaterAni(startPt, endPt, 0.01, false, () => {
+            flow.playWaterAni(startPt, endPt, 0, false, () => {
                 let fromCupIdx = this._cups.indexOf(src);
                 let toCupIdx = this._cups.indexOf(dst);
                 if (this._actions.length == 5) {
@@ -346,6 +347,8 @@ export class CupMgr extends cc.Component {
 
         this.selected = null;
         let _num = srcTop.topColorNum > dstTop.emptyNum ? dstTop.emptyNum : undefined
+        // console.log(dstPt, isRight,'dstPt, isRight');
+
         src.moveToPour(dstPt, isRight, onPourStart.bind(this), () => this.onPourFinish(src, flow, dst), _num, dst);
     }
     onPourFinish(src, flow, dst) {
@@ -386,14 +389,14 @@ export class CupMgr extends cc.Component {
 
         let { x, y } = to.node.getPosition()
         let _boom = cc.instantiate(this.boom);
-        _boom.zIndex = 99999
+        _boom.zIndex = 9999
         _boom.x = x
         _boom.y = y
         this.node.addChild(_boom)
 
         let isAllFinished = this.checkIsAllFinished();
         if (isAllFinished) {
-            cc.log("---------完成了")
+            // cc.log("---------完成了")
             this._level++;
             UtilAudio.effect_play(AudioEnum.youWin);
 
@@ -431,6 +434,7 @@ export class CupMgr extends cc.Component {
         if (toCup.isPouring() || fromCup.isPouring()) {
             return false;
         }
+
         toCup.removeTopWaterImmediately(num);
         fromCup.addWaterImmediately(colorId, num);
         return true;
