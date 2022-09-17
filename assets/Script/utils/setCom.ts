@@ -273,6 +273,9 @@ export default class SetCom extends cc.Component {
     static shareFn = false
     onLoad() {
         this.bannerAngGridAdvertisement()
+        if (CC_WECHATGAME) {
+            wx.showShareMenu()
+        }
         if (typeof (wx) !== "undefined" && !SetCom.shareFn) {
             wx.onShow(function () {
                 if (SetCom.isShared && SetCom.shareTag == "keys") {
@@ -312,7 +315,7 @@ export default class SetCom extends cc.Component {
      */
     onScene(e, name) {
         // if (['shop'].includes(name)) {
-            UtilAudio.btnAudioClick()
+        UtilAudio.btnAudioClick()
         // }
         cc.director.loadScene(name);
     }

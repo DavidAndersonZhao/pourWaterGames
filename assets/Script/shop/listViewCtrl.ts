@@ -151,7 +151,6 @@ export default class NewClass extends cc.Component {
                     break;
             }
             handleButton.getComponent(cc.Sprite).spriteFrame = this.prop_list.btns[element.propsState - 1]
-            // TODO:打开弹窗
             json.props = list
             localStorage.setItem('shopJson', JSON.stringify(json))
         })

@@ -25,6 +25,7 @@ export default class Water extends cc.Component {
     private informations: WaterInformation[] = [];
     private stopIndex = -1;
     private currentIndex = 0;
+    private upHeight: number
 
     private _proportion: number = 1;
     @property(cc.EffectAsset)
@@ -60,14 +61,14 @@ export default class Water extends cc.Component {
     }
 
     private raiseHeight = 0;
-    public raiseInformation(information: WaterInformation,num:number) {
+    public raiseInformation(information: WaterInformation, num: number) {//TODO:涨水有点问题
         let raiseInformation = this.informations[this.currentIndex];
         if (raiseInformation && this.raiseHeight) raiseInformation.height = this.raiseHeight
         this.raiseHeight = information.height;
         information.height = 0;
         this.informations.push(information);
         this._motion = PourMotion.enter;
-        
+
         this.currentIndex = this.informations.length - 1;
 
         this.initialZoomColor();
@@ -97,7 +98,7 @@ export default class Water extends cc.Component {
 
 
     public getPourFinishHorn() {
-        
+
         this.stopIndex = this.currentIndex - this.getUpIdenticalColorNum();
 
         let _h = 0;
@@ -149,11 +150,31 @@ export default class Water extends cc.Component {
      * 一直倒水直到不同颜色的水到达瓶口，为当前最大能倾斜的角度
      * @returns 返回值为倾斜角度的绝对值 TODO: 可能需要调整 7/25
      */
-    public onBeginPour(num = this.getUpIdenticalColorNum()) {
-        //TODO:水溢出的情况下会有问题
-
+    public onBeginPour(num = this.getUpIdenticalColorNum(), upHeight) {
+        // 赋值为倒水状态
         this._motion = PourMotion.leave;
-        this.stopIndex = this.currentIndex - num;
+        // 拟定一个值为stopIndex 初始值为currentIndex
+        let stopIndex = this.currentIndex
+        // 计数器 倒序迭代
+        let i = this.informations.length
+        while (i--) {
+            // 如果高度系数大于0
+            if (upHeight > 0) {
+                // 从后往前减 直到小于等于0迭代结束
+                upHeight -= this.informations[i].height
+                // 递减
+                stopIndex--
+            } else {
+                break
+            }
+        }
+        // if (upHeight) {
+
+        // }
+        
+        this.stopIndex = stopIndex==-1?this.currentIndex-num:stopIndex
+        // this.stopIndex = this.currentIndex-num
+        this.upHeight = upHeight
     }
 
     update() {
@@ -166,12 +187,15 @@ export default class Water extends cc.Component {
 
 
     additionPace() {
-        
+
         if (this.currentIndex < 0) {
+            this._motion = PourMotion.empty;
             return;
         }
         let infomation = this.informations[this.currentIndex];
         infomation.height = Math.round((infomation.height + 0.005) * 1000) / 1000;
+        // console.log(infomation.height , this.raiseHeight,this.informations,this.currentIndex);
+        
         if (infomation.height >= this.raiseHeight) {
             infomation.height = this.raiseHeight;
             this._motion = PourMotion.empty;
@@ -202,8 +226,7 @@ export default class Water extends cc.Component {
         } else {
             is_up = _t > 2.0 * this._proportion * (1.0 - _h);
         }
-        // console.log(_h,this.currentIndex);
-        
+
         let info = this.informations[this.currentIndex];
         if (!is_up) {
             if (info.height < 0.05) {
@@ -223,6 +246,8 @@ export default class Water extends cc.Component {
 
             this.currentIndex--;
             this.informations.pop();
+            // console.log(this.currentIndex, this.stopIndex);
+
             if (this.currentIndex == this.stopIndex) {
                 if (this.onLeaveComplete) {
                     this.onLeaveComplete();

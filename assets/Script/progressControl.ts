@@ -36,7 +36,6 @@ export default class NewClass extends cc.Component {
     }
 
     _completeCallback(err, texture) {
-        UtilAudio.beforeloadAll()
         //加载完成回调
         SetCom.loadScence = 'loading'
         cc.director.loadScene("home");

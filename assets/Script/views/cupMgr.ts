@@ -281,7 +281,7 @@ export class CupMgr extends cc.Component {
             return true;
         }
 
-        return dstTop.emptyNum != 0 //TODO: 可能需要调整 7/25
+        return dstTop.emptyNum != 0 
 
     }
 
@@ -307,10 +307,11 @@ export class CupMgr extends cc.Component {
         this.haveAnimationPlay = true
 
         dstPt = dst.node.parent.convertToWorldSpaceAR(dstPt);
-
+        // 移动试管
         src.setPourAnchor(isRight)
         dstPt = src.node.parent.convertToNodeSpaceAR(dstPt);
         const flow = this._waterFlow;
+        // 水流宽度
         flow.setWireZoom(this.layout_v.node.scale)
         let num = srcTop.topColorNum > dstTop.emptyNum ? dstTop.emptyNum : srcTop.topColorNum
 
@@ -336,6 +337,7 @@ export class CupMgr extends cc.Component {
                     num: num
                 })
                 cc.sys.localStorage.setItem(COOKIE_ACTION_HISTORY, JSON.stringify(this._actions));
+                // TODO:涨水那个bug应该是这里的num要传消失水的数量
                 dst.startAddWater(srcTop.topColorId, num, (cup: Cup, isFinished: boolean) => {
 
                     this.mapping[src.uuid] = this.mapping[dst.uuid] = false
@@ -349,7 +351,7 @@ export class CupMgr extends cc.Component {
         let _num = srcTop.topColorNum > dstTop.emptyNum ? dstTop.emptyNum : undefined
         // console.log(dstPt, isRight,'dstPt, isRight');
 
-        src.moveToPour(dstPt, isRight, onPourStart.bind(this), () => this.onPourFinish(src, flow, dst), _num, dst);
+        src.moveToPour(dstPt, isRight, onPourStart.bind(this), () => this.onPourFinish(src, flow, dst), _num, dst,num);
     }
     onPourFinish(src, flow, dst) {
 

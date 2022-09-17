@@ -128,7 +128,7 @@ export default class Tube extends cc.Component {
                 onFinish(this, isFinished)
             }
             if (isFinished) {
-                UtilAudio.effect_play(AudioEnum.finishOne, 0.4)
+                UtilAudio.effect_play(AudioEnum.finishOne, 0.3)
             }
         }
         this.water?.setPourInCallback(_onFinish.bind(this));
@@ -163,21 +163,20 @@ export default class Tube extends cc.Component {
      * @param onPourStart 水开始从瓶口流出
      * @param onPourEnd 本次水倒完毕
      */
-    moveToPour(dstPt: cc.Vec2, isRight: boolean, onPourStart: (c: Tube) => void, onPourEnd: (c: Tube) => void, num?: number, dst?: Tube) {
+    moveToPour(dstPt: cc.Vec2, isRight: boolean, onPourStart: (c: Tube) => void, onPourEnd: (c: Tube) => void, num?: number, dst?: Tube,upNum?:number) {
         this.setPourOutCallback(onPourStart, onPourEnd);
-        // TODO:因为water.ts中的raiseInformation执行时间过晚  9.14
         let startAngle = this.water.getPourBeginHorn()
         let endAngle = this.water.getPourFinishHorn()
         let dstEveOnrZero = dst?.info.colorIds.every(item => item == 0)
 
-        this.water.onBeginPour(num);//TODO: 可能需要调整 7/25
+        this.water.onBeginPour(num,upNum / SPLIT_NUM * HEIGHT_RATIO);
         if (isRight) {
             startAngle *= -1;
             endAngle *= -1;
         }
 
         let moveDur = 0.1;
-        let pourDur = 0.4;
+        let pourDur = 0.3;
 
         this.tween = cc.tween(this.node)
             .set({ angle: 0 })
@@ -195,7 +194,7 @@ export default class Tube extends cc.Component {
             if (_id == 0) {
                 continue;
             } else if (top.topColorId == _id) {
-
+                
                 if (num && cur < num) {
                     colorIds[i] = 0
                     ++cur
@@ -224,7 +223,7 @@ export default class Tube extends cc.Component {
             }
         }
         let hex = RiverColors[colorId] || "#538849"
-        // TODO:
+        // TODO:涨水问题怀疑是num问题
         this.water.raiseInformation({
             colorId: colorId,
             height: num / SPLIT_NUM * HEIGHT_RATIO,
@@ -234,7 +233,7 @@ export default class Tube extends cc.Component {
         UtilAudio.pourWater_effect_play(num / SPLIT_NUM);
     }
 
-    /**立刻加水 */
+    /**立刻加水 撤回用 */
     addWaterImmediately(colorId: number, num: number) {
         let acc = 0;
         for (let i = SPLIT_NUM - 1; i >= 0; i--) {
@@ -249,6 +248,7 @@ export default class Tube extends cc.Component {
         this.initWater();
     }
 
+    /**立刻移水 撤回用 */
     removeTopWaterImmediately(num: number) {
         let acc = 0;
         let top = this.getTop();
@@ -272,9 +272,10 @@ export default class Tube extends cc.Component {
 
     getTop() {
         let colorIds = this.info.colorIds;
-        let emptyNum = 0;
-        let topColorId = 0;
-        let topColorNum = 0;
+        let emptyNum = 0;//杯顶的空位有几格
+        let topColorId = 0;//杯顶颜色id
+        let topColorNum = 0;//杯顶的颜色共有几格
+        
         for (let i = 0; i < SPLIT_NUM; i++) {
             if (colorIds[i] == 0) {
                 emptyNum++;
@@ -299,7 +300,7 @@ export default class Tube extends cc.Component {
         this.node.angle = 0;
         this.water.skewAngle = 0
     }
-
+    /** 移动试管 */
     public setPourAnchor(isRight: boolean) {
         let pt = cc.v2(3, 2);
         pt.x = isRight ? (this.node.width - pt.x) : pt.x;
