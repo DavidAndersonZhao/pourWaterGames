@@ -65,7 +65,7 @@ export default class PlayScene extends cc.Component {
     onPourAction() {
 
     }
-
+    // 重置
     onBtn_restart() {
         if (this.cupMgr.haveAnimationPlay) return
         UtilAudio.btnAudioClick()
@@ -95,8 +95,9 @@ export default class PlayScene extends cc.Component {
 
     }
 
-
+    //撤回
     onBtn_recover() {
+        if (this.cupMgr.haveAnimationPlay) return
         this.cupMgr.undoAction(() => {
             UtilAudio.btnAudioClick()
             if (SetCom.global_prop.backOff) {
@@ -123,8 +124,9 @@ export default class PlayScene extends cc.Component {
         });
 
     }
+    // 加管
     addCur() {
-        if (this.addCurDone) return
+        if (this.addCurDone||this.cupMgr.haveAnimationPlay) return
         UtilAudio.btnAudioClick()
         if (SetCom.global_prop.testTube) {
             this.handleActionBtn(--SetCom.global_prop.testTube, 'add')

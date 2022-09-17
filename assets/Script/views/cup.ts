@@ -222,7 +222,9 @@ export default class Tube extends cc.Component {
                 break;
             }
         }
+        
         let hex = RiverColors[colorId] || "#538849"
+        
         // TODO:涨水问题怀疑是num问题
         this.water.raiseInformation({
             colorId: colorId,

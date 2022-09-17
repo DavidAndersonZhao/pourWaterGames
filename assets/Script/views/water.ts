@@ -61,10 +61,14 @@ export default class Water extends cc.Component {
     }
 
     private raiseHeight = 0;
+    private raiseHeightCopy = 0;
     public raiseInformation(information: WaterInformation, num: number) {//TODO:涨水有点问题
         let raiseInformation = this.informations[this.currentIndex];
+        // console.log(raiseInformation, this.raiseHeight);
+        // 处理多个试管一起倒水问题
         if (raiseInformation && this.raiseHeight) raiseInformation.height = this.raiseHeight
         this.raiseHeight = information.height;
+        this.raiseHeightCopy += information.height
         information.height = 0;
         this.informations.push(information);
         this._motion = PourMotion.enter;
@@ -110,7 +114,6 @@ export default class Water extends cc.Component {
     }
 
     private getCriticismHornWithH(_h) {
-        // console.log('h', _h);
 
         let ret = 0;
         if (_h == 0) {
@@ -171,12 +174,12 @@ export default class Water extends cc.Component {
         // if (upHeight) {
 
         // }
-        
-        this.stopIndex = stopIndex==-1?this.currentIndex-num:stopIndex
+
+        this.stopIndex = stopIndex == -1 ? this.currentIndex - num : stopIndex
         // this.stopIndex = this.currentIndex-num
         this.upHeight = upHeight
     }
-
+    private randomNum: string = Math.random().toString(36)
     update() {
         if (this._motion == PourMotion.leave) {
             this.pourPace();
@@ -194,10 +197,11 @@ export default class Water extends cc.Component {
         }
         let infomation = this.informations[this.currentIndex];
         infomation.height = Math.round((infomation.height + 0.005) * 1000) / 1000;
-        // console.log(infomation.height , this.raiseHeight,this.informations,this.currentIndex);
-        
+
         if (infomation.height >= this.raiseHeight) {
             infomation.height = this.raiseHeight;
+            // 由于有多个试管同时倒水，所以这里一定别忘了清零  很重要！！！！！
+            this.raiseHeight = 0
             this._motion = PourMotion.empty;
             if (this.onInsideComplete) {
                 this.onInsideComplete();
@@ -242,6 +246,7 @@ export default class Water extends cc.Component {
 
         info.height = Math.round((info.height - 0.005) * 1000) / 1000;
         if (info.height < 0.01) {
+            console.log(info.height, this.raiseHeight, [...this.informations], this.currentIndex, 'del', this.randomNum);
             info.height = 0;
 
             this.currentIndex--;

@@ -270,6 +270,7 @@ export class CupMgr extends cc.Component {
         let srcTop = src.getTop();
         let dstTop = dst.getTop();
 
+        console.log(srcTop, dstTop);
 
         if (dstTop.topColorId && (dstTop.topColorId != srcTop.topColorId)) {
             return false
@@ -281,7 +282,7 @@ export class CupMgr extends cc.Component {
             return true;
         }
 
-        return dstTop.emptyNum != 0 
+        return dstTop.emptyNum != 0
 
     }
 
@@ -337,6 +338,9 @@ export class CupMgr extends cc.Component {
                     num: num
                 })
                 cc.sys.localStorage.setItem(COOKIE_ACTION_HISTORY, JSON.stringify(this._actions));
+                // console.log(srcTop,
+                //     dstTop,num);
+                // srcTop.topColorNum>dstTop.emptyNum
                 // TODO:涨水那个bug应该是这里的num要传消失水的数量
                 dst.startAddWater(srcTop.topColorId, num, (cup: Cup, isFinished: boolean) => {
 
@@ -351,7 +355,7 @@ export class CupMgr extends cc.Component {
         let _num = srcTop.topColorNum > dstTop.emptyNum ? dstTop.emptyNum : undefined
         // console.log(dstPt, isRight,'dstPt, isRight');
 
-        src.moveToPour(dstPt, isRight, onPourStart.bind(this), () => this.onPourFinish(src, flow, dst), _num, dst,num);
+        src.moveToPour(dstPt, isRight, onPourStart.bind(this), () => this.onPourFinish(src, flow, dst), _num, dst, num);
     }
     onPourFinish(src, flow, dst) {
 
