@@ -26,13 +26,13 @@ export default class CountDownTime extends cc.Component {
     private timeLimit = 600
     private currentTime = 0 || this.timeLimit
     private timeCount: number = this.timeLimit;
-    private minute: number = Math.floor(this.timeLimit / 60); 
-    private second: number = this.timeLimit % 60; 
+    private minute: number = Math.floor(this.timeLimit / 60);
+    private second: number = this.timeLimit % 60;
     getPowerAndTime() {
         let hisTime = SetCom.global_prop.time
         let upTime = SetCom.global_prop.upTime
-        
-        if (!hisTime||!upTime) return
+
+        if (!hisTime || !upTime) return
         let current_time = new Date().getTime()
         let time = (current_time - hisTime) / 1000
         let _utime = (current_time - upTime) / 1000
@@ -56,17 +56,22 @@ export default class CountDownTime extends cc.Component {
 
         }
     }
-    start() {
-        this.getPowerAndTime()
+    protected onLoad(): void {
         this.power_click()
         cc.game.addPersistRootNode(this.node);
         if (typeof (wx) !== "undefined") {
             wx.onShow(() => {
                 this.getPowerAndTime()
             })
+        } else {
+            this.getPowerAndTime()
+
         }
 
         this.node.active = true
+    }
+    start() {
+
     }
     protected onDestroy(): void {
         if (this.timeCount && SetCom.global_prop.physicalStrength < 9) {
@@ -104,11 +109,11 @@ export default class CountDownTime extends cc.Component {
             if (SetCom.global_prop.physicalStrength < 10) {
                 if (this.clickTime < cg.power.getNextTime()) {
                     this.clickTime++;
-                    this.timeCount--; 
+                    this.timeCount--;
                     if (this.timeCount != this.timeLimit) {
                         if (this.second <= 0) {
                             if (this.minute <= 0) {
-                                SetCom.global_prop.physicalStrength++; 
+                                SetCom.global_prop.physicalStrength++;
                                 let { minute, second } = this.timeStampToMinuteAndSecond(this.timeLimit)
                                 this.setMinuteAndSecond(minute, second);
                             } else {
@@ -125,7 +130,7 @@ export default class CountDownTime extends cc.Component {
                     }
                     this.powerCount.string = SetCom.global_prop.physicalStrength + " /10";
                 } else {
-                    SetCom.global_prop.physicalStrength++; 
+                    SetCom.global_prop.physicalStrength++;
                     this.clickTime = this.clickTime - this.timeLimit;
                     this.powerCount.string = SetCom.global_prop.physicalStrength + " /10";
                     this.timeCount = this.timeLimit;

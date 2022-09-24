@@ -246,7 +246,6 @@ export default class Water extends cc.Component {
 
         info.height = Math.round((info.height - 0.005) * 1000) / 1000;
         if (info.height < 0.01) {
-            console.log(info.height, this.raiseHeight, [...this.informations], this.currentIndex, 'del', this.randomNum);
             info.height = 0;
 
             this.currentIndex--;

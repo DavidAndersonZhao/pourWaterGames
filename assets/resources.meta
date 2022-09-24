@@ -7,7 +7,7 @@
   "priority": 8,
   "compressionType": {
     "web-mobile": "default",
-    "wechatgame": "subpackage"
+    "wechatgame": "default"
   },
   "optimizeHotUpdate": {
     "web-mobile": false,
@@ -19,7 +19,7 @@
   },
   "isRemoteBundle": {
     "web-mobile": false,
-    "wechatgame": false
+    "wechatgame": true
   },
   "subMetas": {}
 }

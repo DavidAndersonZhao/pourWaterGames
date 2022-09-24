@@ -270,7 +270,7 @@ export class CupMgr extends cc.Component {
         let srcTop = src.getTop();
         let dstTop = dst.getTop();
 
-        console.log(srcTop, dstTop);
+        // console.log(srcTop, dstTop,'---------');
 
         if (dstTop.topColorId && (dstTop.topColorId != srcTop.topColorId)) {
             return false

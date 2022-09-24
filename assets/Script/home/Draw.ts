@@ -174,15 +174,15 @@ export default class NewClass extends cc.Component {
                         this._count++;
                         if (this._count > randomNum) {
                             for (let item of node_list) {
-                                UtilAudio.modalAudioClick()
                                 item.stopAllActions();
                             }
                             this._state = GameState.Idle
+                            UtilAudio.modalAudioClick()
                             this.resOpenModal()
                             return
                         }
                         if (this._index == this._targetIndex[this._count]) {
-                            
+
                             node_list[this._index].stopAllActions();
                             let blink = cc.sequence(
                                 cc.fadeOut(0.08),
