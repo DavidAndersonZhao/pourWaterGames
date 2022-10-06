@@ -75,12 +75,13 @@ export default class NewClass extends cc.Component {
     }
 
     data_init() {
-        if (!this.sign_datas.length) return 
+        
+        if (!this.sign_datas.length) return true
         for (let item of this.sign_datas) {
             item.isToday = false
         }
         // console.log(this.sign_datas,this.current_num);
-        
+
         if (!this.sign_datas[this.current_num]?.isReceived) this.sign_datas[this.current_num].isToday = true
         for (let i = 0; i < this.current_num; i++) {
             const item = this.sign_datas[i];
@@ -106,6 +107,18 @@ export default class NewClass extends cc.Component {
         this.node.active = true
     }
     handleClick(e, name) {
+        if (window?.wx) {
+            wx.requestSubscribeMessage({
+                tmplIds: ['OqKAG6eg1EDoi6HiwBCWcJDQveM2ATmFSeKajYcHrgM'],
+                success(res) {
+                    console.log(res)
+                    res === {
+                        errMsg: "requestSubscribeMessage:ok",
+                        "zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE": "accept"
+                    }
+                }
+            })
+        }
         if (!this.sign_datas[this.current_num].isToday) {
             return
         }
@@ -218,6 +231,18 @@ export default class NewClass extends cc.Component {
                     mask.getChildByName('repairSignBtn').active = true
                     mask.getChildByName('repairSignBtn').getComponent(cc.Sprite).spriteFrame = this.repairImgs[(sign_data.stateRepair || 1) - 1]
                     mask.getChildByName('repairSignBtn').on('click', () => {
+                        if (wx) {
+                            wx.requestSubscribeMessage({
+                                tmplIds: ['OqKAG6eg1EDoi6HiwBCWcJDQveM2ATmFSeKajYcHrgM'],
+                                success(res) {
+                                    console.log(res)
+                                    res === {
+                                        errMsg: "requestSubscribeMessage:ok",
+                                        "zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE": "accept"
+                                    }
+                                }
+                            })
+                        }
                         UtilAudio.btnAudioClick()
 
                         const resFn = (_res?) => {

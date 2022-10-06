@@ -126,7 +126,7 @@ export default class NewClass extends cc.Component {
             taskText.getComponent(cc.Label).string = element.taskText
             taskLabels.getComponent(cc.Label).string = taskLabel + `x${element.taskRewardNum}`
             tashBtn.on('click', (e) => {
-                debugger
+                
                 UtilAudio.btnAudioClick()
                 if (element.taskState != 4) {
                     let handleName = element.taskState == 3 ? 'advertisement' : 'shareFriend'

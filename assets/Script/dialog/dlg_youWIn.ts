@@ -3,7 +3,17 @@ import { BaseDialog } from "./base_dialog";
 import { AudioEnum, UtilAudio } from "../utils/audio_util";
 
 const { ccclass, property } = cc._decorator;
-
+function debounce(fn: Function, delay: number): Function {
+    let timer: any = null;
+    return function () {
+        let context = this;
+        let args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            fn.apply(context, args);
+        }, delay);
+    }
+}
 @ccclass
 export class DlgYouWin extends BaseDialog {
     @property(cc.Label)
@@ -19,6 +29,8 @@ export class DlgYouWin extends BaseDialog {
     @property(cc.Prefab)
     physicalOpc: cc.Prefab = null
 
+    @property(cc.Node)
+    loadingMask: cc.Node = null
     private toNext: Function = null;
     initView(toNext: Function) {
         this.toNext = toNext;
@@ -88,6 +100,7 @@ export class DlgYouWin extends BaseDialog {
         switch (name) {
             case "game":
                 if (SetCom.reducePower()) {
+                    if (this.loadingMask) this.loadingMask.active = true
                     cc.director.loadScene(name);
                 } else {
                     this.physicalOpacityFunction()

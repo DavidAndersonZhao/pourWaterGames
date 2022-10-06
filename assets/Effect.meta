@@ -4,7 +4,7 @@
   "importer": "folder",
   "isBundle": true,
   "bundleName": "",
-  "priority": "2",
+  "priority": "1",
   "compressionType": {
     "wechatgame": "default"
   },

@@ -190,8 +190,9 @@ export default class SetCom extends cc.Component {
                 })
             }
             let windowSetting
+            
             if (wx.getWindowInfo) {
-                windowSetting = wx.getWindowInfo()
+                windowSetting = wx.getSystemInfoSync()
             } else {
                 // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
                 wx.showModal({
@@ -206,9 +207,9 @@ export default class SetCom extends cc.Component {
                 adIntervals: 30, // 自动刷新频率不能小于30秒
                 style: {
                     left: (windowSetting?.screenWidth - (windowSetting?.screenWidth - 70)) / 2,
-                    top: windowSetting?.windowHeight - 110,
+                    top: windowSetting?.windowHeight - +(0.165 * windowSetting?.windowHeight).toFixed(),
                     height: 80,
-                    width: (windowSetting?.screenWidth - 70) || 350
+                    width: windowSetting?.screenWidth - +(0.17 * windowSetting?.screenWidth).toFixed()
                 }
             })
             SetCom.bannerAd.onError(err => {
@@ -660,6 +661,7 @@ export default class SetCom extends cc.Component {
         if (global_prop) {
             let { lv, ...props } = JSON.parse(global_prop)
             if (lv) localStorage.setItem('level', lv || 1)
+            if (lv >= 3702) localStorage.setItem('level', '3702')
             this.global_prop = new Proxy(props, {
                 get: function (target, propKey, receiver) {
                     return Reflect.get(target, propKey, receiver);

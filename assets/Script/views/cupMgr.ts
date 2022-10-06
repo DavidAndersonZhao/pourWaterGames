@@ -403,7 +403,7 @@ export class CupMgr extends cc.Component {
         let isAllFinished = this.checkIsAllFinished();
         if (isAllFinished) {
             // cc.log("---------完成了")
-            this._level++;
+            if (this._level < 3702) this._level++;
             UtilAudio.effect_play(AudioEnum.youWin);
 
             cc.sys.localStorage.setItem(COOKIE_LEVEL, this._level);

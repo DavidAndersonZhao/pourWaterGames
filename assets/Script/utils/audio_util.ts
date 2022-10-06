@@ -83,7 +83,7 @@ export class UtilAudio {
         if (!SetCom.audioSet._musicPlay) return
         // let clip = await this.loadAudioClip('audio/' + AudioEnum.draw);
         // let id = cc.audioEngine.play(clip, false, 1.0);
-        // debugger
+        // 
         let dur = 3.0 * time;
         UtilAudio.playSound(AudioEnum.draw, false, 1.0, dur)
 

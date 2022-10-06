@@ -11,11 +11,11 @@
     "upsideDown": false
   },
   "webOrientation": "auto",
-  "inlineSpriteFrames": true,
+  "inlineSpriteFrames": false,
   "inlineSpriteFrames_native": true,
   "mergeStartScene": false,
   "mainCompressionType": "default",
-  "mainIsRemote": true,
+  "mainIsRemote": false,
   "optimizeHotUpdate": false,
   "md5Cache": true,
   "nativeMd5Cache": true,

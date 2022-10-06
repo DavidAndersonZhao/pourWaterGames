@@ -162,7 +162,10 @@ export default class PlayScene extends cc.Component {
 
     nextToLevel() {
         let level = cc.sys.localStorage.getItem('level')
-        cc.sys.localStorage.setItem("level", level >= 3702 ? 3702 : ++level);
+        if (level < 3702) {
+            level++
+        }
+        cc.sys.localStorage.setItem("level", level);
         cc.director.loadScene('victory');
     }
 

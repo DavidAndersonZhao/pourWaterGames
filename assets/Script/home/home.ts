@@ -92,6 +92,8 @@ export default class NewClass extends cc.Component {
     task_icon_node: cc.Node = null
     @property(cc.Node)
     sign_node: cc.Node = null
+    @property(cc.Prefab)
+    activeModal: cc.Prefab = null//活动弹窗
     private _musicPlay: boolean = true
     private _shockPlay: boolean = true
 
@@ -181,13 +183,16 @@ export default class NewClass extends cc.Component {
 
         this.setTaskFn()
         if (SetCom.loadScence == 'loading') {
+            let state = this.signOpc.getSignOrRepair()
             if (this.signOpc.data_init()) {
-                this.setSignState(this.signOpc.getSignOrRepair())
+                // this.setSignState(this.signOpc.getSignOrRepair())
+                this.setSignState(state)
                 this.drawOpcShow(undefined, 'sign', true)
-            } else {
-                this.drawOpcShow(undefined, 'draw', true)
-
             }
+            //  else {
+            //     this.drawOpcShow(undefined, 'draw', true)
+
+            // }
             SetCom.loadScence = null
         }
         this.getLevel()
@@ -272,4 +277,9 @@ export default class NewClass extends cc.Component {
 
     }
 
+    activeClick() {//活动按钮
+        UtilAudio.btnAudioClick()
+        let imgNode = cc.instantiate(this.activeModal)
+        this.node.addChild(imgNode);
+    }
 }
