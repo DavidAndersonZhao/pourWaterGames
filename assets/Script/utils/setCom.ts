@@ -35,6 +35,7 @@ function getRandomItem(arr, cb) {
 export default class SetCom extends cc.Component {
 
     public static lostTime: number = 0;
+    public static isChallenge: Boolean = false;
 
     public static shop_people: Array<cc.SpriteFrame> = []
     public static shop_prop: Array<cc.SpriteFrame> = []

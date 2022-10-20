@@ -3,12 +3,13 @@ import { AudioEnum, UtilAudio } from "../utils/audio_util";
 import SetCom from "../utils/setCom";
 import Cup, { _CupMes } from "./cup";
 import { WaterFlow } from "./waterFlow";
-
+import CountDown from "../countTime/countDown";
 const { ccclass, property, executeInEditMode } = cc._decorator;
 
 const COOKIE_LEVEL = "level"
 const COOKIE_LAST_CFG = "last_cfg"
 const COOKIE_ACTION_HISTORY = "action_history"
+const COOKIE_ACTION_HISTORY_CHALLENGE = "action_history_challenge"
 
 const spacesArr = {
     [1]: [0, 1],
@@ -24,6 +25,8 @@ const spacesArr = {
 @ccclass
 @executeInEditMode
 export class CupMgr extends cc.Component {
+    @property(CountDown)
+    private countScript: CountDown = null;
     @property(cc.JsonAsset)
     private levelCfg: cc.JsonAsset = null;
     @property(cc.Prefab)
@@ -31,6 +34,12 @@ export class CupMgr extends cc.Component {
 
     @property(cc.Prefab)
     private boom: cc.Prefab = null;
+    // @property(Boolean)
+    // private isChallenge: Boolean = false;//挑战模式开关
+    private challengeMap = {//当前挑战模式的关卡
+
+    }
+    private challengeOnce = true
     private _level = 1;
     private curCfg: Array<_CupMes> = [];
     private _waterFlow: WaterFlow = null;
@@ -38,25 +47,52 @@ export class CupMgr extends cc.Component {
     private mapping = {
 
     }
-    onLoad() {
-        if (CC_EDITOR) {
-            return
+    getCallengeLvFn() {
+        if (this.challengeOnce) {
+            this.challengeOnce = false
+            return 1
         }
-        // SetCom.bannerShow('gridAd', 'hide')
+        let lv = ~~(Math.random() * 799) + 200
+        if (this.challengeMap[lv]) {
+            this.getCallengeLvFn()
+        } else {
+            return lv
+        }
+    }
+    /** 挑战模式的配置  */
+    challengeSetting() {
+
+        this._level = checkint(this.getCallengeLvFn())
+        let str = cc.sys.localStorage.getItem(COOKIE_LAST_CFG);
+        if (str) {
+            try {
+                this.curCfg = JSON.parse(str);
+            } catch (e) {
+                this.initCfg()
+            }
+        } else {
+            this.initCfg()
+        }
+    }
+    settingFn() {
         this._level = checkint(cc.sys.localStorage.getItem(COOKIE_LEVEL) || 1);
 
         let str = cc.sys.localStorage.getItem(COOKIE_LAST_CFG);
         let data = localStorage.getItem('shop_people')
         let particle = cc.find("Canvas/bg/bgImg/particle")
-        if (data) {
-            particle.active = true
-        } else {
-            particle.active = false
+        if (particle) {
+            if (data) {
+                particle.active = true
+            } else {
+                particle.active = false
+            }
         }
         let node = cc.instantiate(SetCom.getSomeSpin(this._level, "game"));
         node.x = 93.699
         node.y = 395.952
-        cc.find("Canvas/bg/bgImg/spin").addChild(node);
+        cc.find("Canvas/bg/bgImg/spin")?.addChild(node);
+        this.show_prop(node)
+
 
         if (str) {
             try {
@@ -75,13 +111,6 @@ export class CupMgr extends cc.Component {
 
             }
         }
-        this.createCups();
-
-        let _node = new cc.Node();
-        _node.parent = this.node;
-
-        this._waterFlow = _node.addComponent(WaterFlow);
-        this.show_prop(node)
         if (this._level == 1) {
             setTimeout(() => {
                 let evtData = {
@@ -93,6 +122,26 @@ export class CupMgr extends cc.Component {
 
             }, 300);
         }
+    }
+    onLoad() {
+        if (CC_EDITOR) {
+            return
+        }
+        // SetCom.bannerShow('gridAd', 'hide')
+        if (SetCom.isChallenge) {
+            this.challengeSetting()
+        } else {
+            this.settingFn()
+
+        }
+
+        this.createCups();
+
+        let _node = new cc.Node();
+        _node.parent = this.node;
+
+        this._waterFlow = _node.addComponent(WaterFlow);
+
     }
 
     private initCfg() {
@@ -231,6 +280,10 @@ export class CupMgr extends cc.Component {
 
                 if (this.mapping[this.selected.uuid]) return
                 this.mapping[cup.uuid] = true
+                // 有倒计时脚本说明是挑战模式
+                if (this.countScript) {
+                    this.countScript.addTime()
+                }
                 // this.mapping[this.selected.uuid] = true
                 this.startPour(this.selected, cup);
             } else {
@@ -250,22 +303,20 @@ export class CupMgr extends cc.Component {
         this.createCups(true);
 
     }
-    powerDebugger(Target, Component, Handler, CustomEventData) {
-        if (!Number.isNaN(+Target.string)) {
-            SetCom.addPower(+Target.string)
-            cc.director.loadScene("game");
-        }
-    }
-    xuanGuan(Target, Component, Handler, CustomEventData) {
+    // powerDebugger(Target, Component, Handler, CustomEventData) {
+    //     if (!Number.isNaN(+Target.string)) {
+    //         SetCom.addPower(+Target.string)
+    //         cc.director.loadScene("game");
+    //     }
+    // }
+    // xuanGuan(Target, Component, Handler, CustomEventData) {
 
-        if (!Number.isNaN(+Target.string)) {
-            cc.sys.localStorage.setItem(COOKIE_LEVEL, Target.string);
-            cc.director.loadScene("game");
-        }
+    //     if (!Number.isNaN(+Target.string)) {
+    //         cc.sys.localStorage.setItem(COOKIE_LEVEL, Target.string);
+    //         cc.director.loadScene("game");
+    //     }
 
-
-
-    }
+    // }
     private checkPour(src: Cup, dst: Cup) {
         let srcTop = src.getTop();
         let dstTop = dst.getTop();
@@ -402,6 +453,11 @@ export class CupMgr extends cc.Component {
 
         let isAllFinished = this.checkIsAllFinished();
         if (isAllFinished) {
+            if (SetCom.isChallenge) {
+                this.challengeSetting()
+                this.createCups();
+                return
+            }
             // cc.log("---------完成了")
             if (this._level < 3702) this._level++;
             UtilAudio.effect_play(AudioEnum.youWin);

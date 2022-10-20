@@ -38,7 +38,7 @@ export default class NewClass extends cc.Component {
     _completeCallback(err, texture) {
         //加载完成回调
         SetCom.loadScence = 'loading'
-        cc.director.loadScene("home");
+        cc.director.loadScene("challenge");
         clearInterval(this.timeInt)
     }
     textAnimation() {
