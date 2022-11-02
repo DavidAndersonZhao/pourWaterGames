@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "267f8095-b6ed-4a38-9a0a-ab195fbf21af",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 750,
+  "height": 964,
+  "platformSettings": {},
+  "subMetas": {
+    "我的名片参加派对": {
+      "ver": "1.0.6",
+      "uuid": "ac46405a-d02c-4773-9e9f-5f19c08eed77",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "267f8095-b6ed-4a38-9a0a-ab195fbf21af",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 2,
+      "width": 750,
+      "height": 960,
+      "rawWidth": 750,
+      "rawHeight": 964,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

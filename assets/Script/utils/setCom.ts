@@ -109,21 +109,21 @@ export default class SetCom extends cc.Component {
         }
     });
     static people_map = [
-        { name: '街头小乞', sign_num: 1 },
-        { name: '实验小白', sign_num: 2 },
-        { name: '实验小胖', sign_num: 3 },
-        { name: '挖煤工', sign_num: 4 },
-        { name: '地中海', sign_num: 5 },
-        { name: '小天才', sign_num: 6 },
-        { name: '爱神斯坦', sign_num: 7 },
-        { name: '智脑', sign_num: 14 },
-        { name: '霍格沃兹麻瓜', sign_num: 8 },
-        { name: '炼金术士', sign_num: 9 },
-        { name: '红孩儿', sign_num: 10 },
-        { name: '孟婆', sign_num: 11 },
-        { name: '火云邪神', sign_num: 15 },
-        { name: '雷霆嘎巴帝王', sign_num: 12 },
-        { name: '太上老君', sign_num: 13 },
+        { djName: 'DJ-街头小乞', name: '街头小乞', sign_num: 1 },
+        { djName: 'DJ-实验小白', name: '实验小白', sign_num: 2 },
+        { djName: 'DJ-实验小胖', name: '实验小胖', sign_num: 3 },
+        { djName: 'DJ-挖煤工', name: '挖煤工', sign_num: 4 },
+        { djName: 'DJ-地中海', name: '地中海', sign_num: 5 },
+        { djName: 'DJ-小天才', name: '小天才', sign_num: 6 },
+        { djName: 'DJ-爱神斯坦', name: '爱神斯坦', sign_num: 7 },
+        { djName: 'DJ-智脑', name: '智脑', sign_num: 14 },
+        { djName: 'DJ-霍格沃兹麻瓜', name: '霍格沃兹麻瓜', sign_num: 8 },
+        { djName: 'DJ-炼金术士', name: '炼金术士', sign_num: 9 },
+        { djName: 'DJ-红孩儿', name: '红孩儿', sign_num: 10 },
+        { djName: 'DJ-孟婆', name: '孟婆', sign_num: 11 },
+        { djName: 'DJ-火云邪神', name: '火云邪神', sign_num: 15 },
+        { djName: 'DJ-雷霆嘎巴帝王', name: '雷霆嘎巴帝王', sign_num: 12 },
+        { djName: 'DJ-太上老君', name: '太上老君', sign_num: 13 },
     ]
     static isShared: boolean = false
     static shareTag: string = 'keys'
@@ -141,9 +141,11 @@ export default class SetCom extends cc.Component {
         SetCom.failFn = null
     }
     static advertisement = debounce(function ({ success, cancel = (str?: string) => { }, fail = (str?: string) => { } }) {
+        cc.director.pause();
 
         if (!CC_WECHATGAME) {
             success()
+            if (cc.director.isPaused()) cc.director.resume()
             // console.log('广告');
             return
         }
@@ -176,10 +178,12 @@ export default class SetCom extends cc.Component {
                     // 小于 2.1.0 的基础库版本，res 是一个 undefined
                     if (res && res.isEnded || res === undefined) {
                         // 正常播放结束，可以下发游戏奖励
+                        if (cc.director.isPaused()) cc.director.resume()
                         SetCom?.successFn('播放结束')
                         SetCom.resetEvent()
                     }
                     else {
+                        if (cc.director.isPaused()) cc.director.resume()
                         // 播放中途退出，不下发游戏奖励
                         SetCom?.cancelFn('播放取消')
                         SetCom.resetEvent()
@@ -191,7 +195,7 @@ export default class SetCom extends cc.Component {
                 })
             }
             let windowSetting
-            
+
             if (wx.getWindowInfo) {
                 windowSetting = wx.getSystemInfoSync()
             } else {
@@ -277,9 +281,16 @@ export default class SetCom extends cc.Component {
         this.bannerAngGridAdvertisement()
         if (CC_WECHATGAME) {
             wx.showShareMenu()
+            wx.onHide(() => {
+                console.log('页面隐藏');
+                cc.director.pause();
+            })
+
         }
-        if (typeof (wx) !== "undefined" && !SetCom.shareFn) {
+        if (typeof (wx) !== "undefined") {
             wx.onShow(function () {
+                if (cc.director.isPaused()) cc.director.resume()
+                if (SetCom.shareFn) return
                 if (SetCom.isShared && SetCom.shareTag == "keys") {
                     SetCom.shareFn = true
                     let curTime = new Date().getTime();
@@ -606,6 +617,17 @@ export default class SetCom extends cc.Component {
             default:
                 break;
         }
+    }
+    static getDJSpinName(level:number){
+        let { spin_num } = this.getTitleOrJson(level)
+        if (spin_num == -1) spin_num = 7
+        let data = localStorage.getItem('shop_people')
+        let num;
+        if (data) {
+            num = JSON.parse(data)['sign_num']
+        }
+        num ||= this.people_map[spin_num].sign_num
+        return this.people_map[spin_num].djName
     }
     /** 减体力 */
     static reducePower() {

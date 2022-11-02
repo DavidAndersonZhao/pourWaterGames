@@ -11,7 +11,7 @@
     "upsideDown": false
   },
   "webOrientation": "auto",
-  "inlineSpriteFrames": false,
+  "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
   "mergeStartScene": false,
   "mainCompressionType": "default",

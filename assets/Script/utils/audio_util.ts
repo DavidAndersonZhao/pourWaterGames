@@ -14,7 +14,7 @@ export enum AudioEnum {
 export class UtilAudio {
     static audios: any = {};
     static arrSound: any = [];
-    static soundVolume: number = 1;
+    static soundVolume: number = 2;
     static beforeloadAll() {//没用TODO:
         let arr = [];
         for (let key in AudioEnum) {
@@ -77,7 +77,7 @@ export class UtilAudio {
     static async pourWater_effect_play(time: number) {
         if (!SetCom.audioSet._musicPlay) return
         let dur = 3.0 * time;
-        UtilAudio.playSound(AudioEnum.pourWater, false, 1.0, dur)
+        UtilAudio.playSound(AudioEnum.pourWater, false, this.soundVolume, dur)
     }
     static async draw_play(time: number) {
         if (!SetCom.audioSet._musicPlay) return
@@ -85,7 +85,7 @@ export class UtilAudio {
         // let id = cc.audioEngine.play(clip, false, 1.0);
         // 
         let dur = 3.0 * time;
-        UtilAudio.playSound(AudioEnum.draw, false, 1.0, dur)
+        UtilAudio.playSound(AudioEnum.draw, false, this.soundVolume, dur)
 
     }
     static async btnAudioClick() {

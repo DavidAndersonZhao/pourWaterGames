@@ -4,6 +4,7 @@ import SetCom from "../utils/setCom";
 import Cup, { _CupMes } from "./cup";
 import { WaterFlow } from "./waterFlow";
 import CountDown from "../countTime/countDown";
+import Challenge from "../challenge";
 const { ccclass, property, executeInEditMode } = cc._decorator;
 
 const COOKIE_LEVEL = "level"
@@ -25,6 +26,8 @@ const spacesArr = {
 @ccclass
 @executeInEditMode
 export class CupMgr extends cc.Component {
+    @property(Challenge)//TODO：
+    private challengeScript: Challenge = null;
     @property(CountDown)
     private countScript: CountDown = null;
     @property(cc.JsonAsset)
@@ -56,12 +59,19 @@ export class CupMgr extends cc.Component {
         if (this.challengeMap[lv]) {
             this.getCallengeLvFn()
         } else {
+            this.challengeMap[lv] = 1
             return lv
         }
     }
     /** 挑战模式的配置  */
     challengeSetting() {
-
+        if (Object.values(this.challengeMap).length===2) {//说明已经过了三关，因为第一关没往代码里记
+            console.log('已通关');
+            
+            // TODO：通关记入排行榜
+        }
+        console.log(Object.values(this.challengeMap).length,'已过关卡');
+        
         this._level = checkint(this.getCallengeLvFn())
         let str = cc.sys.localStorage.getItem(COOKIE_LAST_CFG);
         if (str) {
@@ -281,8 +291,10 @@ export class CupMgr extends cc.Component {
                 if (this.mapping[this.selected.uuid]) return
                 this.mapping[cup.uuid] = true
                 // 有倒计时脚本说明是挑战模式
+                console.log('开始');
+                
                 if (this.countScript) {
-                    this.countScript.addTime()
+                    this.countScript.clearTimer()
                 }
                 // this.mapping[this.selected.uuid] = true
                 this.startPour(this.selected, cup);
@@ -394,7 +406,11 @@ export class CupMgr extends cc.Component {
                 // srcTop.topColorNum>dstTop.emptyNum
                 // TODO:涨水那个bug应该是这里的num要传消失水的数量
                 dst.startAddWater(srcTop.topColorId, num, (cup: Cup, isFinished: boolean) => {
-
+                    console.log('倒完了');
+                    
+                    if (this.countScript) {
+                        this.countScript.addTime()
+                    }
                     this.mapping[src.uuid] = this.mapping[dst.uuid] = false
                     if (isFinished) this.onPourOneFinished(src, dst, srcTop.topColorId, srcTop.topColorNum);
 
@@ -430,7 +446,6 @@ export class CupMgr extends cc.Component {
                 src.node.zIndex = 0;
                 src.node.parent.zIndex = 0;
                 this.haveAnimationPlay = false
-
             })
         moveBack.start();
     }
@@ -456,6 +471,7 @@ export class CupMgr extends cc.Component {
             if (SetCom.isChallenge) {
                 this.challengeSetting()
                 this.createCups();
+               
                 return
             }
             // cc.log("---------完成了")

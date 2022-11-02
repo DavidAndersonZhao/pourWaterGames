@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "e57a4a9d-6da5-4c81-b568-3610bea65ab1",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 750,
+  "height": 964,
+  "platformSettings": {},
+  "subMetas": {
+    "我的名片没有完成挑战": {
+      "ver": "1.0.6",
+      "uuid": "994202e1-9546-4d99-b340-c8ca428fd1eb",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "e57a4a9d-6da5-4c81-b568-3610bea65ab1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 2,
+      "width": 750,
+      "height": 960,
+      "rawWidth": 750,
+      "rawHeight": 964,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

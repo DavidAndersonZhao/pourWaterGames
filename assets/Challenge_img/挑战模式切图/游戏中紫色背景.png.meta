@@ -1,0 +1,38 @@
+{
+  "ver": "2.3.7",
+  "uuid": "a33ce77a-5bd4-49a4-9df2-c92552a0f5e5",
+  "importer": "texture",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 750,
+  "height": 1624,
+  "platformSettings": {},
+  "subMetas": {
+    "游戏中紫色背景": {
+      "ver": "1.0.6",
+      "uuid": "451f6c93-79c1-400c-a8bc-3682f8d3d15f",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "a33ce77a-5bd4-49a4-9df2-c92552a0f5e5",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 750,
+      "height": 1624,
+      "rawWidth": 750,
+      "rawHeight": 1624,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
