@@ -180,6 +180,7 @@ export default class NewClass extends cc.Component {
         SetCom.bannerShow('bannerAd', 'show')
         SetCom.bannerShow('gridAd', 'show')
         this.show()
+        SetCom.isChallenge = false
 
         this.setTaskFn()
         if (SetCom.loadScence == 'loading') {

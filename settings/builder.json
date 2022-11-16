@@ -2,7 +2,9 @@
   "title": "puar-water-0515",
   "packageName": "org.cocos2d.demo",
   "startScene": "d48cc9fd-a112-48fa-8f26-041ca5af36d3",
-  "excludeScenes": [],
+  "excludeScenes": [
+    "1a352855-3f2e-40f3-a089-78bd40d8d418"
+  ],
   "includeSDKBox": false,
   "orientation": {
     "landscapeRight": true,
@@ -15,7 +17,7 @@
   "inlineSpriteFrames_native": true,
   "mergeStartScene": false,
   "mainCompressionType": "default",
-  "mainIsRemote": false,
+  "mainIsRemote": true,
   "optimizeHotUpdate": false,
   "md5Cache": true,
   "nativeMd5Cache": true,

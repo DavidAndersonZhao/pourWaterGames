@@ -71,7 +71,7 @@ export default class SetCom extends cc.Component {
             return Reflect.set(target, propKey, value, receiver);
         }
     });
-
+    static challengeResState = false //挑战模式资源下载状况
     public static decorate_set = new Proxy({
         isDropper: false,
         isBeaker_small: false,
@@ -278,11 +278,13 @@ export default class SetCom extends cc.Component {
     }, 500)
     static shareFn = false
     onLoad() {
+        let userInfo = localStorage.getItem('userInfo')
+        if (userInfo) SetCom.userInfo = JSON.parse(userInfo)
         this.bannerAngGridAdvertisement()
         if (CC_WECHATGAME) {
             wx.showShareMenu()
             wx.onHide(() => {
-                console.log('页面隐藏');
+                // console.log('页面隐藏');
                 cc.director.pause();
             })
 
@@ -321,6 +323,111 @@ export default class SetCom extends cc.Component {
             })
         }
     }
+    static serviceTime: any = null
+    static avatarUrl: string
+    /** 添加排行榜数据 */
+    static async addRankingList(data) {
+        if (!window.wx) return
+        let { result } = await wx?.cloud.callFunction({
+            name: 'rankingList',
+            data: {
+                method: 'add',
+                data
+            }
+        })
+        return result
+    }
+    /** 获取排行榜列表 */
+    static async getRankingList() {
+        if (!window.wx) return
+        let { result } = await wx?.cloud.callFunction({
+            name: 'rankingList',
+            data: {
+                method: 'get',
+                data: {
+
+                }
+            }
+        })
+        /* 
+        
+        {"serviceTime":"2022-11-11","txt":"查询成功","data":[{"_id":"1f154439635e73fe0048a8f05fb43d01","passTime":10,"curTime":"2022-11-11","del":0},{"_id":"b17ee42c635e76e50010f8257a7478f8","openid":"orLZt5WKijDpSg4boeVOkHottOfc","passTime":999,"curTime":"2022-11-11","del":0,"avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132","city":"","country":"","gender":0,"language":"","nickName":"微信用户","province":"","creatTime":1667135205321}],
+        "currentData":{"_id":"b17ee42c635e76e50010f8257a7478f8","openid":"orLZt5WKijDpSg4boeVOkHottOfc","passTime":999,"curTime":"2022-11-11","del":0,"avatarUrl":"https://thirdwx.qlogo.cn/mmopen/vi_32/POgEwh4mIHO4nibH0KlMECNjjGxQUq24ZEaGT4poC6icRiccVGKSyXwibcPq4BWmiaIGuG1icwxaQX6grC9VemZoJ8rg/132","city":"","country":"","gender":0,"language":"","nickName":"微信用户","province":"","creatTime":1667135205321,"rankingNum":1}}
+        */
+        this.serviceTime = result.serviceTime
+        // {serviceTime,data,currentData}
+        return result
+    }
+    static userInfo
+    /** 保存用户信息 */
+    saveUserInfo() {
+        let _lv = cc.sys.localStorage.getItem('level') || 0
+        let shop_people = localStorage.getItem('shop_people')
+        function getUserInfo(userInfo) {
+
+        }
+        return new Promise((resolve, reject) => {
+            try {
+                // wx.getSetting({
+                //     success(res) {
+                //         if (res.authSetting['scope.userInfo']) {
+                //             resolve('')
+                //             return
+                //         } else {
+                //         }
+                       
+                //     }
+                // })
+                if(SetCom.userInfo){
+                    resolve('')
+                    return
+                }
+                wx.getUserProfile({
+                    desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+                    fail: (err) => {
+                        console.log(err)
+                        reject(err)
+                        wx.showModal({
+                            title: '请授权后才能开始游戏',
+                            showCancel: false,
+                        })
+                    },
+                    success: async function (res) {
+
+                        var userInfo = res.userInfo
+                        var nickName = userInfo.nickName
+                        var avatarUrl = userInfo.avatarUrl
+                        localStorage.setItem('userInfo',JSON.stringify(userInfo))
+                        SetCom.avatarUrl = avatarUrl
+                        SetCom.userInfo = userInfo
+                        var gender = userInfo.gender //性别 0：未知、1：男、2：女
+                        let { result } = await wx?.cloud.callFunction({
+                            name: 'handleUser',
+                            data: {
+                                method: 'add',
+                                data: {
+                                    nickName,
+                                    avatarUrl,
+                                    gender,
+                                    _lv,
+                                    shop_people,
+                                    needPushMsg: true,//需要消息推送
+                                }
+                            }
+                        })
+                        if (result.txt === "添加成功") {
+                            resolve(result.txt)
+                        } else {
+                            reject('添加失败')
+                        }
+                    }
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+
+    }
     /**
      * 加载scene
      * @param e 
@@ -330,8 +437,28 @@ export default class SetCom extends cc.Component {
         // if (['shop'].includes(name)) {
         UtilAudio.btnAudioClick()
         // }
-        cc.director.loadScene(name);
+        if (name === 'rankList' && window.wx) {
+            this.saveUserInfo().then(() => {
+                if(!SetCom.challengeResState) {
+                    if (CC_WECHATGAME) {
+                        wx.showToast({
+                            title: '请稍后。。。挑战资源加载中',
+                            icon: 'none'
+                        })
+                    }
+                }
+                cc.director.loadScene(name);
+            }).catch(() => {
+                console.log('获取用户信息失败,无法开始游戏');
+            })
+        } else {
+            cc.director.loadScene(name);
+        }
     }
+    customerService() {
+        if (wx) wx.openCustomerServiceConversation()
+    }
+
     /**
      * 根据等级获取称号\动画
      * @param level 关卡数
@@ -618,16 +745,16 @@ export default class SetCom extends cc.Component {
                 break;
         }
     }
-    static getDJSpinName(level:number){
+    static getDJSpinName(level: number, shop_people?) {
         let { spin_num } = this.getTitleOrJson(level)
         if (spin_num == -1) spin_num = 7
-        let data = localStorage.getItem('shop_people')
+        let data = shop_people || localStorage.getItem('shop_people')
         let num;
         if (data) {
             num = JSON.parse(data)['sign_num']
         }
         num ||= this.people_map[spin_num].sign_num
-        return this.people_map[spin_num].djName
+        return this.people_map[spin_num].name
     }
     /** 减体力 */
     static reducePower() {

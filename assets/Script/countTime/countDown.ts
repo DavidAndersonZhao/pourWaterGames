@@ -9,6 +9,7 @@ import { timeConversion } from "./com";
 import ProgressBar from "../challengeScripts/progressBar";
 import Stars from "../challengeScripts/stars";
 import Challenge from "../challenge";
+import SetCom from "../utils/setCom";
 const { ccclass, property, help } = cc._decorator;
 enum PauseStatus {
     ready,
@@ -34,8 +35,10 @@ export default class NewClass extends cc.Component {
     carom: ProgressBar = null
     @property(Stars)//星星组件
     stars: Stars = null
+    @property(cc.Label)
+    private todayDate: cc.Label = null;
 
-    private TakeTime = 0
+    TakeTime = 0
     private timer = null
     private initData = {
         oldTime: 0,
@@ -44,12 +47,13 @@ export default class NewClass extends cc.Component {
     private timeDown = 0
     private pauseState = false//暂停状态
     // LIFE-CYCLE CALLBACKS:=
+    takeTimeShow
     setTimeLabel() {
         let { hours, minute, second } = timeConversion(this.time)
         this.timeLabel.string = this.timeDown + ''
         let takeTimeLabel = this.TakeTimeNode.getComponent(cc.Label)
         let { minute: taskMin, second: taskSec } = timeConversion(this.TakeTime)
-        takeTimeLabel.string = `${hours + ':' + taskMin + ':' + taskSec}`
+        this.takeTimeShow = takeTimeLabel.string = `${hours + ':' + taskMin + ':' + taskSec}`
     }
 
     public get _overTime() {
@@ -62,19 +66,19 @@ export default class NewClass extends cc.Component {
 
             if (!this.count) {
                 clearInterval(this.timer)
-                console.log('游戏结束');
                 this.time = 0
                 this.setTimeLabel()
                 cc.find('Canvas')?.getComponent(Challenge).resurrectionHandle()
                 // this.challengeScript.resurrectionHandle()
                 return
             }
-            if (!this.time) {
+            if (this.time == 1) {
                 // if (!this.count) {
                 //     clearInterval(this.timer)
                 //     console.log('游戏结束');
                 // } else {
                 this.count--
+                this.TakeTime++
 
                 this.stars.delStars()
                 // this.countLabel.string = this.count + ''
@@ -87,12 +91,15 @@ export default class NewClass extends cc.Component {
             }
             if (this.timeDown-- <= 0) {
                 this.timeDown = 0
+                this.timeDown = this.initData.oldTime - 1
+                this.carom.resetTime()
             }
             this.setTimeLabel()
         }, 1000)
     }
     onLoad() {
-        
+        this.node.getChildByName('title').getChildByName('Date').getComponent(cc.Label).string = SetCom.serviceTime
+
         this.initData.oldTime = this.time
         this.initData.oldCount = this.count
         if (!this.time) return
@@ -135,7 +142,6 @@ export default class NewClass extends cc.Component {
 
     }
     onDestroy() {
-        console.log('销毁节点');
 
         if (this.timer) {
             this.clearTimer()
@@ -145,7 +151,7 @@ export default class NewClass extends cc.Component {
         clearInterval(this.timer)
         this.timer = null
     }
-
+    public pauseStateAll = false
     pauseTimeHandle() {
         // this.clearTimer()
         this.pauseState = true

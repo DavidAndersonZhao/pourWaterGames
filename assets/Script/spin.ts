@@ -44,9 +44,7 @@ export default class NewClass extends cc.Component {
             })
 
         }) */
-        console.log(robot.dragonAsset);
         cc.resources.load(remoteUrl, dragonBones.DragonBonesAsset, (err, res) => {
-            console.log(res);
             
         });
         // 远程文本
@@ -55,8 +53,6 @@ export default class NewClass extends cc.Component {
 
                 
                 // robot.dragonAsset = dbAsset
-                console.log(dbAsset);
-                console.log(dbAtlas);
                 return
                 // let atlas = new dragonBones.DragonBonesAtlasAsset();
                 // atlas.atlasJson = dbAtlas;

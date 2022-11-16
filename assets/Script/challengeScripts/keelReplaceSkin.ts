@@ -36,7 +36,6 @@ export default class KeelReplaceSkin extends cc.Component {
     }
     /** 加载完整个文件夹替换 */
     async dynamicCreate(package_path: string) {
-        debugger
         return new Promise((resolve, rej) => {
             cc.resources.loadDir(package_path, cc.Asset, (err, res: any) => {
                 if (err) {

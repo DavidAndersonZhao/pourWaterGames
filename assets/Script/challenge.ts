@@ -1,14 +1,10 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+
 
 import { UtilAudio } from "./utils/audio_util";
 import SetCom from "./utils/setCom";
 import { CupMgr } from "./views/cupMgr";
 import CountDown from "./countTime/countDown";
+import Transition from "./challengeScripts/transition";
 import ModalHandle from './challengeScripts/ModalHandle'
 import KeelReplaceSkin from './challengeScripts/keelReplaceSkin'
 const { ccclass, property } = cc._decorator;
@@ -18,10 +14,31 @@ enum PropState {
     No
 }
 interface OpcGroupInter {
+    failModal: cc.Prefab
+    successModal: cc.Prefab
     backModal: cc.Prefab
     resurrectionModal: cc.Prefab
     pauseModal: cc.Prefab
 }
+interface dragonBonesGroupInter {
+    dbAsset: dragonBones.DragonBonesAsset
+    dbAtlas: dragonBones.DragonBonesAtlasAsset
+}
+// @property(dragonBones.ArmatureDisplay)
+/*  */
+const dragonBonesGroup = cc.Class({
+    name: 'dragonBonesGroup',
+    properties: {
+        dbAsset: {
+            default: null,
+            type: dragonBones.DragonBonesAsset
+        },
+        dbAtlas: {
+            default: null,
+            type: dragonBones.DragonBonesAtlasAsset
+        }
+    }
+})
 const ModalGroup = cc.Class({
     name: "ModalGroups",
     properties: {
@@ -34,6 +51,14 @@ const ModalGroup = cc.Class({
             type: cc.Prefab,
         },
         pauseModal: {//暂停
+            default: null,
+            type: cc.Prefab,
+        },
+        failModal: {//失敗
+            default: null,
+            type: cc.Prefab,
+        },
+        successModal: {//成功
             default: null,
             type: cc.Prefab,
         }
@@ -50,6 +75,14 @@ export default class Challenge extends cc.Component {
 
     @property(KeelReplaceSkin)
     private replaceSkin: KeelReplaceSkin = null;
+    @property([dragonBonesGroup])
+    skins: dragonBonesGroupInter[] = []
+    @property(cc.Prefab)
+    private exitModal: cc.Prefab = null;
+    @property(cc.Node)
+    private timeParseNode: cc.Node = null;//暂停弹窗
+    @property(cc.Prefab)
+    private tipModal: cc.Prefab = null;//t弹窗过渡
     private prop = {
         reset: PropState.Video,
         backOff: PropState.Video,
@@ -93,6 +126,10 @@ export default class Challenge extends cc.Component {
         }
         // let ModalNode: cc.Node = cc.instantiate(this.modalSetting[name])
         ModalNode.getComponent(ModalHandle).okFn = okCb
+        ModalNode.getComponent(ModalHandle).resetFn = this.init
+
+        ModalNode.getComponent(ModalHandle).endFn = this.endEventFn
+
         if (calCb) {
             ModalNode.getComponent(ModalHandle).calFn = calCb
         } else {
@@ -114,8 +151,8 @@ export default class Challenge extends cc.Component {
                 this.cupMgr.nextLevel();
                 break;
             case PropState.No:
-                console.log('挑战模式道具只能用一次');
 
+                this.onpenToast()
                 break;
             case PropState.Video:
                 this.createModal('pauseModal', () => {
@@ -138,11 +175,16 @@ export default class Challenge extends cc.Component {
             case PropState.Have:
                 this.handleActionBtn(0, 'reset')
                 this.prop.pause = PropState.No
-                // cc.director.loadScene("game");
-                this.countDown.pauseTimeHandle();
+                // this.countDown.pauseTimeHandle();
+                this.timeParseNode.active = true
+                setTimeout(() => {
+                    this.timeParseNode.active = false
+                }, 3000);
+                this.countDown.pauseGame()
+                this.countDown.pauseStateAll = true
                 break;
             case PropState.No:
-                console.log('挑战模式道具只能用一次');
+                this.onpenToast()
 
                 break;
             case PropState.Video:
@@ -184,7 +226,7 @@ export default class Challenge extends cc.Component {
                     this.prop.backOff = PropState.No
                     return true
                 case PropState.No:
-                    console.log('挑战模式道具只能用一次');
+                    this.onpenToast()
 
                     break;
                 case PropState.Video:
@@ -219,10 +261,23 @@ export default class Challenge extends cc.Component {
         });
 
     }
+    onpenToast() {
+        if (CC_WECHATGAME) {
+            wx.showToast({
+                title: '挑战模式道具只能用一次',
+                icon: 'none'
+            })
+        }
+    }
+    endEventFn = () => {
+        let ModalNode: cc.Node = cc.instantiate(this.modalSetting.failModal)
+        this.node.addChild(ModalNode)
+        this.countDown.clearTimer()
+    }
     // 复活
     resurrectionHandle() {
         if (this.prop.resurrection === PropState.No) {
-            // TODO:真结束了
+            this.endEventFn()
             return
         }
         this.createModal('resurrectionModal', () => {
@@ -230,27 +285,78 @@ export default class Challenge extends cc.Component {
             this.countDown.resurrectionFn()
         })
     }
+    private skinNum
     onLoad() {
+        this.skinNum = ~~(Math.random() * this.skins.length)
+        this.init()
+        // 换皮肤
+    }
+    init() {
         this.handleActionBtn(0, 'reset')
         this.handleActionBtn(0, 'back')
         SetCom.isChallenge = true
-        // let resouceArr = await this.dynamicCreate('spin/全人物动作json')
-        // keel.getComponent(KeelReplaceSkin).replaceSkin(resouceArr[8], resouceArr[10])
-
         this.replaceSpin()
-        // 换皮肤
-        // this.replaceSkin.dynamicCreate()
     }
-    async replaceSpin() {
+    /* async replaceSpin() {
         let _lv = cc.sys.localStorage.getItem('level')
         let spin_name = SetCom.getDJSpinName(_lv)
-        let resouceArr = await this.replaceSkin.dynamicCreate('/Challenge_img/全人物DJ动画')
-        debugger
-        // this.replaceSkin.getComponent(KeelReplaceSkin).replaceSkin(resouceArr[8], resouceArr[10])
+        let resouceArr = await this.replaceSkin.dynamicCreate('全人物DJ动画') as any[]
+        let dbAsset = resouceArr.find(item => item._name == spin_name + "_ske")
+        let dbAtlas = resouceArr.find(item => item._name == spin_name + "_tex")
+        
+        // ske tex
+        this.replaceSkin.getComponent(KeelReplaceSkin).replaceSkin(dbAsset, dbAtlas)
+    } */
+    async replaceSpin() {
+        let { dbAsset, dbAtlas } = this.skins[this.skinNum]
+        this.replaceSkin.getComponent(KeelReplaceSkin).replaceSkin(dbAsset, dbAtlas)
     }
     protected onDestroy(): void {
         // SetCom.isChallenge = false
 
     }
+    successFn() {
+        let ModalNode: cc.Node = cc.instantiate(this.modalSetting.successModal)
+        let modalScript = ModalNode.getComponent(ModalHandle)
+        this.countDown.clearTimer()
+        SetCom.addRankingList({
+            passTime: this.countDown.TakeTime,
+            passTimeShow: this.countDown.takeTimeShow
+        }).then(async (res) => {
+            let { serviceTime, currentData } = await SetCom.getRankingList()
+            let { avatarUrl, _lv, shop_people, rankingNum } = currentData || {}
+            // TODO: 找挑战时间
+            modalScript.setSuccessModal({
+                date: SetCom.serviceTime,
+                challengeTime: `挑战用时${this.countDown.takeTimeShow}`,
+                rank: `第${rankingNum}名`,
+                headerImgUrl: avatarUrl
+            })
+            modalScript.replaceSpin(_lv, shop_people)
+            this.node.addChild(ModalNode)
+        })
+
+    }
+    backBtn() {
+        this.countDown.pauseGame()
+        let ModalNode: cc.Node = cc.instantiate(this.exitModal)
+        let modalScript = ModalNode.getComponent(ModalHandle)
+        modalScript.calFn = () => this.countDown.resumeGame()
+        if (this.prop.resurrection === PropState.No) {
+            modalScript.cancelResurrectionLabel()
+            return
+        }
+        this.node.addChild(ModalNode)
+    }
+    showTipModal(num: number) {
+        let ModalNode: cc.Node = cc.instantiate(this.tipModal)
+        let modalScript = ModalNode.getComponent(Transition)
+        modalScript.setSprite(num)
+        this.node.addChild(ModalNode)
+    }
+
+    // destroy(): boolean {
+    //     SetCom.isChallenge = false
+    // }
     // update (dt) {}
 }

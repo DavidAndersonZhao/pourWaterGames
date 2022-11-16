@@ -5,7 +5,7 @@
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
-  "premultiplyAlpha": false,
+  "premultiplyAlpha": true,
   "genMipmaps": false,
   "packable": true,
   "width": 512,

@@ -111,7 +111,6 @@ export default class NewClass extends cc.Component {
             wx.requestSubscribeMessage({
                 tmplIds: ['OqKAG6eg1EDoi6HiwBCWcJDQveM2ATmFSeKajYcHrgM'],
                 success(res) {
-                    console.log(res)
                     res === {
                         errMsg: "requestSubscribeMessage:ok",
                         "zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE": "accept"
@@ -235,7 +234,6 @@ export default class NewClass extends cc.Component {
                             wx.requestSubscribeMessage({
                                 tmplIds: ['OqKAG6eg1EDoi6HiwBCWcJDQveM2ATmFSeKajYcHrgM'],
                                 success(res) {
-                                    console.log(res)
                                     res === {
                                         errMsg: "requestSubscribeMessage:ok",
                                         "zun-LzcQyW-edafCVvzPkK4de2Rllr1fFpw2A_x0oXE": "accept"

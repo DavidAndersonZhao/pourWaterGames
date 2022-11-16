@@ -36,11 +36,19 @@ export default class NewClass extends cc.Component {
     }
 
     _completeCallback(err, texture) {
+        function completeCallback(err, texture) {
+            SetCom.challengeResState = true
+
+        }
         //加载完成回调
         SetCom.loadScence = 'loading'
-        // cc.director.loadScene("home");
-        cc.director.loadScene("challenge");
+        cc.director.loadScene("home");
+        // cc.director.loadScene("rankList");
         clearInterval(this.timeInt)
+        cc.loader.loadResDir(
+            "Challenge_img",
+            completeCallback.bind(this)
+        );
     }
     textAnimation() {
         let textArr = [
