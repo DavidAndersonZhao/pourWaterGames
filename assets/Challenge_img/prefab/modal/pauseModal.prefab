@@ -109,7 +109,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -775,7 +775,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -823,7 +823,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 600,
-      "height": 75.6
+      "height": 112.99999999999999
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -874,10 +874,10 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "停止计时3秒  广告时间不计入通过时间",
-    "_N$string": "停止计时3秒  广告时间不计入通过时间",
+    "_string": "暂停时间后，点击试管后继续倒计时 广告时间不计入通过时间",
+    "_N$string": "暂停时间后，点击试管后继续倒计时 广告时间不计入通过时间",
     "_fontSize": 30,
-    "_lineHeight": 60,
+    "_lineHeight": 50,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1032,7 +1032,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -1091,7 +1091,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 29
@@ -1099,8 +1099,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1224,7 +1224,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -1283,7 +1283,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 34
@@ -1291,8 +1291,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1384,6 +1384,12 @@
       "__id__": 1
     },
     "_enabled": true,
+    "shareModal": null,
+    "successModal": null,
+    "partyModal": null,
+    "platformPeopleModal": null,
+    "replaceSkin": null,
+    "haveResurrectionNode": null,
     "_id": ""
   },
   {

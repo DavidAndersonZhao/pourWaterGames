@@ -109,7 +109,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -1032,7 +1032,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -1091,7 +1091,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 29
@@ -1099,8 +1099,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1224,7 +1224,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -1283,7 +1283,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 34
@@ -1291,8 +1291,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1384,6 +1384,12 @@
       "__id__": 1
     },
     "_enabled": true,
+    "shareModal": null,
+    "successModal": null,
+    "partyModal": null,
+    "platformPeopleModal": null,
+    "replaceSkin": null,
+    "haveResurrectionNode": null,
     "_id": ""
   },
   {

@@ -31,10 +31,13 @@
       },
       {
         "__id__": 9
+      },
+      {
+        "__id__": 10
       }
     ],
     "_prefab": {
-      "__id__": 10
+      "__id__": 11
     },
     "_opacity": 255,
     "_color": {
@@ -100,7 +103,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -198,7 +201,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 6
@@ -230,7 +233,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        131.185,
         0,
         0,
         0,
@@ -326,6 +329,25 @@
         "__uuid__": "faad3806-c3df-4f4c-b1b6-a62bc2fad1cd"
       }
     ],
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "89375037-77ed-4544-84f7-d7ca7d7da905"
+    },
+    "_clips": [
+      {
+        "__uuid__": "89375037-77ed-4544-84f7-d7ca7d7da905"
+      }
+    ],
+    "playOnLoad": true,
     "_id": ""
   },
   {

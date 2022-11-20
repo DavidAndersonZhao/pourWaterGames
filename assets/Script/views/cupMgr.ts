@@ -53,7 +53,7 @@ export class CupMgr extends cc.Component {
     getCallengeLvFn() {
         if (this.challengeOnce) {
             this.challengeOnce = false
-            return 1
+            return 2
         }
         let lv = ~~(Math.random() * 799) + 200
         if (this.challengeMap[lv]) {

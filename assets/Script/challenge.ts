@@ -83,6 +83,8 @@ export default class Challenge extends cc.Component {
     private timeParseNode: cc.Node = null;//暂停弹窗
     @property(cc.Prefab)
     private tipModal: cc.Prefab = null;//t弹窗过渡
+    @property(cc.AudioSource)
+    private audio: cc.AudioSource = null;//音乐
     private prop = {
         reset: PropState.Video,
         backOff: PropState.Video,
@@ -177,6 +179,7 @@ export default class Challenge extends cc.Component {
                 this.prop.pause = PropState.No
                 // this.countDown.pauseTimeHandle();
                 this.timeParseNode.active = true
+                this.timeParseNode.getComponent(cc.Animation).play('timeStop')
                 setTimeout(() => {
                     this.timeParseNode.active = false
                 }, 3000);
@@ -287,6 +290,7 @@ export default class Challenge extends cc.Component {
     }
     private skinNum
     onLoad() {
+        if (!SetCom.audioSet._musicPlay) this.audio.mute = true
         this.skinNum = ~~(Math.random() * this.skins.length)
         this.init()
         // 换皮肤
@@ -310,6 +314,11 @@ export default class Challenge extends cc.Component {
     async replaceSpin() {
         let { dbAsset, dbAtlas } = this.skins[this.skinNum]
         this.replaceSkin.getComponent(KeelReplaceSkin).replaceSkin(dbAsset, dbAtlas)
+        console.log();
+        if (this.skinNum != 1) return
+        this.replaceSkin.node.x = 30
+        this.replaceSkin.node.y = -114
+        // this.replaceSkin.getComponent(cc.Node).po
     }
     protected onDestroy(): void {
         // SetCom.isChallenge = false
@@ -351,7 +360,9 @@ export default class Challenge extends cc.Component {
     showTipModal(num: number) {
         let ModalNode: cc.Node = cc.instantiate(this.tipModal)
         let modalScript = ModalNode.getComponent(Transition)
+        this.countDown.pauseGame()
         modalScript.setSprite(num)
+        modalScript.resumeFn = () => this.countDown.resumeGame()
         this.node.addChild(ModalNode)
     }
 

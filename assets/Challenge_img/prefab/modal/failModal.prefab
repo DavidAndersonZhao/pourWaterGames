@@ -37,10 +37,13 @@
       },
       {
         "__id__": 28
+      },
+      {
+        "__id__": 29
       }
     ],
     "_prefab": {
-      "__id__": 29
+      "__id__": 30
     },
     "_opacity": 255,
     "_color": {
@@ -106,7 +109,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -428,7 +431,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -487,7 +490,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 12
@@ -495,8 +498,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -620,7 +623,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -679,7 +682,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 17
@@ -687,8 +690,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -876,7 +879,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        294.081,
+        305,
         -463,
         0,
         0,
@@ -885,7 +888,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -944,7 +947,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 25
@@ -952,8 +955,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1047,6 +1050,30 @@
     "shareModal": {
       "__uuid__": "0f4c4183-b44e-485d-9599-0bd401cc2378"
     },
+    "successModal": null,
+    "partyModal": null,
+    "platformPeopleModal": null,
+    "replaceSkin": null,
+    "haveResurrectionNode": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "54c6cdb1-cb27-4e85-80b9-3bf008638171"
+    },
+    "_clips": [
+      {
+        "__uuid__": "54c6cdb1-cb27-4e85-80b9-3bf008638171"
+      }
+    ],
+    "playOnLoad": true,
     "_id": ""
   },
   {

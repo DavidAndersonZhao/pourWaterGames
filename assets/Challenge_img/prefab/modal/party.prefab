@@ -34,10 +34,13 @@
       },
       {
         "__id__": 50
+      },
+      {
+        "__id__": 52
       }
     ],
     "_prefab": {
-      "__id__": 52
+      "__id__": 53
     },
     "_opacity": 255,
     "_color": {
@@ -103,7 +106,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -235,7 +238,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        303.723,
+        305,
         403.248,
         0,
         0,
@@ -244,7 +247,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -303,7 +306,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 8
@@ -311,8 +314,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1582,7 +1585,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1690,7 +1693,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1823,6 +1826,7 @@
     "replaceSkin": {
       "__id__": 32
     },
+    "haveResurrectionNode": null,
     "_id": ""
   },
   {
@@ -1846,6 +1850,25 @@
     "rank": {
       "__id__": 43
     }
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "68bfe52f-0c06-4c18-998d-0b88ecca3b3c"
+    },
+    "_clips": [
+      {
+        "__uuid__": "68bfe52f-0c06-4c18-998d-0b88ecca3b3c"
+      }
+    ],
+    "playOnLoad": true,
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

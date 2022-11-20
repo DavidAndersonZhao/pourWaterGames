@@ -34,10 +34,13 @@
       },
       {
         "__id__": 35
+      },
+      {
+        "__id__": 37
       }
     ],
     "_prefab": {
-      "__id__": 37
+      "__id__": 38
     },
     "_opacity": 255,
     "_color": {
@@ -103,7 +106,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -235,7 +238,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        303.723,
+        305,
         403.248,
         0,
         0,
@@ -244,7 +247,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -303,7 +306,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 8
@@ -311,8 +314,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1155,7 +1158,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -396.912,
+        -387.44,
         0,
         0,
         0,
@@ -1203,7 +1206,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1291,6 +1294,7 @@
     },
     "platformPeopleModal": null,
     "replaceSkin": null,
+    "haveResurrectionNode": null,
     "_id": ""
   },
   {
@@ -1314,6 +1318,25 @@
       "__id__": 23
     },
     "rank": null
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "422f5eaa-6bb3-4e5c-a003-6e4fe3fb6cb7"
+    },
+    "_clips": [
+      {
+        "__uuid__": "422f5eaa-6bb3-4e5c-a003-6e4fe3fb6cb7"
+      }
+    ],
+    "playOnLoad": true,
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

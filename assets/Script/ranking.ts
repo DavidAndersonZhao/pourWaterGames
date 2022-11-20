@@ -107,6 +107,8 @@ export default class Ranking extends cc.Component {
     challengeSpriteFrame: cc.SpriteFrame = null
     @property(cc.Node)
     blockMask: cc.Node = null
+    @property(cc.AudioSource)
+    private audio: cc.AudioSource = null;//音乐
     private kingList = []
     private peopleList = []
     private rankList = []
@@ -115,12 +117,15 @@ export default class Ranking extends cc.Component {
     private _frequency = 0
     private creatTimeShow
     async onLoad() {
+        if (!SetCom.audioSet._musicPlay) this.audio.mute = true;
         SetCom.bannerShow('bannerAd', 'hide')
         setTimeout(() => {
             SetCom.bannerShow('gridAd', 'hide')
 
         }, 1000);
-        if (window.wx) wx?.showLoading()
+        if (window.wx){
+            wx?.showLoading()
+        }else return
         let { serviceTime, data, currentData, frequency, creatTimeShow } = await SetCom.getRankingList()
         this._frequency = frequency
         this.creatTimeShow = creatTimeShow

@@ -1,0 +1,48 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "transitionModal",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "x": []
+    },
+    "paths": {
+      "tip": {
+        "props": {
+          "x": [
+            {
+              "frame": 0,
+              "value": 641.35,
+              "curve": "cubicOut"
+            },
+            {
+              "frame": 0.6666666666666666,
+              "value": 0
+            },
+            {
+              "frame": 1.3333333333333333,
+              "value": 0,
+              "curve": "cubicInOut"
+            },
+            {
+              "frame": 2,
+              "value": -615.113
+            }
+          ],
+          "active": [
+            {
+              "frame": 0.16666666666666666,
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "events": []
+}

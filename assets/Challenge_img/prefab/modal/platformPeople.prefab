@@ -112,7 +112,7 @@
     "_prefab": {
       "__id__": 4
     },
-    "_opacity": 167,
+    "_opacity": 204,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -244,8 +244,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        176.096,
+        18.865,
+        124.542,
         0,
         0,
         0,
@@ -480,7 +480,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -182.618,
+        -149.811,
         0,
         0,
         0,
@@ -579,7 +579,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -391.325,
+        -331.96,
         0,
         0,
         0,
@@ -587,7 +587,7 @@
         1,
         1,
         1,
-        1
+        0
       ]
     },
     "_eulerAngles": {
@@ -647,7 +647,7 @@
     "_normalMaterial": null,
     "_grayMaterial": null,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.1,
     "clickEvents": [
       {
         "__id__": 18
@@ -655,8 +655,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1051,6 +1051,7 @@
     "replaceSkin": {
       "__id__": 7
     },
+    "haveResurrectionNode": null,
     "_id": ""
   },
   {

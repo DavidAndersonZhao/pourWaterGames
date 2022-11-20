@@ -220,24 +220,26 @@ export default class SetCom extends cc.Component {
             SetCom.bannerAd.onError(err => {
                 // console.log(err)
             })
-            SetCom.gridAd = wx.createCustomAd({
-                adUnitId: 'adunit-91dbf6a007922ac1',
-                adTheme: 'white',
-                gridCount: 5,
-                style: {
-                    left: windowSetting?.screenWidth - 40 - 20,
-                    top: 85,
-                    width: 80,
-                    opacity: 0.8
-                }
-            })
-            SetCom.gridAd.onError(err => {
-                // console.log(err)
-            })
+            // SetCom.gridAd = wx.createCustomAd({
+            //     adUnitId: 'adunit-91dbf6a007922ac1',
+            //     adTheme: 'white',
+            //     gridCount: 5,
+            //     style: {
+            //         left: windowSetting?.screenWidth - 40 - 20,
+            //         top: 85,
+            //         width: 80,
+            //         opacity: 0.8
+            //     }
+            // })
+
+            // SetCom.gridAd.onError(err => {
+            //     // console.log(err)
+            // })
         }
     }
     // banner广告展示
     static bannerShow(name: 'bannerAd' | 'gridAd', state: 'show' | 'hide') {
+        if (name == 'gridAd') return
         setTimeout(() => {
             switch (state) {
                 case 'show':
@@ -375,10 +377,10 @@ export default class SetCom extends cc.Component {
                 //             return
                 //         } else {
                 //         }
-                       
+
                 //     }
                 // })
-                if(SetCom.userInfo){
+                if (SetCom.userInfo) {
                     resolve('')
                     return
                 }
@@ -397,7 +399,7 @@ export default class SetCom extends cc.Component {
                         var userInfo = res.userInfo
                         var nickName = userInfo.nickName
                         var avatarUrl = userInfo.avatarUrl
-                        localStorage.setItem('userInfo',JSON.stringify(userInfo))
+                        localStorage.setItem('userInfo', JSON.stringify(userInfo))
                         SetCom.avatarUrl = avatarUrl
                         SetCom.userInfo = userInfo
                         var gender = userInfo.gender //性别 0：未知、1：男、2：女
@@ -438,17 +440,22 @@ export default class SetCom extends cc.Component {
         UtilAudio.btnAudioClick()
         // }
         if (name === 'rankList' && window.wx) {
+            if (window.wx) wx?.showLoading()
+            console.log(SetCom.challengeResState);
+            
             this.saveUserInfo().then(() => {
-                if(!SetCom.challengeResState) {
+                if (!SetCom.challengeResState) {
                     if (CC_WECHATGAME) {
                         wx.showToast({
                             title: '请稍后。。。挑战资源加载中',
                             icon: 'none'
                         })
+                        wx?.hideLoading()
                     }
                 }
                 cc.director.loadScene(name);
             }).catch(() => {
+                wx?.hideLoading()
                 console.log('获取用户信息失败,无法开始游戏');
             })
         } else {
