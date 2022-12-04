@@ -303,7 +303,7 @@ export default class Ranking extends cc.Component {
             let itemArmature: any = item.getComponent(dragonBones.ArmatureDisplay)
             // if (!itemArmature) return
             let attachUtil = itemArmature.attachUtil;
-            item.getComponent(dragonBones.ArmatureDisplay).timeScale = 1.7
+            item.getComponent(dragonBones.ArmatureDisplay).timeScale = 1
             //生成挂点
             attachUtil.generateAllAttachedNodes();
 

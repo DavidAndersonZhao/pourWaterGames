@@ -254,14 +254,17 @@ export default class NewClass extends cc.Component {
         switch (name) {
             case 'draw':
                 this.drawOpc.opcOpen()
-
+                this.drawOpc.getComponent(cc.Animation).play('DrawNode')
                 break;
             case 'sign':
                 this.signOpc.opcOpen()
+                this.signOpc.getComponent(cc.Animation).play('qiandao')
 
                 break;
             case 'task':
+                debugger
                 this.taskOpc.opcOpen()
+                this.taskOpc.node.getComponent(cc.Animation).play('lingfuli')
 
                 break;
             default:

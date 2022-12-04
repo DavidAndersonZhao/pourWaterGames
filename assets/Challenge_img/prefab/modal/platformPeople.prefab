@@ -43,10 +43,13 @@
       },
       {
         "__id__": 29
+      },
+      {
+        "__id__": 32
       }
     ],
     "_prefab": {
-      "__id__": 32
+      "__id__": 33
     },
     "_opacity": 255,
     "_color": {
@@ -1079,6 +1082,25 @@
     "people_animation": {
       "__id__": 7
     }
+  },
+  {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_defaultClip": {
+      "__uuid__": "9b01ff25-76fe-48f3-b539-aaffd5bfabe0"
+    },
+    "_clips": [
+      {
+        "__uuid__": "9b01ff25-76fe-48f3-b539-aaffd5bfabe0"
+      }
+    ],
+    "playOnLoad": true,
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

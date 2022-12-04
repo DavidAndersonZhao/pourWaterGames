@@ -609,8 +609,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        225.174,
-        485.822,
+        228.971,
+        459.244,
         0,
         0,
         0,
@@ -669,7 +669,7 @@
     "_N$_defaultArmatureIndex": 0,
     "_N$_animationIndex": 1,
     "_N$_defaultCacheMode": 0,
-    "_N$timeScale": 1.7,
+    "_N$timeScale": 1,
     "_N$debugBones": false,
     "_N$enableBatch": false,
     "_id": "9fXMDmq+1GzbuAF+/JHV8e"
@@ -811,8 +811,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -205.079,
-        478.857,
+        -178.086,
+        439.802,
         0,
         0,
         0,
@@ -871,7 +871,7 @@
     "_N$_defaultArmatureIndex": 0,
     "_N$_animationIndex": 1,
     "_N$_defaultCacheMode": 0,
-    "_N$timeScale": 1.7,
+    "_N$timeScale": 1,
     "_N$debugBones": false,
     "_N$enableBatch": false,
     "_id": "92itl/nvZLRoEv5n0j4vHQ"
@@ -1013,8 +1013,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        5.835,
-        499.753,
+        9.632,
+        439.22,
         0,
         0,
         0,
@@ -1073,7 +1073,7 @@
     "_N$_defaultArmatureIndex": 0,
     "_N$_animationIndex": 1,
     "_N$_defaultCacheMode": 0,
-    "_N$timeScale": 1.7,
+    "_N$timeScale": 1,
     "_N$debugBones": false,
     "_N$enableBatch": false,
     "_id": "ded5hk+P5Lgr72yPEXxG0L"
@@ -1941,7 +1941,7 @@
       "ctor": "Float64Array",
       "array": [
         305,
-        587,
+        625.954,
         0,
         0,
         0,
